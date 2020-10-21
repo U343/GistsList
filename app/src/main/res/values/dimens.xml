@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding">5dp</dimen>
+    <dimen name="zero_dp">0dp</dimen>
+
+    <!-- Shopping list fragment -->
+    <dimen name="auto_max_size_text_button">50sp</dimen>
+    <dimen name="auto_min_size_text_button">6sp</dimen>
+    <dimen name="auto_step_text_button_size">1sp</dimen>
+
+    <!-- Text item view -->
+    <dimen name="auto_max_size_text">124sp</dimen>
+    <dimen name="auto_min_size_text">24sp</dimen>
+    <dimen name="auto_step_text_button">2sp</dimen>
+</resources>
