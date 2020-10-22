@@ -19,20 +19,21 @@
         <EditText
             android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"
+            android:layout_weight="0.5"
             android:hint="@string/edit_text_hint" />
 
         <Button
-            android:onClick="onClickAddButton"
+            android:id="@+id/add_button"
             android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
+            android:layout_weight="0.5"
             android:background="@color/buttonColor"
             android:text="@string/add_button_text" />
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="@dimen/zero_dp"
         android:layout_height="@dimen/zero_dp"

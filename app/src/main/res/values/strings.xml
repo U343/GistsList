@@ -3,6 +3,6 @@
     <string name="app_name">ShoppingList</string>
 
     <!-- Shopping list fragment -->
-    <string name="edit_text_hint">Хочу купить</string>
-    <string name="add_button_text">Добавить</string>
+    <string name="edit_text_hint">Сколько ?</string>
+    <string name="add_button_text">Пуск</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.shoppinglist.shopingListView.recycleView
+package com.example.shoppinglist.mainList.recycleView
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,15 +6,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.R
 
-class ShoppingListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
-    var data =  listOf<String>()
+class ItemListAdapter(private val data: List<String>) : RecyclerView.Adapter<TextItemViewHolder>() {
 
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: TextItemViewHolder, position: Int) {
-        val item = data[position]
+        val currentItem = data[position]
 
-        holder.textView.text = item
+        holder.textView.text = currentItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextItemViewHolder {
