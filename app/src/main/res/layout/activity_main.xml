@@ -17,9 +17,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
+            android:id="@+id/main_edit_text"
             android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:inputType="number"
             android:hint="@string/edit_text_hint" />
 
         <Button
