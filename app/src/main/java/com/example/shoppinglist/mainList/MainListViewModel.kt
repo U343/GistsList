@@ -20,4 +20,10 @@ class MainListViewModel : ViewModel() {
     fun clearNumberList() {
         numberList?.clear()
     }
+
+    fun isNumberListExist() : Boolean {
+        if (numberList == null)
+            return false
+        return true
+    }
 }
