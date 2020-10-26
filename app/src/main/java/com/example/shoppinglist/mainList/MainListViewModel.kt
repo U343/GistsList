@@ -9,7 +9,7 @@ class MainListViewModel : ViewModel() {
         super.onCleared()
     }
 
-    fun	generateNumberList(size: Int) {
+    fun generateNumberList(size: Int) {
         numberList = ArrayList()
 
         for (i in 0 until size) {
@@ -21,7 +21,7 @@ class MainListViewModel : ViewModel() {
         numberList?.clear()
     }
 
-    fun isNumberListExist() : Boolean {
+    fun isNumberListExist(): Boolean {
         if (numberList == null)
             return false
         return true

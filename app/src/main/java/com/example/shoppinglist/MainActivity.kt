@@ -35,11 +35,11 @@ class MainActivity : AppCompatActivity() {
 		}
 	}
 
-	private fun getInputValue() : String {
+	private fun getInputValue(): String {
 		return main_edit_text.text.toString()
 	}
 
-	private fun isDataValid(data : String) : Boolean =
+	private fun isDataValid(data: String): Boolean =
 		isNumericString(data) && (data.toInt() > 0)
 
 	private fun callRecyclerView(numberList: List<String>) {
