@@ -11,10 +11,3 @@ fun isNumericString(str : String) : Boolean {
     }
     return true
 }
-
-fun isPositiveNumber(number :Int) : Boolean {
-    if (number > 0) {
-        return true
-    }
-    return false
-}

@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglist.mainList.MainListViewModel
 import com.example.shoppinglist.mainList.isNumericString
-import com.example.shoppinglist.mainList.isPositiveNumber
 import com.example.shoppinglist.mainList.recycleView.ItemListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -26,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
 		add_button.setOnClickListener {
 			val inputData = getInputValue()
+
 			if (isDataValid(inputData)) {
 				viewModel.generateNumberList(inputData.toInt())
 				callRecyclerView(viewModel.numberList!!)
@@ -39,11 +39,8 @@ class MainActivity : AppCompatActivity() {
 		return main_edit_text.text.toString()
 	}
 
-	private fun isDataValid(data : String) : Boolean {
-		if (isNumericString(data) && isPositiveNumber(data.toInt()))
-			return true
-		return false
-	}
+	private fun isDataValid(data : String) : Boolean =
+		isNumericString(data) && (data.toInt() > 0)
 
 	private fun callRecyclerView(numberList: List<String>) {
 		recycler_view.adapter = ItemListAdapter(numberList)
