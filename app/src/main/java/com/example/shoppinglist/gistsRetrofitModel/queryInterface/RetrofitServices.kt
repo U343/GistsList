@@ -1,4 +1,4 @@
-package com.example.shoppinglist.gistsRetrofitModel.interfaceQuery
+package com.example.shoppinglist.gistsRetrofitModel.queryInterface
 
 import com.example.shoppinglist.gistsRetrofitModel.pojo.BaseGist
 import retrofit2.Call

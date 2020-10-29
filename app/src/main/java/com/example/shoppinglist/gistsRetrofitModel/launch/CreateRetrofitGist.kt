@@ -1,7 +1,7 @@
 package com.example.shoppinglist.gistsRetrofitModel.launch
 
 import com.example.shoppinglist.gistsRetrofitModel.api.RetrofitCommonObject
-import com.example.shoppinglist.gistsRetrofitModel.interfaceQuery.RetrofitServices
+import com.example.shoppinglist.gistsRetrofitModel.queryInterface.RetrofitServices
 import com.example.shoppinglist.gistsRetrofitModel.url.BASE_URL
 
 class CreateRetrofitGist : RetrofitCommonObject {
