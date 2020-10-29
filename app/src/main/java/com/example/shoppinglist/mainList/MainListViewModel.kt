@@ -1,29 +1,28 @@
 package com.example.shoppinglist.mainList
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainListViewModel : ViewModel() {
-    var numberList: ArrayList<String>? = null
+    //var numberList: ArrayList<String>? = ArrayList()
+    val numberList: MutableLiveData<ArrayList<String>> by lazy {
+        MutableLiveData<ArrayList<String>>()
+    }
 
     override fun onCleared() {
         super.onCleared()
     }
 
     fun generateNumberList(size: Int) {
-        numberList = ArrayList()
+        val   currentList = ArrayList<String>()
 
         for (i in 0 until size) {
-            numberList?.add(i.toString())
+            currentList.add(i.toString())
         }
+        numberList.value = currentList
     }
 
-    fun clearNumberList() {
-        numberList?.clear()
-    }
-
-    fun isNumberListExist(): Boolean {
-        if (numberList == null)
-            return false
-        return true
-    }
+//    fun clearNumberList() {
+//        numberList?.clear()
+//    }
 }
