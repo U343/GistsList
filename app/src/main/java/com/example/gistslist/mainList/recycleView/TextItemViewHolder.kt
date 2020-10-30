@@ -1,4 +1,4 @@
-package com.example.shoppinglist.mainList.recycleView
+package com.example.gistslist.mainList.recycleView
 
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView

@@ -1,6 +1,6 @@
 <resources>
     <!-- App title and fragment titles -->
-    <string name="app_name">ShoppingList</string>
+    <string name="app_name">GistsList</string>
 
     <!-- Shopping list fragment -->
     <string name="edit_text_hint">Сколько ?</string>

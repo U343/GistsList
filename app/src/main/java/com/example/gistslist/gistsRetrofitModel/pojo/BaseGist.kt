@@ -1,6 +1,5 @@
-package com.example.shoppinglist.gistsRetrofitModel.pojo
+package com.example.gistslist.gistsRetrofitModel.pojo
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 //TODO как выяснилось если просто не указыать поля, то retrofit спокойно работает и заполняет только
 //указанные. Просто уточняю все ли тут в порядке, может так не хорошо делать

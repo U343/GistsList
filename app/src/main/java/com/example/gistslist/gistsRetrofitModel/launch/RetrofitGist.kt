@@ -1,4 +1,4 @@
-package com.example.shoppinglist.gistsRetrofitModel.launch
+package com.example.gistslist.gistsRetrofitModel.launch
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

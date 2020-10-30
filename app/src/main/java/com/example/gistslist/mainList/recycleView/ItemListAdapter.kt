@@ -1,10 +1,10 @@
-package com.example.shoppinglist.mainList.recycleView
+package com.example.gistslist.mainList.recycleView
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shoppinglist.R
+import com.example.gistslist.R
 
 class ItemListAdapter(private val data: List<String>) : RecyclerView.Adapter<TextItemViewHolder>() {
 

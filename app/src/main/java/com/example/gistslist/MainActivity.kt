@@ -1,12 +1,12 @@
-package com.example.shoppinglist
+package com.example.gistslist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.shoppinglist.mainList.viewModel.MainListViewModel
-import com.example.shoppinglist.mainList.recycleView.ItemListAdapter
+import com.example.gistslist.mainList.viewModel.MainListViewModel
+import com.example.gistslist.mainList.recycleView.ItemListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 

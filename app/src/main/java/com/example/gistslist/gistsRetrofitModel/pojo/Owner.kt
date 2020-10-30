@@ -1,6 +1,5 @@
-package com.example.shoppinglist.gistsRetrofitModel.pojo
+package com.example.gistslist.gistsRetrofitModel.pojo
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class Owner(

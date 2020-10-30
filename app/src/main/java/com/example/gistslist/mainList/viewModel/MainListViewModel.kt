@@ -1,11 +1,11 @@
-package com.example.shoppinglist.mainList.viewModel
+package com.example.gistslist.mainList.viewModel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.shoppinglist.gistsRetrofitModel.queryInterface.RetrofitServices
-import com.example.shoppinglist.gistsRetrofitModel.pojo.BaseGist
-import com.example.shoppinglist.mainList.viewModel.di.GetRetrofit
+import com.example.gistslist.gistsRetrofitModel.queryInterface.RetrofitServices
+import com.example.gistslist.gistsRetrofitModel.pojo.BaseGist
+import com.example.gistslist.mainList.viewModel.di.GetRetrofit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
