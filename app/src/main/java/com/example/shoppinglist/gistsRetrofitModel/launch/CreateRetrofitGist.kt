@@ -6,6 +6,7 @@ import com.example.shoppinglist.gistsRetrofitModel.url.BASE_URL
 
 class CreateRetrofitGist : RetrofitCommonObject {
 		override fun getRetrofitService(): RetrofitServices {
-			return RetrofitGist.getGist(BASE_URL).create(RetrofitServices::class.java)
+			return RetrofitGist.getGist(BASE_URL)
+				.create(RetrofitServices::class.java)
 		}
 }

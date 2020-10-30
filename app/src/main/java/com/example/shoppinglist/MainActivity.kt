@@ -2,6 +2,7 @@ package com.example.shoppinglist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,8 +41,10 @@ class MainActivity : AppCompatActivity() {
 
 	private fun clickAddButton() {
 		val inputData = getInputValue()
+		Log.d("resGist", "click button")
 
 		if (isDataValid(inputData)) {
+			Log.d("resGist", "go to viewModel")
 			viewModel.loadGists()
 		} else {
 			showInvalidInputTypeToast(this)

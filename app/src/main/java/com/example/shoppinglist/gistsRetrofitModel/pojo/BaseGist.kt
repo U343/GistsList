@@ -4,22 +4,22 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class BaseGist(
-        @Expose val url : String,
-        @Expose val forks_url : String,
-        @Expose val commits_url : String,
-        @Expose val id : String,
-        @Expose val node_id : String,
-        @Expose val git_pull_url : String,
-        @Expose val git_push_url : String,
-        @Expose val html_url : String,
-        @Expose val files : String,
-        @Expose val public : Boolean,
-        @Expose val created_at : String,
-        @Expose val updated_at : String,
+        /*@SerializedName("url") val url : String,
+        @SerializedName("forks_url") val forks_url : String,
+        @SerializedName("commits_url") val commits_url : String,
+        @SerializedName("id") val id : String,
+        @SerializedName("node_id") val node_id : String,
+        @SerializedName("git_pull_url") val git_pull_url : String,
+        @SerializedName("git_push_url") val git_push_url : String,
+        @SerializedName("html_url") val html_url : String,*/
+        //@SerializedName("files") val files : Files,
+        @SerializedName("public") val public : Boolean,
+        @SerializedName("created_at") val created_at : String,
+        @SerializedName("updated_at") val updated_at : String,
         @SerializedName("description") val description : String,
-        @Expose val comments : Int,
-        @Expose val user : String,
-        @Expose val comments_url : String,
+        @SerializedName("comments") val comments : Int,
+        @SerializedName("user") val user : String,
+        @SerializedName("comments_url") val comments_url : String,
         @SerializedName("owner") val owner : Owner,
-        @Expose val truncated : Boolean
+        @SerializedName("truncated") val truncated : Boolean
 )

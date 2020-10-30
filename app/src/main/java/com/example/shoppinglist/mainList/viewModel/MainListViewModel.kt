@@ -1,5 +1,6 @@
 package com.example.shoppinglist.mainList.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.shoppinglist.gistsRetrofitModel.queryInterface.RetrofitServices
@@ -16,8 +17,8 @@ class MainListViewModel : ViewModel() {
         MutableLiveData<ArrayList<String>>()
     }
 
-    val gistDataList: MutableLiveData<ArrayList<BaseGist>> by lazy {
-        MutableLiveData<ArrayList<BaseGist>>()
+    val gistDataList: MutableLiveData<List<BaseGist>> by lazy {
+        MutableLiveData<List<BaseGist>>()
     }
 
     fun generateNumberList(size: Int) {
@@ -32,22 +33,25 @@ class MainListViewModel : ViewModel() {
     fun loadGists() {
         retrofitService = GetRetrofit().getRetrofitService()
         val call = retrofitService.getGists()
-        call.enqueue(object : Callback<ArrayList<BaseGist>> {
-            override fun onResponse(call: Call<ArrayList<BaseGist>>?, response: Response<ArrayList<BaseGist>>?) {
+        call.enqueue(object : Callback<List<BaseGist>> {
+            override fun onResponse(call: Call<List<BaseGist>>?, response: Response<List<BaseGist>>?) {
                 gistDataList.value = response?.body()
-                generateGistsList(gistDataList.value!!)
+                if (gistDataList.value != null) {
+                    generateGistsList(gistDataList.value!!)
+                }
             }
 
-            override fun onFailure(call: Call<ArrayList<BaseGist>>, t: Throwable) {
+            override fun onFailure(call: Call<List<BaseGist>>, t: Throwable) {
+                Log.e("resGist", "onFailure")
             }
         })
     }
 
-    fun generateGistsList(gists: ArrayList<BaseGist>) {
+    fun generateGistsList(gists: List<BaseGist>) {
         val   currentList = ArrayList<String>()
 
         for (i in gists) {
-            currentList.add(i.description)
+            currentList.add(i.owner.login)
         }
         numberList.value = currentList
     }
