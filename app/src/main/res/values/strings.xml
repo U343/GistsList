@@ -4,5 +4,5 @@
 
     <!-- Shopping list fragment -->
     <string name="edit_text_hint">Сколько ?</string>
-    <string name="add_button_text">Пуск</string>
+    <string name="add_button_text">Load gists</string>
 </resources>

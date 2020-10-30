@@ -16,19 +16,10 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/main_edit_text"
-            android:layout_width="@dimen/zero_dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:inputType="number"
-            android:hint="@string/edit_text_hint" />
-
         <Button
             android:id="@+id/add_button"
-            android:layout_width="@dimen/zero_dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             android:background="@color/buttonColor"
             android:text="@string/add_button_text" />
 

@@ -29,7 +29,9 @@ class MainListViewModel : ViewModel() {
         }
         numberList.value = currentList
     }
-
+/*TODO тут сомнения по правильности того что делаю. Нормально что эта функция здесь, может ее лучше по другому связать с
+viewModel, кажется что здесь нарушаются правила солид, тип слишком жестко связан retrofit и модель
+ */
     fun loadGists() {
         retrofitService = GetRetrofit().getRetrofitService()
         val call = retrofitService.getGists()
@@ -37,7 +39,7 @@ class MainListViewModel : ViewModel() {
             override fun onResponse(call: Call<List<BaseGist>>?, response: Response<List<BaseGist>>?) {
                 gistDataList.value = response?.body()
                 if (gistDataList.value != null) {
-                    generateGistsList(gistDataList.value!!)
+                    generateGistsList(gistDataList.value!!) //TODO почему тут нужны !! я же делаю проверку на null
                 }
             }
 
