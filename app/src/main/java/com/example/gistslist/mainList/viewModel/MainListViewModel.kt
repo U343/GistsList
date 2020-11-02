@@ -1,19 +1,16 @@
 package com.example.gistslist.mainList.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gistslist.MainActivity
-import com.example.gistslist.gistsRetrofitModel.queryInterface.RetrofitServices
-import com.example.gistslist.gistsRetrofitModel.pojo.BaseGist
+import com.example.gistslist.gistsRetrofitModel.queryInterface.GistsRetrofitRequests
+import com.example.gistslist.gistsRetrofitModel.pojo.BasePojo
 import com.example.gistslist.mainList.viewModel.di.GetRetrofit
-import com.example.gistslist.showLoadingErrorToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainListViewModel : ViewModel() {
-    private lateinit var retrofitService: RetrofitServices
+    private lateinit var gistsRetrofitService: GistsRetrofitRequests
     val isLoadGistSuccess: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
@@ -22,8 +19,8 @@ class MainListViewModel : ViewModel() {
         MutableLiveData<ArrayList<String>>()
     }
 
-    val gistDataList: MutableLiveData<List<BaseGist>> by lazy {
-        MutableLiveData<List<BaseGist>>()
+    val pojoDataList: MutableLiveData<List<BasePojo>> by lazy {
+        MutableLiveData<List<BasePojo>>()
     }
 
     fun generateNumberList(size: Int) {
@@ -38,27 +35,27 @@ class MainListViewModel : ViewModel() {
 viewModel, кажется что здесь нарушаются правила солид, тип слишком жестко связан retrofit и модель
  */
     fun loadGists() {
-        retrofitService = GetRetrofit().getRetrofitService()
-        val call = retrofitService.getGists()
-        call.enqueue(object : Callback<List<BaseGist>> {
-            override fun onResponse(call: Call<List<BaseGist>>?, response: Response<List<BaseGist>>?) {
+        gistsRetrofitService = GetRetrofit().getRetrofitService()
+        val call = gistsRetrofitService.getGists()
+        call.enqueue(object : Callback<List<BasePojo>> {
+            override fun onResponse(call: Call<List<BasePojo>>?, response: Response<List<BasePojo>>?) {
                 isLoadGistSuccess.value = true
-                gistDataList.value = response?.body()
-                if (gistDataList.value != null) {
-                    generateGistsList(gistDataList.value!!) //TODO почему тут нужны !! я же делаю проверку на null
+                pojoDataList.value = response?.body()
+                if (pojoDataList.value != null) {
+                    generateGistsList(pojoDataList.value!!) //TODO почему тут нужны !! я же делаю проверку на null
                 }
             }
 
-            override fun onFailure(call: Call<List<BaseGist>>, t: Throwable) {
+            override fun onFailure(call: Call<List<BasePojo>>, t: Throwable) {
                 isLoadGistSuccess.value = false
             }
         })
     }
 
-    fun generateGistsList(gists: List<BaseGist>) {
+    fun generateGistsList(pojos: List<BasePojo>) {
         val   currentList = ArrayList<String>()
 
-        for (i in gists) {
+        for (i in pojos) {
             currentList.add(i.owner.login)
         }
         numberList.value = currentList

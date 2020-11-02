@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitGist {
+class RetrofitObjectForLoadGists {
 
     companion object {
         private val loggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor()
@@ -21,7 +21,7 @@ class RetrofitGist {
                     .baseUrl(baseUrl)
                     .client(client)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory  .create())
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build()
         }
     }
