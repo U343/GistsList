@@ -3,15 +3,20 @@ package com.example.gistslist.mainList.viewModel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.gistslist.MainActivity
 import com.example.gistslist.gistsRetrofitModel.queryInterface.RetrofitServices
 import com.example.gistslist.gistsRetrofitModel.pojo.BaseGist
 import com.example.gistslist.mainList.viewModel.di.GetRetrofit
+import com.example.gistslist.showLoadingErrorToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainListViewModel : ViewModel() {
     private lateinit var retrofitService: RetrofitServices
+    val isLoadGistSuccess: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
 
     val numberList: MutableLiveData<ArrayList<String>> by lazy {
         MutableLiveData<ArrayList<String>>()
@@ -37,6 +42,7 @@ viewModel, кажется что здесь нарушаются правила 
         val call = retrofitService.getGists()
         call.enqueue(object : Callback<List<BaseGist>> {
             override fun onResponse(call: Call<List<BaseGist>>?, response: Response<List<BaseGist>>?) {
+                isLoadGistSuccess.value = true
                 gistDataList.value = response?.body()
                 if (gistDataList.value != null) {
                     generateGistsList(gistDataList.value!!) //TODO почему тут нужны !! я же делаю проверку на null
@@ -44,7 +50,7 @@ viewModel, кажется что здесь нарушаются правила 
             }
 
             override fun onFailure(call: Call<List<BaseGist>>, t: Throwable) {
-                Log.e("resGist", "onFailure")
+                isLoadGistSuccess.value = false
             }
         })
     }

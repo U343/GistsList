@@ -2,7 +2,8 @@ package com.example.gistslist.gistsRetrofitModel.launch
 
 import com.example.gistslist.gistsRetrofitModel.api.RetrofitCommonObject
 import com.example.gistslist.gistsRetrofitModel.queryInterface.RetrofitServices
-import com.example.gistslist.gistsRetrofitModel.url.BASE_URL
+
+private const val BASE_URL = "https://api.github.com"
 
 class CreateRetrofitGist : RetrofitCommonObject {
 		override fun getRetrofitService(): RetrofitServices {

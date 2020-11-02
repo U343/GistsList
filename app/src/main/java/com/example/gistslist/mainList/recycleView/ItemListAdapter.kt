@@ -1,14 +1,21 @@
 package com.example.gistslist.mainList.recycleView
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gistslist.R
+import java.util.ArrayList
 
-class ItemListAdapter(private val data: List<String>) : RecyclerView.Adapter<TextItemViewHolder>() {
+class ItemListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
+    private var data: ArrayList<String> = ArrayList()
 
     override fun getItemCount() = data.size
+
+    init {
+        Log.e("init", "Create recyclerView adapter")
+    }
 
     override fun onBindViewHolder(holder: TextItemViewHolder, position: Int) {
         val currentItem = data[position]
@@ -23,5 +30,9 @@ class ItemListAdapter(private val data: List<String>) : RecyclerView.Adapter<Tex
             .inflate(R.layout.text_item_view, parent, false) as TextView
 
         return TextItemViewHolder(view)
+    }
+
+    fun setData(data: ArrayList<String>) {
+        this.data = data
     }
 }

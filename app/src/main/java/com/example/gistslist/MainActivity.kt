@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 	private lateinit var viewModel: MainListViewModel
+	private lateinit var recyclerViewAdapter: ItemListAdapter
 
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,27 +22,43 @@ class MainActivity : AppCompatActivity() {
 		viewModel = ViewModelProvider(this).get(MainListViewModel::class.java)
 
 		initRecyclerView()
+
 		observeListForRecycleView()
+		observeLoadDataStatus()
 
 		add_button.setOnClickListener {
-			clickAddButton()
+			onClickAddButton()
 		}
 	}
-//TODO красиво ли объявление вьюшек и их инициальзацию оставлять в MainActivity? Может это стоит перекинуть в другой класс?
+
+	private fun onClickAddButton() {
+		viewModel.loadGists()
+	}
+
+
 	private fun observeListForRecycleView() {
 		val numberListObserver = Observer<ArrayList<String>> { numberList ->
-			recycler_view.adapter = ItemListAdapter(numberList)
+
+			recyclerViewAdapter.setData(numberList)
 			recycler_view.adapter?.notifyDataSetChanged()
 		}
-
 		viewModel.numberList.observe(this, numberListObserver)
 	}
 
-	private fun clickAddButton() {
-			viewModel.loadGists()
+	private fun observeLoadDataStatus() {
+		val loadStatus = Observer<Boolean> { isLoadGistSuccess ->
+			if (isLoadGistSuccess == false) {
+				showLoadingErrorToast(this)
+			}
+		}
+		viewModel.isLoadGistSuccess.observe(this, loadStatus)
 	}
 
+
 	private fun initRecyclerView() {
+		recyclerViewAdapter = ItemListAdapter()
+
+		recycler_view.adapter = recyclerViewAdapter
 		recycler_view.layoutManager = LinearLayoutManager(this)
 		recycler_view.setHasFixedSize(true)
 	}
