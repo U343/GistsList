@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
 	private lateinit var viewModel: MainListViewModel
 	private lateinit var recyclerViewAdapter: ItemListAdapter
 
-
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
@@ -27,14 +26,9 @@ class MainActivity : AppCompatActivity() {
 		observeLoadDataStatus()
 
 		add_button.setOnClickListener {
-			onClickAddButton()
+			viewModel.loadGists()
 		}
 	}
-
-	private fun onClickAddButton() {
-		viewModel.loadGists()
-	}
-
 
 	private fun observeListForRecycleView() {
 		val numberListObserver = Observer<ArrayList<String>> { numberList ->
@@ -53,7 +47,6 @@ class MainActivity : AppCompatActivity() {
 		}
 		viewModel.isLoadGistSuccess.observe(this, loadStatus)
 	}
-
 
 	private fun initRecyclerView() {
 		recyclerViewAdapter = ItemListAdapter()
