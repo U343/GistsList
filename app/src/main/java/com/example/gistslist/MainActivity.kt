@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
 		add_button.setOnClickListener {
 			viewModel.loadGists()
-		}
+			}
 	}
 
 	private fun observeListForRecycleView() {

@@ -56,7 +56,7 @@ viewModel, кажется что здесь нарушаются правила 
         val   currentList = ArrayList<String>()
 
         for (i in pojos) {
-            currentList.add(i.owner.login)
+            currentList.add(i.files.values.toTypedArray()[0].filename)
         }
         numberList.value = currentList
     }
