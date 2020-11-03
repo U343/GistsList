@@ -3,14 +3,14 @@ package com.example.gistslist.mainList.recycleView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gistslist.R
+import com.example.gistslist.gistModel.GistObject
 import kotlinx.android.synthetic.main.text_item_view.view.*
 import java.util.ArrayList
 
 class ItemListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
-    private var data: ArrayList<String> = ArrayList()
+    private var data: ArrayList<GistObject> = ArrayList()
 
     override fun getItemCount() = data.size
 
@@ -21,7 +21,8 @@ class ItemListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
     override fun onBindViewHolder(holder: TextItemViewHolder, position: Int) {
         val currentItem = data[position]
 
-        holder.elemView.login_title.text = currentItem
+        holder.elemView.login_title.text = currentItem.userLogin
+        holder.elemView.description_title.text = currentItem.gistDescription
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextItemViewHolder {
@@ -33,7 +34,7 @@ class ItemListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
         return TextItemViewHolder(view)
     }
 
-    fun setData(data: ArrayList<String>) {
+    fun setData(data: ArrayList<GistObject>) {
         this.data = data
     }
 }

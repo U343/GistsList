@@ -6,6 +6,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gistslist.gistModel.GistObject
 import com.example.gistslist.mainList.viewModel.MainListViewModel
 import com.example.gistslist.mainList.recycleView.ItemListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 	}
 
 	private fun observeListForRecycleView() {
-		val numberListObserver = Observer<ArrayList<String>> { gistsList ->
+		val numberListObserver = Observer<ArrayList<GistObject>> { gistsList ->
 
 			recyclerViewAdapter.setData(gistsList)
 			recycler_view.adapter?.notifyDataSetChanged()
