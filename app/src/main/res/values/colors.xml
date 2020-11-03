@@ -12,5 +12,6 @@
     <color name="buttonColor">#05A531</color>
 
     <!-- Text item view -->
-    <color name="backgroundColor">#F7A3A8A8</color>
+    <color name="backgroundColorLogin">#F7A3A8A8</color>
+    <color name="backgroundColorDescription">#F7C9F1F1</color>
 </resources>

@@ -1,8 +1,8 @@
 package com.example.gistslist.mainList.recycleView
 
-import android.widget.TextView
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class TextItemViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView) {
-
+class TextItemViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
+	val elemView = itemView
 }

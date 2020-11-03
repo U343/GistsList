@@ -2,7 +2,10 @@
     <!-- App title and fragment titles -->
     <string name="app_name">GistsList</string>
 
-    <!-- Shopping list fragment -->
-    <string name="edit_text_hint">Сколько ?</string>
+    <!-- Main activity -->
     <string name="add_button_text">Load gists</string>
+
+    <!-- Text item view -->
+    <string name="login_title">Login:</string>
+    <string name="description_title">Description:</string>
 </resources>
