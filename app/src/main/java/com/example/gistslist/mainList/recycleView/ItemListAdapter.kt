@@ -14,7 +14,7 @@ class ItemListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
     override fun getItemCount() = data.size
 
     init {
-        Log.e("init", "Create recyclerView adapter")
+        Log.d("init", "Create recyclerView adapter")
     }
 
     override fun onBindViewHolder(holder: TextItemViewHolder, position: Int) {

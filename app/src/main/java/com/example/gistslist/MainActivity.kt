@@ -2,6 +2,7 @@ package com.example.gistslist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,12 +22,12 @@ class MainActivity : AppCompatActivity() {
 		viewModel = ViewModelProvider(this).get(MainListViewModel::class.java)
 
 		initRecyclerView()
-
 		observeListForRecycleView()
 
 		add_button.setOnClickListener {
 			viewModel.getGistsList()
-			}
+			runProgressBar()
+		}
 	}
 
 	private fun observeListForRecycleView() {
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
 			recyclerViewAdapter.setData(gistsList)
 			recycler_view.adapter?.notifyDataSetChanged()
+			stopProgressBar()
 		}
 		viewModel.gistsStringList.observe(this, numberListObserver)
 	}
@@ -44,6 +46,14 @@ class MainActivity : AppCompatActivity() {
 		recycler_view.adapter = recyclerViewAdapter
 		recycler_view.layoutManager = LinearLayoutManager(this)
 		recycler_view.setHasFixedSize(true)
+	}
+
+	private fun runProgressBar() {
+		progress_bar.visibility = View.VISIBLE
+	}
+
+	private fun stopProgressBar() {
+		progress_bar.visibility = View.INVISIBLE
 	}
 }
 
