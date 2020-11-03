@@ -10,7 +10,11 @@ import retrofit2.Response
 class GistRepository {
 	private val gistsRetrofitService = GetRetrofit().getRetrofitService()
 
-
+//TODO тут самый непонятный момент. Я воспринимаю репозиторий как доп слой, для большей независимости вьюмодел,
+// но тут я что то совсем не уверен в реализаци. У меня довольно странная цепочка: лист из маин активити подписан
+// на лист из вью модел, а тот в свою очередь подписан на лист из репозитория. Я не придумал способа лучше, так как
+// в loadGists идет вызов в отдельном потоке и работу во вью модел мне нужно продолжать только после того как этот поток
+// закончит свою работу
 	val pojoDataList: MutableLiveData<List<BasePojo>> by lazy {
 		MutableLiveData<List<BasePojo>>()
 	}
@@ -24,6 +28,8 @@ class GistRepository {
 			}
 
 			override fun onFailure(call: Call<List<BasePojo>>, t: Throwable) {
+				//TODO несколько коммитов назад я далал обработку ошибки при неудачном запросе, но потом удалил
+				// Я правильно понимаю, вывод сообщения об ошибке, начинается отсюда
 			}
 		})
 	}

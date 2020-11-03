@@ -20,7 +20,7 @@ class ItemListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
 
     override fun onBindViewHolder(holder: TextItemViewHolder, position: Int) {
         val currentItem = data[position]
-
+//TODO вопрос по правилам чистого кода, мне кажется не особо хорошо что я тут взаимодеюствую с элементами активити, может это куда то перенести?
         holder.elemView.login_title.text = currentItem.userLogin
         holder.elemView.description_title.text = currentItem.gistDescription
     }

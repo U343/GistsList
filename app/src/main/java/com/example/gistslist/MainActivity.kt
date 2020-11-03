@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
 	private fun observeListForRecycleView() {
 		val numberListObserver = Observer<ArrayList<GistObject>> { gistsList ->
-
+// TODO тут я решил проблему с пересаздающимся адаптером, добавив ему метод setData. Мне способ нравится, но не уверен что это прям то что нужно
 			recyclerViewAdapter.setData(gistsList)
 			recycler_view.adapter?.notifyDataSetChanged()
 			stopProgressBar()
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 		recycler_view.layoutManager = LinearLayoutManager(this)
 		recycler_view.setHasFixedSize(true)
 	}
-
+//TODO очень простая реализация прогресс бара получилась, это нормально?
 	private fun runProgressBar() {
 		progress_bar.visibility = View.VISIBLE
 	}
