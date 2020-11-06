@@ -1,24 +1,39 @@
-package com.example.gistslist
+package com.example.gistslist.mainList.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gistslist.R
 import com.example.gistslist.gistModel.GistObject
-import com.example.gistslist.mainList.viewModel.MainListViewModel
 import com.example.gistslist.mainList.recycleView.ItemListAdapter
+import com.example.gistslist.mainList.viewModel.MainListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-
-class MainActivity : AppCompatActivity() {
+class MainGistsListFragment : Fragment() {
 	private lateinit var viewModel: MainListViewModel
 	private lateinit var recyclerViewAdapter: ItemListAdapter
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_main)
+	companion object {
+		fun newInstance(): MainGistsListFragment {
+			return MainGistsListFragment()
+		}
+	}
+
+	override fun onCreateView(
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View? {
+		return inflater.inflate(R.layout.activity_main, container, false)
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
 
 		viewModel = ViewModelProvider(this).get(MainListViewModel::class.java)
 
@@ -45,10 +60,10 @@ class MainActivity : AppCompatActivity() {
 		recyclerViewAdapter = ItemListAdapter()
 
 		recycler_view.adapter = recyclerViewAdapter
-		recycler_view.layoutManager = LinearLayoutManager(this)
+		recycler_view.layoutManager = LinearLayoutManager(activity)
 		recycler_view.setHasFixedSize(true)
 	}
-//TODO очень простая реализация прогресс бара получилась, это нормально?
+	//TODO очень простая реализация прогресс бара получилась, это нормально?
 	private fun runProgressBar() {
 		progress_bar.visibility = View.VISIBLE
 	}
@@ -57,4 +72,3 @@ class MainActivity : AppCompatActivity() {
 		progress_bar.visibility = View.INVISIBLE
 	}
 }
-
