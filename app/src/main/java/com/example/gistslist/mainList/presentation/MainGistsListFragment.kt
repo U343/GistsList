@@ -42,7 +42,7 @@ class MainGistsListFragment : Fragment() {
 
 		add_button.setOnClickListener {
 			viewModel.getGistsList()
-			runProgressBar()
+			showProgressBar(true)
 		}
 	}
 
@@ -51,7 +51,7 @@ class MainGistsListFragment : Fragment() {
 // TODO тут я решил проблему с пересаздающимся адаптером, добавив ему метод setData. Мне способ нравится, но не уверен что это прям то что нужно
 			recyclerViewAdapter.setData(gistsList)
 			recycler_view.adapter?.notifyDataSetChanged()
-			stopProgressBar()
+			showProgressBar(false)
 		}
 		viewModel.gistsStringList.observe(this, numberListObserver)
 	}
@@ -64,11 +64,7 @@ class MainGistsListFragment : Fragment() {
 		recycler_view.setHasFixedSize(true)
 	}
 	//TODO очень простая реализация прогресс бара получилась, это нормально?
-	private fun runProgressBar() {
-		progress_bar.visibility = View.VISIBLE
-	}
-
-	private fun stopProgressBar() {
-		progress_bar.visibility = View.INVISIBLE
+	private fun showProgressBar(enabled: Boolean) {
+		progress_bar.visibility = if (enabled) View.VISIBLE else View.INVISIBLE
 	}
 }
