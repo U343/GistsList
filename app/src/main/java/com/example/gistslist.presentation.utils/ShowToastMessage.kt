@@ -1,4 +1,4 @@
-package com.example.gistslist
+package com.example.gistslist.presentation.utils
 
 import android.content.Context
 import android.widget.Toast

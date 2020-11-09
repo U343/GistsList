@@ -1,17 +1,9 @@
-package com.example.gistslist.mainList.presentation
+package com.example.gistslist.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gistslist.R
-import com.example.gistslist.gistModel.GistObject
-import com.example.gistslist.mainList.viewModel.MainListViewModel
-import com.example.gistslist.mainList.recycleView.ItemListAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {

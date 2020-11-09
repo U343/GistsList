@@ -1,4 +1,4 @@
-package com.example.gistslist.mainList.presentation
+package com.example.gistslist.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +9,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gistslist.R
-import com.example.gistslist.gistModel.GistObject
-import com.example.gistslist.mainList.recycleView.ItemListAdapter
-import com.example.gistslist.mainList.viewModel.MainListViewModel
+import com.example.gistslist.models.data.gist.GistModel
+import com.example.gistslist.presentation.recycle_view.ItemListAdapter
+import com.example.gistslist.presentation.view.MainListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainGistsListFragment : Fragment() {
@@ -47,7 +47,7 @@ class MainGistsListFragment : Fragment() {
 	}
 
 	private fun observeListForRecycleView() {
-		val numberListObserver = Observer<ArrayList<GistObject>> { gistsList ->
+		val numberListObserver = Observer<ArrayList<GistModel>> { gistsList ->
 // TODO тут я решил проблему с пересаздающимся адаптером, добавив ему метод setData. Мне способ нравится, но не уверен что это прям то что нужно
 			recyclerViewAdapter.setData(gistsList)
 			recycler_view.adapter?.notifyDataSetChanged()
@@ -63,6 +63,7 @@ class MainGistsListFragment : Fragment() {
 		recycler_view.layoutManager = LinearLayoutManager(activity)
 		recycler_view.setHasFixedSize(true)
 	}
+
 	//TODO очень простая реализация прогресс бара получилась, это нормально?
 	private fun showProgressBar(enabled: Boolean) {
 		progress_bar.visibility = if (enabled) View.VISIBLE else View.INVISIBLE

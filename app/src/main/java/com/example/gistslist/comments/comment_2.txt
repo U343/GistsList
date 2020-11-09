@@ -1,0 +1,77 @@
+--Пора начинать добавлять JD и KD к классам, публичным методам
+	https://kotlinlang.org/docs/reference/kotlin-doc.html
+--Название пакетов очень редко пишут CamelCase'ом                ✔
+--Разнести более осмысленно классы с новым разбиением по package (напомни в пнд скинуть тебе
+	сберовские гайды по пакетам и разбиениею на модули, плюс проговорим это на созвоне)
+	                                                             ✔
+--Код не отформатирован                                          ✔
+
+--GistObject
+	При первом взгляде непонятно к чему относится класс, и какую функцию он выполняет
+	                                                             ✔
+
+--BasePojo
+	Непонятное название                                          ✔
+
+--Filename
+	Это не Filename, а File, у которого есть проперти name       ✔
+
+--GistsRetrofitRequests
+	Корректнее будет называть этот класс либо GistsApi, либо GistsService, либо GistsExtDataSource
+	                                                              ✔
+
+--ItemListAdapter
+	data имеет тип ArrayList, лучше указать просто List и сделать так
+		private var data = emptyList<GistObject>()
+	В setData не нужно явно указывать, что ты прокидываешь ArrayList, нужно стараться максимально
+	скрывать реализации и завязываться на интерфейсы, отходить в аргументах функций от конкретных
+	реализаций списков, мап, репозиториев и так далее
+	//TODO вопрос по правилам чистого кода, мне кажется не особо хорошо что я тут взаимодеюствую...
+	В адаптере ты не взаимодействуешь с элементами активити, ты взаимодействуешь с вьюшкой, которая
+	биндится в данный момент. Для того, чтобы скрыть реализацию биндинга можно в TextItemViewHolder
+	добавить метод bind(gistObject: GistObject), где будет происходить биндинг данной вьюшки
+
+--TextItemViewHolder
+	У тебя подсвечивается itemView, так как он не используется как проперти класса, а прокидывается
+	в super()
+	Если ты унесешь биндинг в TextItemViewHolder, то пропадет надобность в публичном elemView
+	elemView -- лишнее сокращение, пиши явно elementView
+
+--MainGistsListFragment
+	// TODO тут я решил проблему с пересаздающимся адаптером, добавив ему метод setData...
+	Да, способ норм, можно унести ещё notifyDataSetChanged() внутрь метода setData(), чтобы api
+	адаптера было чище
+	setData() принимает ArrayList, а это явное указание на тип списка, лучше указывать просто List
+	//TODO очень простая реализация прогресс бара получилась, это нормально?
+	Да, но лучше добавить отдельную LiveData для прогресс бара, чтобы она торчала из ViewModel
+
+--MainListViewModel(надо обсудить на созвоне, напомни)
+	У тебя ViewModel сама создает свою внешнюю зависимость repository, она должна получать её снаружи.
+	Предположим у тебя в репозитории реализован кеш. Тогда при такой инициализации как у тебя на двух
+	разных экранах будет два разных кеша, что неправильно. Repository должен приходить во viewModel
+	снаружи во время её создания
+	Непонятно зачем нужен try catch блок
+	Форматирование листа в generateGistsList() не в котлин стиле. Посмотри работу с коллекциями в котлине
+	https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/, ту запись, которая у тебя,
+	можно заменить на
+		gistsStringList.value = pojos
+        	?.map { basePojo -> GistObject(basePojo.files.keys.elementAt(0), basePojo.description) }
+    elementAt(0) -- лучше не использовать, если ты не обрабатываешь IndexOutOfBoundsException, можно
+    заменить на firstOrNull()
+
+--GistRepository
+	Тебе не нужен pojoDataList, так как ты можешь прокидывать Consumer'ы в loadGists(), чтобы вызывать
+	их в onResponse() или в onFailure(). То есть то действие, которое необходимо совершить в случае
+	успешной/зафейленной загрузки прокидывается с уровня viewModel
+	Получится что-то типа
+		fun loadGists(onResponse: Consumer<List<BasePojo>>, onFailure: Consumer<Throwable>) {
+    		gistsRetrofitService.getGists().enqueue(object : Callback<List<BasePojo>> {
+    			override fun onResponse(call: Call<List<BasePojo>>?, response: Response<List<BasePojo>>?) {
+    				onResponse.accept(response?.body())
+    			}
+
+    			override fun onFailure(call: Call<List<BasePojo>>, t: Throwable) {
+    				onFailure.accept(t)
+    			}
+    		})
+    	}
