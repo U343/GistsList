@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gistslist.R
 import com.example.gistslist.domain.gist_repository.GistRepositoryFactory
+import com.example.gistslist.domain.gist_repository.IGistRepository
 import com.example.gistslist.models.data.gist.GistModel
 import com.example.gistslist.presentation.recycle_view.ItemListAdapter
 import com.example.gistslist.presentation.view.MainFragmentModel
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainGistsListFragment : Fragment() {
 	private lateinit var viewModel: MainFragmentModel
-	private lateinit var viewModelFactory: MainFragmentModelFactory
+	private lateinit var repositoryGistList: IGistRepository
 	private lateinit var recyclerViewAdapter: ItemListAdapter
 
 	companion object {
@@ -38,9 +39,7 @@ class MainGistsListFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		viewModelFactory = MainFragmentModelFactory(GistRepositoryFactory().getRepository())
-		viewModel = ViewModelProvider(this, viewModelFactory).get(MainFragmentModel::class.java)
-
+		initViewModelAndRepository()
 		initRecyclerView()
 		observeListForRecycleView()
 
@@ -59,7 +58,7 @@ class MainGistsListFragment : Fragment() {
 	}
 
 	private fun observeProgressBar() {
-		val progress = Observer<Boolean> {loadDataStatus ->
+		val progress = Observer<Boolean> { loadDataStatus ->
 			if (loadDataStatus) {
 				progress_bar.visibility = View.VISIBLE
 			} else {
@@ -67,6 +66,13 @@ class MainGistsListFragment : Fragment() {
 			}
 		}
 		viewModel.loadDataStatus.observe(this, progress)
+	}
+
+	private fun initViewModelAndRepository() {
+		repositoryGistList = GistRepositoryFactory().getRepository()
+		viewModel = ViewModelProvider(this, MainFragmentModelFactory(repositoryGistList)).get(
+			MainFragmentModel::class.java
+		)
 	}
 
 	private fun initRecyclerView() {

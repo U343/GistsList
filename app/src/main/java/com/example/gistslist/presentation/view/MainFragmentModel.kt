@@ -1,5 +1,6 @@
 package com.example.gistslist.presentation.view
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -28,9 +29,11 @@ class MainFragmentModel(private val repository: IGistRepository) : ViewModel() {
 		repository.loadGists()
 		loadDataStatus.value = true
 	}
-//TODO потестить, иногда приходит null
+
 	private fun generateGistsList(pojoList: List<GistBean>?) {
 		if (pojoList != null) {
+			Log.d("errorN", "ok")
+			//TODO нижу ошибка, в GistModel прилетает null
 			gistsStringList.value = pojoList?.map { GistBean ->
 				GistBean.files.keys.firstOrNull()?.let { GistModel(it, GistBean.description) }
 			} as ArrayList<GistModel>?
