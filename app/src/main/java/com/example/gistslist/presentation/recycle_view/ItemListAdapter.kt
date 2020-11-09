@@ -26,5 +26,6 @@ class ItemListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
 
 	fun setData(data: List<GistModel>) {
 		this.data = data
+		notifyDataSetChanged()
 	}
 }

@@ -8,11 +8,15 @@ import com.example.gistslist.models.data.pojo.GistBean
 import com.example.gistslist.data.repositories.GistsRepository
 import kotlin.Exception
 
-class MainListViewModel : ViewModel() {
+class MainFragmentModel : ViewModel() {
 	private val repository = GistsRepository()
 
 	val gistsStringList: MutableLiveData<ArrayList<GistModel>> by lazy {
 		MutableLiveData<ArrayList<GistModel>>()
+	}
+
+	val loadDataStatus: MutableLiveData<Boolean> by lazy {
+		MutableLiveData<Boolean>()
 	}
 
 	private val gistsStringListObserver = Observer<List<GistBean>> { pojoDataList ->
@@ -25,6 +29,7 @@ class MainListViewModel : ViewModel() {
 
 	fun getGistsList() {
 		repository.loadGists()
+		loadDataStatus.value = true
 	}
 
 	private fun generateGistsList(pojos: List<GistBean>?) {
@@ -34,16 +39,17 @@ class MainListViewModel : ViewModel() {
 			for (i in pojos) {
 				try {
 					currentList.add(
-                        GistModel(
-                            i.files.keys.elementAt(0),
-                            i.description
-                        )
-                    )
+						GistModel(
+							i.files.keys.elementAt(0),
+							i.description
+						)
+					)
 				} catch (e: Exception) {
 					continue
 				}
 			}
 			gistsStringList.value = currentList
+			loadDataStatus.value = false
 		}
 	}
 }

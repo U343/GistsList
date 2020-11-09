@@ -2,13 +2,13 @@ package com.example.gistslist.data.repositories
 
 import androidx.lifecycle.MutableLiveData
 import com.example.gistslist.models.data.pojo.GistBean
-import com.example.gistslist.presentation.view.di.GetRetrofit
+import com.example.gistslist.domain.gists.GetRetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class GistsRepository {
-	private val gistsRetrofitService = GetRetrofit().getRetrofitService()
+	private val gistsRetrofitService = GetRetrofitService().getRetrofitService()
 
 	//TODO тут самый непонятный момент. Я воспринимаю репозиторий как доп слой, для большей независимости вьюмодел,
 // но тут я что то совсем не уверен в реализаци. У меня довольно странная цепочка: лист из маин активити подписан
