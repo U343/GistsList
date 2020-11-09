@@ -32,24 +32,10 @@ class MainFragmentModel : ViewModel() {
 		loadDataStatus.value = true
 	}
 
-	private fun generateGistsList(pojos: List<GistBean>?) {
-		val currentList = ArrayList<GistModel>()
-
-		if (pojos != null) {
-			for (i in pojos) {
-				try {
-					currentList.add(
-						GistModel(
-							i.files.keys.elementAt(0),
-							i.description
-						)
-					)
-				} catch (e: Exception) {
-					continue
-				}
-			}
-			gistsStringList.value = currentList
-			loadDataStatus.value = false
-		}
+	private fun generateGistsList(pojoList: List<GistBean>?) {
+		gistsStringList.value = pojoList?.map { GistBean ->
+			GistBean.files.keys.firstOrNull()?.let { GistModel(it, GistBean.description) }
+		} as ArrayList<GistModel>
+		loadDataStatus.value = false
 	}
 }
