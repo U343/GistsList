@@ -9,13 +9,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gistslist.R
+import com.example.gistslist.domain.gist_repository.GistRepositoryFactory
 import com.example.gistslist.models.data.gist.GistModel
 import com.example.gistslist.presentation.recycle_view.ItemListAdapter
 import com.example.gistslist.presentation.view.MainFragmentModel
+import com.example.gistslist.presentation.view.MainFragmentModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainGistsListFragment : Fragment() {
 	private lateinit var viewModel: MainFragmentModel
+	private lateinit var viewModelFactory: MainFragmentModelFactory
 	private lateinit var recyclerViewAdapter: ItemListAdapter
 
 	companion object {
@@ -35,7 +38,8 @@ class MainGistsListFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		viewModel = ViewModelProvider(this).get(MainFragmentModel::class.java)
+		viewModelFactory = MainFragmentModelFactory(GistRepositoryFactory().getRepository())
+		viewModel = ViewModelProvider(this, viewModelFactory).get(MainFragmentModel::class.java)
 
 		initRecyclerView()
 		observeListForRecycleView()

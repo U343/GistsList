@@ -5,12 +5,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.gistslist.models.data.gist.GistModel
 import com.example.gistslist.models.data.pojo.GistBean
-import com.example.gistslist.data.repositories.GistsRepository
-import kotlin.Exception
+import com.example.gistslist.domain.gist_repository.IGistRepository
 
-class MainFragmentModel : ViewModel() {
-	private val repository = GistsRepository()
-
+class MainFragmentModel(private val repository: IGistRepository) : ViewModel() {
 	val gistsStringList: MutableLiveData<ArrayList<GistModel>> by lazy {
 		MutableLiveData<ArrayList<GistModel>>()
 	}
@@ -31,11 +28,13 @@ class MainFragmentModel : ViewModel() {
 		repository.loadGists()
 		loadDataStatus.value = true
 	}
-
+//TODO потестить, иногда приходит null
 	private fun generateGistsList(pojoList: List<GistBean>?) {
-		gistsStringList.value = pojoList?.map { GistBean ->
-			GistBean.files.keys.firstOrNull()?.let { GistModel(it, GistBean.description) }
-		} as ArrayList<GistModel>
-		loadDataStatus.value = false
+		if (pojoList != null) {
+			gistsStringList.value = pojoList?.map { GistBean ->
+				GistBean.files.keys.firstOrNull()?.let { GistModel(it, GistBean.description) }
+			} as ArrayList<GistModel>?
+			loadDataStatus.value = false
+		}
 	}
 }
