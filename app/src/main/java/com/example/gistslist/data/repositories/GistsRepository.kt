@@ -10,6 +10,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.function.Consumer
 
+/**
+ * Реализация репозитория для работы со списком гистов
+ *
+ * @author Dmitrii Bondarev on 10.11.2020
+ */
 class GistsRepository : IGistRepository {
 	private val gistsRetrofitService = GetRetrofitService().getRetrofitService()
 

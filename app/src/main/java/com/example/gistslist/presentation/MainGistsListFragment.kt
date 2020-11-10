@@ -20,6 +20,11 @@ import com.example.gistslist.presentation.view_model.MainFragmentViewModel
 import com.example.gistslist.presentation.view_model.MainFragmentModelViewFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
+/**
+ * Фрагмент отображения списка гистов
+ *
+ * @author Dmitrii Bondarev on 10.11.2020
+ */
 class MainGistsListFragment : Fragment() {
 	private lateinit var viewModel: MainFragmentViewModel
 	private lateinit var repositoryGistList: IGistRepository
@@ -61,6 +66,9 @@ class MainGistsListFragment : Fragment() {
 		viewModel.gistsStringList.observe(this, numberListObserver)
 	}
 
+	/**
+	 * Отображает прогресс бар, пока загружается список гистов
+	 */
 	private fun observeProgressBar() {
 		val progress = Observer<Boolean> { loadDataStatus ->
 			if (loadDataStatus) {

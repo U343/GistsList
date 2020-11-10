@@ -6,6 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gistslist.R
 import com.example.gistslist.models.presentation.gist_model.GistModel
 
+/**
+ * Адаптер recycler view для списка гистов
+ *
+ * @author Dmitrii Bondarev on 10.11.2020
+ */
 class ItemListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
 	private var data = emptyList<GistModel>()
 
@@ -24,6 +29,11 @@ class ItemListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
 		return TextItemViewHolder(view)
 	}
 
+	/**
+	 * Установка списка гистов
+	 *
+	 * @param data список гистов
+	 */
 	fun setData(data: List<GistModel>) {
 		this.data = data
 		notifyDataSetChanged()

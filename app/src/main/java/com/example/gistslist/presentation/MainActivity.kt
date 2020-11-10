@@ -5,7 +5,11 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.gistslist.R
 
-
+/**
+ * Активити функционала отображения списка гистов
+ *
+ * @author Dmitrii Bondarev on 10.11.2020
+ */
 class MainActivity : AppCompatActivity() {
 	private val tagMainFragment = "main_fragment"
 
