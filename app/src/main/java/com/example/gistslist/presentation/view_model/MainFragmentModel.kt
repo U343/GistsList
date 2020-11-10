@@ -31,12 +31,22 @@ class MainFragmentModel(private val repository: IGistRepository) : ViewModel() {
 	}
 
 	private fun generateGistsList(pojoList: List<GistBean>?) {
+		val currentList = ArrayList<GistModel>()
+
 		if (pojoList != null) {
-			Log.d("errorN", "ok")
-			//TODO нижу ошибка, в GistModel прилетает null
-			gistsStringList.value = pojoList?.map { GistBean ->
-				GistBean.files.keys.firstOrNull()?.let { GistModel(it, GistBean.description) }
-			} as ArrayList<GistModel>?
+			for (i in pojoList) {
+				try {
+					currentList.add(
+						GistModel(
+							i.files.keys.elementAt(0),
+							i.description
+						)
+					)
+				} catch (e: Exception) {
+					continue
+				}
+			}
+			gistsStringList.value = currentList
 			loadDataStatus.value = false
 		}
 	}
