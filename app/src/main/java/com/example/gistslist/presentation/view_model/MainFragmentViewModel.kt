@@ -28,6 +28,7 @@ class MainFragmentViewModel(private val repository: IGistRepository) : ViewModel
 
 	@RequiresApi(Build.VERSION_CODES.N)
 	fun getGistsList() {
+		loadDataStatus.value = true
 		repository.loadGists(onResponseConsumer, onFailureConsumer)
 	}
 

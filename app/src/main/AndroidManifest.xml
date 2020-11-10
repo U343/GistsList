@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ShopingList">
+        android:theme="@style/Theme.GistsList">
         <activity android:name="com.example.gistslist.presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
