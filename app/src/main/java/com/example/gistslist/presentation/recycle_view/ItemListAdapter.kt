@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gistslist.R
-import com.example.gistslist.models.data.gist.GistModel
+import com.example.gistslist.models.presentation.gist_model.GistModel
 
 class ItemListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
 	private var data = emptyList<GistModel>()

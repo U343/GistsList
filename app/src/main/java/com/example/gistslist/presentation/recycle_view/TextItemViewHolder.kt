@@ -2,7 +2,7 @@ package com.example.gistslist.presentation.recycle_view
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gistslist.models.data.gist.GistModel
+import com.example.gistslist.models.presentation.gist_model.GistModel
 import kotlinx.android.synthetic.main.text_item_view.view.*
 
 class TextItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

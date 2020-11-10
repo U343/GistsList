@@ -1,4 +1,4 @@
-package com.example.gistslist.presentation.view
+package com.example.gistslist.presentation.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

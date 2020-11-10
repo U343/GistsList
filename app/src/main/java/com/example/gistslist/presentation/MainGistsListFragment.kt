@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gistslist.R
 import com.example.gistslist.domain.gist_repository.GistRepositoryFactory
 import com.example.gistslist.domain.gist_repository.IGistRepository
-import com.example.gistslist.models.data.gist.GistModel
+import com.example.gistslist.models.presentation.gist_model.GistModel
 import com.example.gistslist.presentation.recycle_view.ItemListAdapter
-import com.example.gistslist.presentation.view.MainFragmentModel
-import com.example.gistslist.presentation.view.MainFragmentModelFactory
+import com.example.gistslist.presentation.view_model.MainFragmentModel
+import com.example.gistslist.presentation.view_model.MainFragmentModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainGistsListFragment : Fragment() {

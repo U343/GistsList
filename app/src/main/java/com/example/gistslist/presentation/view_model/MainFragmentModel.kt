@@ -1,10 +1,10 @@
-package com.example.gistslist.presentation.view
+package com.example.gistslist.presentation.view_model
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.example.gistslist.models.data.gist.GistModel
+import com.example.gistslist.models.presentation.gist_model.GistModel
 import com.example.gistslist.models.data.pojo.GistBean
 import com.example.gistslist.domain.gist_repository.IGistRepository
 
