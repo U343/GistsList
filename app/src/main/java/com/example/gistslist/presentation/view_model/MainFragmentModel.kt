@@ -1,12 +1,14 @@
 package com.example.gistslist.presentation.view_model
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.gistslist.models.presentation.gist_model.GistModel
 import com.example.gistslist.models.data.pojo.GistBean
 import com.example.gistslist.domain.gist_repository.IGistRepository
+import java.util.function.Consumer
 
 class MainFragmentModel(private val repository: IGistRepository) : ViewModel() {
 	val gistsStringList: MutableLiveData<ArrayList<GistModel>> by lazy {
@@ -17,17 +19,16 @@ class MainFragmentModel(private val repository: IGistRepository) : ViewModel() {
 		MutableLiveData<Boolean>()
 	}
 
-	private val gistsStringListObserver = Observer<List<GistBean>> { pojoDataList ->
-		generateGistsList(pojoDataList)
-	}
+	private val onResponseConsumer =
+		Consumer<List<GistBean>> { pojoList -> generateGistsList(pojoList) }
 
-	init {
-		repository.pojoDataList.observeForever(gistsStringListObserver)
-	}
+	private val onFailureConsumer =
+		Consumer<Throwable> { Log.d("onFailure", "fail") }
 
+
+	@RequiresApi(Build.VERSION_CODES.N)
 	fun getGistsList() {
-		repository.loadGists()
-		loadDataStatus.value = true
+		repository.loadGists(onResponseConsumer, onFailureConsumer)
 	}
 
 	private fun generateGistsList(pojoList: List<GistBean>?) {

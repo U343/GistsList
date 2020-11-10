@@ -1,33 +1,33 @@
 package com.example.gistslist.data.repositories
 
-import androidx.lifecycle.MutableLiveData
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.gistslist.models.data.pojo.GistBean
 import com.example.gistslist.domain.retrofit_gist.GetRetrofitService
 import com.example.gistslist.domain.gist_repository.IGistRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.function.Consumer
 
 class GistsRepository : IGistRepository {
 	private val gistsRetrofitService = GetRetrofitService().getRetrofitService()
 
-
-	override val pojoDataList: MutableLiveData<List<GistBean>> by lazy {
-		MutableLiveData<List<GistBean>>()
-	}
-
-	override fun loadGists() {
+	override fun loadGists(loadSuccess: Consumer<List<GistBean>>, loadFail: Consumer<Throwable>) {
 		val call = gistsRetrofitService.getGists()
 
 		call.enqueue(object : Callback<List<GistBean>> {
+			@RequiresApi(Build.VERSION_CODES.N)
 			override fun onResponse(
 				call: Call<List<GistBean>>?,
 				response: Response<List<GistBean>>?
 			) {
-				pojoDataList.value = response?.body()
+				response?.body()?.let { loadSuccess.accept(it) }
 			}
 
+			@RequiresApi(Build.VERSION_CODES.N)
 			override fun onFailure(call: Call<List<GistBean>>, t: Throwable) {
+				loadFail.accept(t)
 			}
 		})
 	}

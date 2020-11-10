@@ -1,10 +1,8 @@
 package com.example.gistslist.domain.gist_repository
 
-import androidx.lifecycle.MutableLiveData
 import com.example.gistslist.models.data.pojo.GistBean
+import java.util.function.Consumer
 
 interface IGistRepository {
-	val pojoDataList: MutableLiveData<List<GistBean>>
-
-	fun loadGists()
+	fun loadGists(loadSuccess: Consumer<List<GistBean>>, loadFail: Consumer<Throwable>)
 }
