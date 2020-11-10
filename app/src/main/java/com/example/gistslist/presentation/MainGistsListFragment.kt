@@ -1,10 +1,12 @@
 package com.example.gistslist.presentation
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,12 +16,12 @@ import com.example.gistslist.domain.gist_repository.GistRepositoryFactory
 import com.example.gistslist.domain.gist_repository.IGistRepository
 import com.example.gistslist.models.presentation.gist_model.GistModel
 import com.example.gistslist.presentation.recycle_view.ItemListAdapter
-import com.example.gistslist.presentation.view_model.MainFragmentModel
-import com.example.gistslist.presentation.view_model.MainFragmentModelFactory
+import com.example.gistslist.presentation.view_model.MainFragmentViewModel
+import com.example.gistslist.presentation.view_model.MainFragmentModelViewFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainGistsListFragment : Fragment() {
-	private lateinit var viewModel: MainFragmentModel
+	private lateinit var viewModel: MainFragmentViewModel
 	private lateinit var repositoryGistList: IGistRepository
 	private lateinit var recyclerViewAdapter: ItemListAdapter
 
@@ -37,6 +39,7 @@ class MainGistsListFragment : Fragment() {
 		return inflater.inflate(R.layout.activity_main, container, false)
 	}
 
+	@RequiresApi(Build.VERSION_CODES.N)
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		Log.d("fragment", "main fragment created")
@@ -71,8 +74,8 @@ class MainGistsListFragment : Fragment() {
 
 	private fun initViewModelAndRepository() {
 		repositoryGistList = GistRepositoryFactory().getRepository()
-		viewModel = ViewModelProvider(this, MainFragmentModelFactory(repositoryGistList)).get(
-			MainFragmentModel::class.java
+		viewModel = ViewModelProvider(this, MainFragmentModelViewFactory(repositoryGistList)).get(
+			MainFragmentViewModel::class.java
 		)
 	}
 

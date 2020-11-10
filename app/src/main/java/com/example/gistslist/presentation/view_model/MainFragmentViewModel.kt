@@ -10,7 +10,7 @@ import com.example.gistslist.models.data.pojo.GistBean
 import com.example.gistslist.domain.gist_repository.IGistRepository
 import java.util.function.Consumer
 
-class MainFragmentModel(private val repository: IGistRepository) : ViewModel() {
+class MainFragmentViewModel(private val repository: IGistRepository) : ViewModel() {
 	val gistsStringList: MutableLiveData<ArrayList<GistModel>> by lazy {
 		MutableLiveData<ArrayList<GistModel>>()
 	}
