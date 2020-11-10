@@ -1,0 +1,30 @@
+From 84eb5181c90f0d941f79293d06beb79b688c90c4 Mon Sep 17 00:00:00 2001
+From: Dmitriy Bondarev <DVBondarev@sberbank.ru>
+Date: Tue, 10 Nov 2020 18:47:00 +0300
+Subject: [PATCH] bug with twice fragment
+
+---
+ .../java/com/example/gistslist/presentation/MainActivity.kt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/app/src/main/java/com/example/gistslist/presentation/MainActivity.kt b/app/src/main/java/com/example/gistslist/presentation/MainActivity.kt
+index 698cb2a..80e3491 100644
+--- a/app/src/main/java/com/example/gistslist/presentation/MainActivity.kt
++++ b/app/src/main/java/com/example/gistslist/presentation/MainActivity.kt
+@@ -22,10 +22,10 @@ class MainActivity : AppCompatActivity() {
+ 
+ 	private fun showFragment(fragment: Fragment, addToBackStack: Boolean) {
+ 		val fragmentManager = supportFragmentManager
+-
++//TODO тут оибка, чтобы поправить -> снимаем коммент и newFragment передаем вместо fragment
+ 		val fragmentTransaction = fragmentManager.beginTransaction()
+-		val newFragment = fragmentManager.findFragmentByTag(tagMainFragment) ?: fragment
+-		fragmentTransaction.replace(R.id.content_container, newFragment, tagMainFragment)
++		//val newFragment = fragmentManager.findFragmentByTag(tagMainFragment) ?: fragment
++		fragmentTransaction.replace(R.id.content_container, fragment, tagMainFragment)
+ 		if (addToBackStack) {
+ 			fragmentTransaction.addToBackStack(null)
+ 		}
+-- 
+2.20.1 (Apple Git-117)
+

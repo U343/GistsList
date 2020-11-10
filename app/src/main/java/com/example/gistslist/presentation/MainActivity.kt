@@ -22,10 +22,10 @@ class MainActivity : AppCompatActivity() {
 
 	private fun showFragment(fragment: Fragment, addToBackStack: Boolean) {
 		val fragmentManager = supportFragmentManager
-//TODO тут оибка, чтобы поправить -> снимаем коммент и newFragment передаем вместо fragment
+
 		val fragmentTransaction = fragmentManager.beginTransaction()
-		//val newFragment = fragmentManager.findFragmentByTag(tagMainFragment) ?: fragment
-		fragmentTransaction.replace(R.id.content_container, fragment, tagMainFragment)
+		val newFragment = fragmentManager.findFragmentByTag(tagMainFragment) ?: fragment
+		fragmentTransaction.replace(R.id.content_container, newFragment, tagMainFragment)
 		if (addToBackStack) {
 			fragmentTransaction.addToBackStack(null)
 		}
