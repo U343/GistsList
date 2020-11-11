@@ -61,6 +61,7 @@
         	?.map { basePojo -> GistObject(basePojo.files.keys.elementAt(0), basePojo.description) }
     elementAt(0) -- лучше не использовать, если ты не обрабатываешь IndexOutOfBoundsException, можно
     заменить на firstOrNull()
+                                                                     ✔
 
 
 --GistRepository

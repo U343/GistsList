@@ -42,8 +42,9 @@ class MainFragmentViewModel(private val repository: IGistRepository) : ViewModel
 	/**
 	 * Формирование списка моделей гиста
 	 *
-	 * Внутри функции подавляется предупреждение, так как листы совпадают: [gistsStringList.value] -
-	 * это арэй лист с [GistModel], и результат функции map это лист с [GistModel]
+	 * Внутри функции подавляется предупреждение Unchecked cast, так как во время каста не может
+	 * возникнуть ошибка. Листы совпадают: [gistsStringList.value] - это арэй лист с [GistModel],
+	 * и результат функции map это лист с [GistModel]
 	 *
 	 * @param pojoList список с POJO объектами гиста
 	 */
