@@ -3,7 +3,7 @@ package com.example.gistslist.presentation.recycle_view
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gistslist.models.presentation.gist_model.GistModel
-import kotlinx.android.synthetic.main.text_item_view.view.*
+import kotlinx.android.synthetic.main.main_gist_list_item.view.*
 
 /**
  * Холдер recycler view для списка гистов

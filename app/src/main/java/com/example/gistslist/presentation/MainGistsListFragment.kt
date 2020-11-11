@@ -18,7 +18,7 @@ import com.example.gistslist.models.presentation.gist_model.GistModel
 import com.example.gistslist.presentation.recycle_view.ItemListAdapter
 import com.example.gistslist.presentation.view_model.MainFragmentViewModel
 import com.example.gistslist.presentation.view_model.MainFragmentModelViewFactory
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.maint_gists_list_fragment.*
 
 /**
  * Фрагмент отображения списка гистов
