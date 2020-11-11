@@ -39,30 +39,23 @@ class MainFragmentViewModel(private val repository: IGistRepository) : ViewModel
 		repository.loadGists(onResponseConsumer, onFailureConsumer)
 	}
 
-	//TODO переделать эту функцию со стилистикой котлина
 	/**
 	 * Формирование списка моделей гиста
 	 *
+	 * Внутри функции подавляется предупреждение, так как листы совпадают: [gistsStringList.value] -
+	 * это арэй лист с [GistModel], и результат функции map это лист с [GistModel]
+	 *
 	 * @param pojoList список с POJO объектами гиста
 	 */
-	private fun generateGistsList(pojoList: List<GistBean>?) {
-		val currentList = ArrayList<GistModel>()
+	private fun generateGistsList(pojoList: List<GistBean>) {
 
-		if (pojoList != null) {
-			for (i in pojoList) {
-				try {
-					currentList.add(
-						GistModel(
-							i.files.keys.elementAt(0),
-							i.description
-						)
-					)
-				} catch (e: Exception) {
-					continue
-				}
-			}
-			gistsStringList.value = currentList
-			loadDataStatus.value = false
-		}
+		@Suppress("UNCHECKED_CAST")
+		gistsStringList.value = pojoList.map {
+			GistModel(
+				it.files.keys.firstOrNull(),
+				it.description
+			)
+		} as ArrayList<GistModel>
+		loadDataStatus.value = false
 	}
 }

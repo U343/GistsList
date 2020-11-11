@@ -11,6 +11,6 @@ package com.example.gistslist.models.presentation.gist_model
  * @author Dmitrii Bondarev on 10.11.2020
  */
 data class GistModel(
-	val userLogin: String,
-	val gistDescription: String
+	val userLogin: String?,
+	val gistDescription: String?
 )
