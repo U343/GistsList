@@ -41,7 +41,7 @@ class MainGistsListFragment : Fragment() {
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		return inflater.inflate(R.layout.activity_main, container, false)
+		return inflater.inflate(R.layout.maint_gists_list_fragment, container, false)
 	}
 
 	@RequiresApi(Build.VERSION_CODES.N)

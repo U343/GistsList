@@ -2,6 +2,9 @@
 <resources>
     <dimen name="padding">5dp</dimen>
     <dimen name="zero_dp">0dp</dimen>
+    <dimen name="heading_size_1">25sp</dimen>
+    <dimen name="heading_size_2">20sp</dimen>
+    <dimen name="text_size">15sp</dimen>
 
     <!-- Main Activity -->
     <dimen name="progress_bar_size">130dp</dimen>

@@ -24,7 +24,7 @@ class ItemListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
 		val layoutInflater = LayoutInflater.from(parent.context)
 
 		val view = layoutInflater
-			.inflate(R.layout.text_item_view, parent, false)
+			.inflate(R.layout.main_gist_list_item, parent, false)
 
 		return TextItemViewHolder(view)
 	}

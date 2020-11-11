@@ -2,8 +2,9 @@
     <!-- App title and fragment titles -->
     <string name="app_name">GistsList</string>
 
-    <!-- Main activity -->
+    <!-- Main gist list fragment -->
     <string name="add_button_text">Load gists</string>
+    <string name="not_found">Not found</string>
 
     <!-- Text item view -->
     <string name="login_title">Login:</string>
