@@ -8,6 +8,7 @@
 
     <!-- Main Activity -->
     <dimen name="progress_bar_size">130dp</dimen>
+    <dimen name="card_view_radius">10dp</dimen>
 
     <!-- Text item view -->
     <dimen name="auto_max_size_text">124sp</dimen>

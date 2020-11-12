@@ -4,14 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gistslist.R
+import com.example.gistslist.domain.gist_list_item.GistsMainListListener
 import com.example.gistslist.models.presentation.gist_model.GistModel
 
 /**
  * Адаптер recycler view для списка гистов
  *
+ * @param listener Слушатель нажатий для элемента списка
+ *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-class ItemListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
+class ItemListAdapter(private val listener: GistsMainListListener) :
+	RecyclerView.Adapter<TextItemViewHolder>() {
+
 	private var data = emptyList<GistModel>()
 
 	override fun getItemCount() = data.size
@@ -26,7 +31,7 @@ class ItemListAdapter : RecyclerView.Adapter<TextItemViewHolder>() {
 		val view = layoutInflater
 			.inflate(R.layout.main_gist_list_item, parent, false)
 
-		return TextItemViewHolder(view)
+		return TextItemViewHolder(view, listener)
 	}
 
 	/**

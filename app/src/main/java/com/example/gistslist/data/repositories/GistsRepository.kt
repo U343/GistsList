@@ -3,7 +3,7 @@ package com.example.gistslist.data.repositories
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.gistslist.models.data.pojo.GistBean
-import com.example.gistslist.domain.retrofit_gist.GetRetrofitService
+import com.example.gistslist.domain.gist_retrofit.GetRetrofitService
 import com.example.gistslist.domain.gist_repository.IGistRepository
 import retrofit2.Call
 import retrofit2.Callback

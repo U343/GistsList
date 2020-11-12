@@ -1,4 +1,4 @@
-package com.example.gistslist.presentation
+package com.example.gistslist.presentation.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
