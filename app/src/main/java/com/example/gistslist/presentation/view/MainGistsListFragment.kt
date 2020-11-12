@@ -32,6 +32,8 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 	private lateinit var repositoryGistList: IGistRepository
 	private lateinit var recyclerViewAdapter: ItemListAdapter
 
+	private val tagFragment = "fragment"
+
 	companion object {
 		fun newInstance(): MainGistsListFragment {
 			return MainGistsListFragment()
@@ -59,6 +61,7 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 		add_button.setOnClickListener {
 			viewModel.getGistsList()
 		}
+		Log.d("fragment_manage", "MainGistsListFragment")
 	}
 
 	private fun observeListForRecycleView() {
@@ -102,5 +105,16 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 	 */
 	override fun onItemClick(position: Int) {
 		Toast.makeText(requireContext(), "click item $position", Toast.LENGTH_SHORT).show()
+		showFragment(GistInfoFragment.newInstance())
+	}
+
+	private fun showFragment(fragment: Fragment) {
+		val fragmentManager = fragmentManager
+
+		val fragmentTransaction = fragmentManager?.beginTransaction()
+		val newFragment = fragmentManager?.findFragmentByTag(tagFragment) ?: fragment
+		fragmentTransaction?.replace(R.id.content_container, newFragment, tagFragment)
+		fragmentTransaction?.addToBackStack(null)
+		fragmentTransaction?.commit()
 	}
 }
