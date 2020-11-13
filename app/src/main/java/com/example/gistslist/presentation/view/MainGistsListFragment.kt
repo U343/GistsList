@@ -51,7 +51,6 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 	@RequiresApi(Build.VERSION_CODES.N)
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		Log.d("fragment", "main fragment created")
 		initViewModelAndRepository()
 		initRecyclerView()
 		observeListForRecycleView()

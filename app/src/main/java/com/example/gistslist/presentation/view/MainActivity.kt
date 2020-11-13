@@ -17,7 +17,9 @@ class MainActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.empty_activity)
 
-		showFragment(MainGistsListFragment.newInstance(), false)
+		if (savedInstanceState == null) {
+			showFragment(MainGistsListFragment.newInstance(), false)
+		}
 	}
 
 	private fun showFragment(fragment: Fragment, addToBackStack: Boolean) {
