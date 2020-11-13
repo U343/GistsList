@@ -6,7 +6,14 @@ package com.example.gistslist.domain.application
  * @author Dmitrii Bondarev on 13.11.2020
  */
 class CustomApplicationFactory {
-	fun getCustomApplication() : CustomApplicationApi {
-		return CustomApplication()
+	companion object {
+		private var instance: CustomApplicationApi? = null
+
+		fun getCustomApplication(): CustomApplicationApi {
+			if (instance == null) {
+				instance = CustomApplication()
+			}
+			return instance as CustomApplicationApi
+		}
 	}
 }

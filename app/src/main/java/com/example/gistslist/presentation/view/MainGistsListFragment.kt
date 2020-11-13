@@ -18,7 +18,7 @@ import com.example.gistslist.domain.gist_list_item.GistsMainListListener
 import com.example.gistslist.models.presentation.gist_model.GistModel
 import com.example.gistslist.presentation.recycle_view.ItemListAdapter
 import com.example.gistslist.presentation.view_model.MainFragmentViewModel
-import com.example.gistslist.presentation.view_model.MainFragmentModelViewFactory
+import com.example.gistslist.presentation.view_model.MainFragmentViewModelFactory
 import kotlinx.android.synthetic.main.maint_gists_list_fragment.*
 
 /**
@@ -84,11 +84,11 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 	}
 
 	private fun initViewModelAndRepository() {
-		val repository = CustomApplicationFactory().getCustomApplication().repositoryGistList
+		val repository = CustomApplicationFactory.getCustomApplication().repositoryGistList
 
 		viewModel = ViewModelProvider(
 			this,
-			MainFragmentModelViewFactory(repository)
+			MainFragmentViewModelFactory(repository)
 		).get(
 			MainFragmentViewModel::class.java
 		)

@@ -29,4 +29,12 @@ interface GistRepositoryApi {
 	 * @return аррей лист с гистами
 	 */
 	fun getGistsList() : ArrayList<GistModel>
+
+	/**
+	 * Получение объекта GistModel по id
+	 *
+	 * @param id индекс необходимого гиста
+	 * @return объект гиста или null
+	 */
+	fun getGistById(id: Int) : GistModel?
 }
