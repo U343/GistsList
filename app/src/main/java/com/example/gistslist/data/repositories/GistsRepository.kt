@@ -19,7 +19,6 @@ import java.util.function.Consumer
  * @author Dmitrii Bondarev on 10.11.2020
  */
 class GistsRepository : GistRepositoryApi {
-	private val defaultReturnValue: Int = -1
 	private val gistsRetrofitService = GetRetrofitService().getRetrofitService()
 	private lateinit var gistsList: ArrayList<GistModel>
 

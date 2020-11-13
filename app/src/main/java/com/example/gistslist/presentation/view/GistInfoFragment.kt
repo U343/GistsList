@@ -38,7 +38,7 @@ class GistInfoFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-
+		//TODO тут все сырое, можно не смотреть, просто тестирую 
 		val repository = CustomApplicationFactory.getCustomApplication().repositoryGistList
 		viewModel = ViewModelProvider(
 			this,
