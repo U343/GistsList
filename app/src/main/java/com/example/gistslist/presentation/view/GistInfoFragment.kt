@@ -20,46 +20,6 @@ class GistInfoFragment : Fragment() {
 		}
 	}
 
-	override fun onAttach(context: Context) {
-		super.onAttach(context)
-		Log.d("fragment_manage", "onAttach")
-	}
-
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		Log.d("fragment_manage", "onCreate")
-	}
-
-	override fun onStart() {
-		super.onStart()
-		Log.d("fragment_manage", "onStart")
-	}
-
-	override fun onResume() {
-		super.onResume()
-		Log.d("fragment_manage", "onResume")
-	}
-
-	override fun onPause() {
-		super.onPause()
-		Log.d("fragment_manage", "onPause")
-	}
-
-	override fun onStop() {
-		super.onStop()
-		Log.d("fragment_manage", "onStop")
-	}
-
-	override fun onDestroy() {
-		super.onDestroy()
-		Log.d("fragment_manage", "onDestroy")
-	}
-
-	override fun onDetach() {
-		super.onDetach()
-		Log.d("fragment_manage", "onDetach")
-	}
-
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,

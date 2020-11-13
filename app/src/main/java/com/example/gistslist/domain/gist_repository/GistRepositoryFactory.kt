@@ -8,7 +8,7 @@ import com.example.gistslist.data.repositories.GistsRepository
  * @author Dmitrii Bondarev on 10.11.2020
  */
 class GistRepositoryFactory {
-	fun getRepository(): GistsRepository {
+	fun getRepository(): GistRepositoryApi {
 		return GistsRepository()
 	}
 }

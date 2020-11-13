@@ -13,9 +13,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gistslist.R
+import com.example.gistslist.domain.application.CustomApplicationFactory
 import com.example.gistslist.domain.gist_list_item.GistsMainListListener
-import com.example.gistslist.domain.gist_repository.GistRepositoryFactory
-import com.example.gistslist.domain.gist_repository.IGistRepository
 import com.example.gistslist.models.presentation.gist_model.GistModel
 import com.example.gistslist.presentation.recycle_view.ItemListAdapter
 import com.example.gistslist.presentation.view_model.MainFragmentViewModel
@@ -29,10 +28,9 @@ import kotlinx.android.synthetic.main.maint_gists_list_fragment.*
  */
 class MainGistsListFragment : Fragment(), GistsMainListListener {
 	private lateinit var viewModel: MainFragmentViewModel
-	private lateinit var repositoryGistList: IGistRepository
 	private lateinit var recyclerViewAdapter: ItemListAdapter
 
-	private val tagFragment = "fragment"
+	private val tagFragment = "gist_info_fragment"
 
 	companion object {
 		fun newInstance(): MainGistsListFragment {
@@ -51,10 +49,11 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 	@RequiresApi(Build.VERSION_CODES.N)
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
+
 		initViewModelAndRepository()
 		initRecyclerView()
-		observeListForRecycleView()
 
+		observeListForRecycleView()
 		observeProgressBar()
 
 		add_button.setOnClickListener {
@@ -64,7 +63,7 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 	}
 
 	private fun observeListForRecycleView() {
-		val numberListObserver = Observer<ArrayList<GistModel>> { gistsList ->
+		val numberListObserver = Observer<List<GistModel>> { gistsList ->
 			recyclerViewAdapter.setData(gistsList)
 		}
 		viewModel.gistsStringList.observe(this, numberListObserver)
@@ -85,8 +84,12 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 	}
 
 	private fun initViewModelAndRepository() {
-		repositoryGistList = GistRepositoryFactory().getRepository()
-		viewModel = ViewModelProvider(this, MainFragmentModelViewFactory(repositoryGistList)).get(
+		val repository = CustomApplicationFactory().getCustomApplication().repositoryGistList
+
+		viewModel = ViewModelProvider(
+			this,
+			MainFragmentModelViewFactory(repository)
+		).get(
 			MainFragmentViewModel::class.java
 		)
 	}
