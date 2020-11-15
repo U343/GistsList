@@ -1,0 +1,56 @@
+--CustomApplication
+	Идея с CustomApplicationApi хорошая, но инициализация repositoryGistList должна происходить
+	другим образом. Сейчас у тебя этот объект создается при создании объекта, хотя у Application
+	есть свои методы лайфсайкла. Ты можешь завести lateinit проперти в Application, а потом её в
+	onCreate инициализировать, а уже в методе get() для repositoryGistList возвращать эту пропертю
+
+	Ещё CustomApplicationApi лучше назвать GistRepositoryProvider
+
+--CustomApplicationFactory
+	Этого класса не должно быть, ты каждый раз создаешь новый Application, хотя он создается
+	автоматически при старте приложения, если в AndroidManifest.xml зарегестрировать его
+	android:name=".domain.application.CustomApplication" (это надо прописать в теге <application>)
+
+	Получение CustomApplicationApi можно реализовать во фрагментах следующим образом
+	requireContext().applicationContext as CustomApplicationApi
+
+--MainFragmentViewModel
+	Создание и хранение onResponseConsumer и onFailureConsumer на уровне класса -- избыточно,
+	лучше перенести их в саму функцию. А можно вообще указывать лямбды, тогда получится так:
+			repository.loadGists(
+    			{
+    				gistsStringList.value = repository.getGistsList()
+    				loadDataStatus.value = false
+    			},
+    			{ Log.d("onFailure", "fail") }
+    		)
+
+--MainGistsListFragment
+	Подход с реализацией лисенера в качестве фрагмента не ок, так как ты передаешь в адаптер инстанс
+	фрагмента, а у тебя из-за этого могут быть утечки памяти, лучше передавать лямбды или созданные
+	объекты как в MainFragmentViewModel
+
+	Лучше не делать так, так как у это константа
+	private val tagFragment = "gist_info_fragment"
+	для этого есть companion object, там ты можешь сделать что-то типа
+	private const val TAG = "gist_info_fragment"
+
+	Неправильное получение репозитория
+
+	Навигацию showFragment() лучше делать через activity c использование navigator/router
+
+	observeListForRecycleView()
+	Можно и лучше заменить на лямбду
+			viewModel.gistsStringList.observe(this) { gistsList ->
+    			recyclerViewAdapter.setData(gistsList)
+    		}
+
+    observeProgressBar()
+    observer так же лучше заменить на лямбду
+
+--Создание GistsRepository
+	 Напомни рассказать об этом
+
+--main_gist_list_item.xml
+	Попробуй сделать через CardView и ConstraintLayout
+
