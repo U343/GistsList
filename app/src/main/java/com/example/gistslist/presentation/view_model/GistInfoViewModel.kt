@@ -27,7 +27,10 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 	private fun setGistInfoList(model: GistModel) {
 		gistInfoList.value = arrayListOf(
 			model.gistDescription,
-			model.userLogin
+			model.gistType,
+			model.language,
+			model.userLogin,
+			model.urlToGist
 		)
 	}
 }
