@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gistslist.R
 import com.example.gistslist.domain.application.GistRepositoryProvider
-import com.example.gistslist.domain.gist_list_item.GistsMainListListener
 import com.example.gistslist.presentation.recycle_view.ItemListAdapter
 import com.example.gistslist.presentation.router.GistListRouter
 import com.example.gistslist.presentation.view_model.MainFragmentViewModel
@@ -26,7 +25,7 @@ import java.lang.ref.WeakReference
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-class MainGistsListFragment : Fragment(), GistsMainListListener {
+class MainGistsListFragment : Fragment() {
 	private lateinit var viewModel: MainFragmentViewModel
 	private lateinit var recyclerViewAdapter: ItemListAdapter
 	private lateinit var mRouter: WeakReference<GistListRouter>
@@ -104,7 +103,7 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 
 	private fun initRecyclerView() {
 		recyclerViewAdapter = ItemListAdapter { position ->
-			onItemClick(position as Int)
+			onListItemClick(position as Int)
 		}
 
 		recycler_view.adapter = recyclerViewAdapter
@@ -115,7 +114,7 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 	/**
 	 * Обработчик нажатия на элемент списка recycler view
 	 */
-	override fun onItemClick(position: Int) {
+	private fun onListItemClick(position: Int) {
 		Toast.makeText(requireContext(), "click item $position", Toast.LENGTH_SHORT).show()
 		mRouter.get()?.goToGistInfoFragment()
 	}

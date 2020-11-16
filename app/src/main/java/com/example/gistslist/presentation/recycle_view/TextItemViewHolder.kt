@@ -1,9 +1,7 @@
 package com.example.gistslist.presentation.recycle_view
 
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gistslist.domain.gist_list_item.GistsMainListListener
 import com.example.gistslist.models.presentation.gist_model.GistModel
 import kotlinx.android.synthetic.main.main_gist_list_item.view.*
 
