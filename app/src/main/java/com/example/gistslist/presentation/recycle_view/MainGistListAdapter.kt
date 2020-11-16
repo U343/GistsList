@@ -13,24 +13,24 @@ import com.example.gistslist.models.presentation.gist_model.GistModel
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-class ItemListAdapter(private val listener: (Any) -> Unit) :
-	RecyclerView.Adapter<TextItemViewHolder>() {
+class MainGistListAdapter(private val listener: (Any) -> Unit) :
+	RecyclerView.Adapter<MainGistListViewHolder>() {
 
 	private var data = emptyList<GistModel>()
 
 	override fun getItemCount() = data.size
 
-	override fun onBindViewHolder(holder: TextItemViewHolder, position: Int) {
+	override fun onBindViewHolder(holder: MainGistListViewHolder, position: Int) {
 		holder.bind(data[position])
 	}
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextItemViewHolder {
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainGistListViewHolder {
 		val layoutInflater = LayoutInflater.from(parent.context)
 
 		val view = layoutInflater
 			.inflate(R.layout.main_gist_list_item, parent, false)
 
-		return TextItemViewHolder(view, listener)
+		return MainGistListViewHolder(view, listener)
 	}
 
 	/**

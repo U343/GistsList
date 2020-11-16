@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.main_gist_list_item.view.*
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-class TextItemViewHolder(itemView: View, private val listener: (Any) -> Unit) :
+class MainGistListViewHolder(itemView: View, private val listener: (Any) -> Unit) :
 	RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
 	init {
@@ -27,7 +27,7 @@ class TextItemViewHolder(itemView: View, private val listener: (Any) -> Unit) :
 	 */
 	fun bind(gistModel: GistModel) {
 		itemView.login_title.text = gistModel.userLogin
-		itemView.description_title.text = gistModel.gistDescription
+		itemView.description_title.text = gistModel.urlToGist
 	}
 
 	override fun onClick(v: View?) {

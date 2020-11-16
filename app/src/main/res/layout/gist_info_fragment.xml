@@ -17,6 +17,7 @@
         android:textSize="@dimen/heading_size_1"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/info_recycler_view"
         android:layout_width="@dimen/zero_dp"
         android:layout_height="@dimen/zero_dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

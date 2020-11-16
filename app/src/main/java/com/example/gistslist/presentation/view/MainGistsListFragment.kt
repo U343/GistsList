@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gistslist.R
 import com.example.gistslist.domain.application.GistRepositoryProvider
-import com.example.gistslist.presentation.recycle_view.ItemListAdapter
+import com.example.gistslist.presentation.recycle_view.MainGistListAdapter
 import com.example.gistslist.presentation.router.GistListRouter
 import com.example.gistslist.presentation.view_model.MainFragmentViewModel
 import com.example.gistslist.presentation.view_model.MainFragmentViewModelFactory
@@ -27,7 +27,7 @@ import java.lang.ref.WeakReference
  */
 class MainGistsListFragment : Fragment() {
 	private lateinit var viewModel: MainFragmentViewModel
-	private lateinit var recyclerViewAdapter: ItemListAdapter
+	private lateinit var recyclerViewAdapter: MainGistListAdapter
 	private lateinit var mRouter: WeakReference<GistListRouter>
 
 	companion object {
@@ -102,13 +102,13 @@ class MainGistsListFragment : Fragment() {
 	}
 
 	private fun initRecyclerView() {
-		recyclerViewAdapter = ItemListAdapter { position ->
+		recyclerViewAdapter = MainGistListAdapter { position ->
 			onListItemClick(position as Int)
 		}
 
-		recycler_view.adapter = recyclerViewAdapter
-		recycler_view.layoutManager = LinearLayoutManager(requireContext())
-		recycler_view.setHasFixedSize(true)
+		gist_recycler_view.adapter = recyclerViewAdapter
+		gist_recycler_view.layoutManager = LinearLayoutManager(requireContext())
+		gist_recycler_view.setHasFixedSize(true)
 	}
 
 	/**

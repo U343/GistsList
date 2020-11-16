@@ -58,7 +58,10 @@ class GistsRepository : GistRepositoryApi {
 		gistsList = pojoList.map {
 			GistModel(
 				it.files.keys.firstOrNull(),
-				it.description
+				it.description,
+				it.files[it.files.keys.firstOrNull()]?.language,
+				it.files[it.files.keys.firstOrNull()]?.type,
+				it.html_url
 			)
 		} as ArrayList<GistModel>
 	}

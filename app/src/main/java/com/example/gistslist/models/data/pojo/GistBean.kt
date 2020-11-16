@@ -13,6 +13,7 @@ import com.google.gson.annotations.SerializedName
  */
 data class GistBean(
         @SerializedName("files") val files: Map<String, FileBean>,
+        @SerializedName("html_url") val html_url: String?,
         @SerializedName("description") val description: String?,
         @SerializedName("owner") val ownerBean: OwnerBean
 )
