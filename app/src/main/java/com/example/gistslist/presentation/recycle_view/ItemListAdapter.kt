@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gistslist.R
-import com.example.gistslist.domain.gist_list_item.GistsMainListListener
 import com.example.gistslist.models.presentation.gist_model.GistModel
 
 /**
@@ -14,7 +13,7 @@ import com.example.gistslist.models.presentation.gist_model.GistModel
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-class ItemListAdapter(private val listener: GistsMainListListener) :
+class ItemListAdapter(private val listener: (Any) -> Unit) :
 	RecyclerView.Adapter<TextItemViewHolder>() {
 
 	private var data = emptyList<GistModel>()

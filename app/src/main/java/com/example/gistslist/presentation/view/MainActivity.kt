@@ -11,7 +11,10 @@ import com.example.gistslist.R
  * @author Dmitrii Bondarev on 10.11.2020
  */
 class MainActivity : AppCompatActivity() {
-	private val tagMainFragment = "main_fragment"
+
+	companion object {
+		private const val TAG = "main_fragment"
+	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -26,8 +29,8 @@ class MainActivity : AppCompatActivity() {
 		val fragmentManager = supportFragmentManager
 
 		val fragmentTransaction = fragmentManager.beginTransaction()
-		val newFragment = fragmentManager.findFragmentByTag(tagMainFragment) ?: fragment
-		fragmentTransaction.replace(R.id.content_container, newFragment, tagMainFragment)
+		val newFragment = fragmentManager.findFragmentByTag(TAG) ?: fragment
+		fragmentTransaction.replace(R.id.content_container, newFragment, TAG)
 		if (addToBackStack) {
 			fragmentTransaction.addToBackStack(null)
 		}

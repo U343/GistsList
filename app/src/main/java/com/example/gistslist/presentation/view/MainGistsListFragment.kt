@@ -30,9 +30,9 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 	private lateinit var viewModel: MainFragmentViewModel
 	private lateinit var recyclerViewAdapter: ItemListAdapter
 
-	private val tagFragment = "gist_info_fragment"
-
 	companion object {
+		private const val TAG = "gist_info_fragment"
+
 		fun newInstance(): MainGistsListFragment {
 			return MainGistsListFragment()
 		}
@@ -59,28 +59,25 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 		add_button.setOnClickListener {
 			viewModel.getGistsList()
 		}
-		Log.d("fragment_manage", "MainGistsListFragment")
 	}
 
 	private fun observeListForRecycleView() {
-		val numberListObserver = Observer<List<GistModel>> { gistsList ->
+		viewModel.gistsStringList.observe(this) { gistsList ->
 			recyclerViewAdapter.setData(gistsList)
 		}
-		viewModel.gistsStringList.observe(this, numberListObserver)
 	}
 
 	/**
 	 * Отображает прогресс бар, пока загружается список гистов
 	 */
 	private fun observeProgressBar() {
-		val progress = Observer<Boolean> { loadDataStatus ->
+		viewModel.loadDataStatus.observe(this) { loadDataStatus ->
 			if (loadDataStatus) {
 				progress_bar.visibility = View.VISIBLE
 			} else {
 				progress_bar.visibility = View.INVISIBLE
 			}
 		}
-		viewModel.loadDataStatus.observe(this, progress)
 	}
 
 	private fun initViewModelAndRepository() {
@@ -96,7 +93,9 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 	}
 
 	private fun initRecyclerView() {
-		recyclerViewAdapter = ItemListAdapter(this)
+		recyclerViewAdapter = ItemListAdapter { position ->
+			onItemClick(position as Int)
+		}
 
 		recycler_view.adapter = recyclerViewAdapter
 		recycler_view.layoutManager = LinearLayoutManager(requireContext())
@@ -115,8 +114,8 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 		val fragmentManager = fragmentManager
 
 		val fragmentTransaction = fragmentManager?.beginTransaction()
-		val newFragment = fragmentManager?.findFragmentByTag(tagFragment) ?: fragment
-		fragmentTransaction?.replace(R.id.content_container, newFragment, tagFragment)
+		val newFragment = fragmentManager?.findFragmentByTag(TAG) ?: fragment
+		fragmentTransaction?.replace(R.id.content_container, newFragment, TAG)
 		fragmentTransaction?.addToBackStack(null)
 		fragmentTransaction?.commit()
 	}

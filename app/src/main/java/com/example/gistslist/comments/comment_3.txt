@@ -31,14 +31,14 @@
 --MainGistsListFragment
 	Подход с реализацией лисенера в качестве фрагмента не ок, так как ты передаешь в адаптер инстанс
 	фрагмента, а у тебя из-за этого могут быть утечки памяти, лучше передавать лямбды или созданные
-	объекты как в MainFragmentViewModel
+	объекты как в MainFragmentViewModel                                    ✔?
 
 	Лучше не делать так, так как у это константа
 	private val tagFragment = "gist_info_fragment"
 	для этого есть companion object, там ты можешь сделать что-то типа
-	private const val TAG = "gist_info_fragment"
+	private const val TAG = "gist_info_fragment"                           ✔
 
-	Неправильное получение репозитория
+	Неправильное получение репозитория                                      ?
 
 	Навигацию showFragment() лучше делать через activity c использование navigator/router
 
@@ -46,10 +46,10 @@
 	Можно и лучше заменить на лямбду
 			viewModel.gistsStringList.observe(this) { gistsList ->
     			recyclerViewAdapter.setData(gistsList)
-    		}
+    		}                                                               ✔
 
     observeProgressBar()
-    observer так же лучше заменить на лямбду
+    observer так же лучше заменить на лямбду                                ✔
 
 --Создание GistsRepository
 	 Напомни рассказать об этом
