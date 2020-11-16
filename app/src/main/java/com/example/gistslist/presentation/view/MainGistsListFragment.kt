@@ -1,25 +1,25 @@
 package com.example.gistslist.presentation.view
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gistslist.R
 import com.example.gistslist.domain.application.GistRepositoryProvider
 import com.example.gistslist.domain.gist_list_item.GistsMainListListener
-import com.example.gistslist.models.presentation.gist_model.GistModel
 import com.example.gistslist.presentation.recycle_view.ItemListAdapter
+import com.example.gistslist.presentation.router.GistListRouter
 import com.example.gistslist.presentation.view_model.MainFragmentViewModel
 import com.example.gistslist.presentation.view_model.MainFragmentViewModelFactory
 import kotlinx.android.synthetic.main.maint_gists_list_fragment.*
+import java.lang.ref.WeakReference
 
 /**
  * Фрагмент отображения списка гистов
@@ -29,12 +29,22 @@ import kotlinx.android.synthetic.main.maint_gists_list_fragment.*
 class MainGistsListFragment : Fragment(), GistsMainListListener {
 	private lateinit var viewModel: MainFragmentViewModel
 	private lateinit var recyclerViewAdapter: ItemListAdapter
+	private lateinit var mRouter: WeakReference<GistListRouter>
 
 	companion object {
-		private const val TAG = "gist_info_fragment"
+		const val TAG = "main_fragment"
 
 		fun newInstance(): MainGistsListFragment {
 			return MainGistsListFragment()
+		}
+	}
+
+	override fun onAttach(context: Context) {
+		super.onAttach(context)
+
+		val activity = requireActivity()
+		if (activity is GistListRouter) {
+			mRouter = WeakReference(activity);
 		}
 	}
 
@@ -107,16 +117,6 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 	 */
 	override fun onItemClick(position: Int) {
 		Toast.makeText(requireContext(), "click item $position", Toast.LENGTH_SHORT).show()
-		showFragment(GistInfoFragment.newInstance())
-	}
-
-	private fun showFragment(fragment: Fragment) {
-		val fragmentManager = fragmentManager
-
-		val fragmentTransaction = fragmentManager?.beginTransaction()
-		val newFragment = fragmentManager?.findFragmentByTag(TAG) ?: fragment
-		fragmentTransaction?.replace(R.id.content_container, newFragment, TAG)
-		fragmentTransaction?.addToBackStack(null)
-		fragmentTransaction?.commit()
+		mRouter.get()?.goToGistInfoFragment()
 	}
 }

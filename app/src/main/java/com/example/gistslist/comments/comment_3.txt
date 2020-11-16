@@ -41,6 +41,7 @@
 	Неправильное получение репозитория                                      ?
 
 	Навигацию showFragment() лучше делать через activity c использование navigator/router
+	                                                                        ✔?
 
 	observeListForRecycleView()
 	Можно и лучше заменить на лямбду
@@ -52,8 +53,8 @@
     observer так же лучше заменить на лямбду                                ✔
 
 --Создание GistsRepository
-	 Напомни рассказать об этом
+	 Напомни рассказать об этом                                              ?
 
 --main_gist_list_item.xml
-	Попробуй сделать через CardView и ConstraintLayout
+	Попробуй сделать через CardView и ConstraintLayout                        ✔
 

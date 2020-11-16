@@ -22,6 +22,8 @@ class GistInfoFragment : Fragment() {
 	private lateinit var viewModel: GistInfoViewModel
 
 	companion object {
+		const val TAG = "gist_info_fragment"
+
 		fun newInstance(): GistInfoFragment {
 			return GistInfoFragment()
 		}

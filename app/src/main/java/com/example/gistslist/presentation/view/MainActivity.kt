@@ -4,33 +4,46 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.gistslist.R
+import com.example.gistslist.presentation.router.GistListRouter
 
 /**
  * Активити функционала отображения списка гистов
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-class MainActivity : AppCompatActivity() {
-
-	companion object {
-		private const val TAG = "main_fragment"
-	}
+class MainActivity : AppCompatActivity(), GistListRouter {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.empty_activity)
 
 		if (savedInstanceState == null) {
-			showFragment(MainGistsListFragment.newInstance(), false)
+			goToMainGistListFragment()
 		}
 	}
 
-	private fun showFragment(fragment: Fragment, addToBackStack: Boolean) {
+	override fun goToMainGistListFragment() {
+		showFragment(
+			MainGistsListFragment.newInstance(),
+			false,
+			MainGistsListFragment.TAG
+		)
+	}
+
+	override fun goToGistInfoFragment() {
+		showFragment(
+			GistInfoFragment.newInstance(),
+			true,
+			GistInfoFragment.TAG
+		)
+	}
+
+	private fun showFragment(fragment: Fragment, addToBackStack: Boolean, tag: String) {
 		val fragmentManager = supportFragmentManager
 
 		val fragmentTransaction = fragmentManager.beginTransaction()
-		val newFragment = fragmentManager.findFragmentByTag(TAG) ?: fragment
-		fragmentTransaction.replace(R.id.content_container, newFragment, TAG)
+		val newFragment = fragmentManager.findFragmentByTag(tag) ?: fragment
+		fragmentTransaction.replace(R.id.content_container, newFragment, tag)
 		if (addToBackStack) {
 			fragmentTransaction.addToBackStack(null)
 		}
