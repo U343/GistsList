@@ -9,6 +9,6 @@ import com.example.gistslist.domain.gist_repository.GistRepositoryApi
  *
  * @author Dmitrii Bondarev on 13.11.2020
  */
-interface CustomApplicationApi {
-	val repositoryGistList: GistRepositoryApi
+interface GistRepositoryProvider {
+	fun getRepositoryGistList(): GistRepositoryApi
 }

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.gistslist.R
-import com.example.gistslist.domain.application.CustomApplicationFactory
+import com.example.gistslist.domain.application.GistRepositoryProvider
 import com.example.gistslist.presentation.view_model.GistInfoViewModel
 import com.example.gistslist.presentation.view_model.GistInfoViewModelFactory
 import kotlinx.android.synthetic.main.gist_info_fragment.*
@@ -39,7 +39,8 @@ class GistInfoFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		//TODO тут все сырое, можно не смотреть, просто тестирую 
-		val repository = CustomApplicationFactory.getCustomApplication().repositoryGistList
+		val repository =
+			(requireContext().applicationContext as GistRepositoryProvider).getRepositoryGistList()
 		viewModel = ViewModelProvider(
 			this,
 			GistInfoViewModelFactory(repository)

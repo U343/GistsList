@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gistslist.R
-import com.example.gistslist.domain.application.CustomApplicationFactory
+import com.example.gistslist.domain.application.GistRepositoryProvider
 import com.example.gistslist.domain.gist_list_item.GistsMainListListener
 import com.example.gistslist.models.presentation.gist_model.GistModel
 import com.example.gistslist.presentation.recycle_view.ItemListAdapter
@@ -84,7 +84,8 @@ class MainGistsListFragment : Fragment(), GistsMainListListener {
 	}
 
 	private fun initViewModelAndRepository() {
-		val repository = CustomApplicationFactory.getCustomApplication().repositoryGistList
+		val repository =
+			(requireContext().applicationContext as GistRepositoryProvider).getRepositoryGistList()
 
 		viewModel = ViewModelProvider(
 			this,

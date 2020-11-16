@@ -24,21 +24,18 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 		MutableLiveData<Boolean>()
 	}
 
-	private val onResponseConsumer =
-		Consumer<List<GistBean>> {
-			gistsStringList.value = repository.getGistsList()
-			loadDataStatus.value = false
-		}
-
-	private val onFailureConsumer =
-		Consumer<Throwable> { Log.d("onFailure", "fail") }
-
 	/**
 	 * Вызов команды запроса к Api гита
 	 */
 	@RequiresApi(Build.VERSION_CODES.N)
 	fun getGistsList() {
 		loadDataStatus.value = true
-		repository.loadGists(onResponseConsumer, onFailureConsumer)
+		repository.loadGists(
+			{
+				gistsStringList.value = repository.getGistsList()
+				loadDataStatus.value = false
+			},
+			{ Log.d("onFailure", "fail") }
+		)
 	}
 }

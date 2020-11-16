@@ -3,16 +3,18 @@
 	другим образом. Сейчас у тебя этот объект создается при создании объекта, хотя у Application
 	есть свои методы лайфсайкла. Ты можешь завести lateinit проперти в Application, а потом её в
 	onCreate инициализировать, а уже в методе get() для repositoryGistList возвращать эту пропертю
+	                                                                    ✔
 
-	Ещё CustomApplicationApi лучше назвать GistRepositoryProvider
+	Ещё CustomApplicationApi лучше назвать GistRepositoryProvider       ✔
 
 --CustomApplicationFactory
 	Этого класса не должно быть, ты каждый раз создаешь новый Application, хотя он создается
 	автоматически при старте приложения, если в AndroidManifest.xml зарегестрировать его
 	android:name=".domain.application.CustomApplication" (это надо прописать в теге <application>)
+	                                                                     ✔
 
 	Получение CustomApplicationApi можно реализовать во фрагментах следующим образом
-	requireContext().applicationContext as CustomApplicationApi
+	requireContext().applicationContext as CustomApplicationApi          ✔
 
 --MainFragmentViewModel
 	Создание и хранение onResponseConsumer и onFailureConsumer на уровне класса -- избыточно,
@@ -24,6 +26,7 @@
     			},
     			{ Log.d("onFailure", "fail") }
     		)
+    		                                                              ✔
 
 --MainGistsListFragment
 	Подход с реализацией лисенера в качестве фрагмента не ок, так как ты передаешь в адаптер инстанс
