@@ -41,7 +41,6 @@ class GistInfoFragment : Fragment() {
 	): View? {
 
 		gistPosition = arguments?.getInt(KEY)
-		Log.d("frLifecycle", "GistInfo")
 		return inflater.inflate(R.layout.gist_info_fragment, container, false)
 	}
 
@@ -57,7 +56,7 @@ class GistInfoFragment : Fragment() {
 		initRecyclerView()
 		observeItems()
 		viewModel.generateGistInfoList(gistPosition)
-		setNameGist()
+		setHeader()
 	}
 
 	private fun initRecyclerView() {
@@ -72,7 +71,7 @@ class GistInfoFragment : Fragment() {
 		viewModel.gistInfoList.observe(this) {data -> recyclerViewAdapter.setData(data)}
 	}
 
-	private fun setNameGist() {
+	private fun setHeader() {
 		gist_info_filename.text = viewModel.gistName ?: resources.getString(R.string.not_found)
 	}
 }

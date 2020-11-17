@@ -13,6 +13,8 @@ import java.util.function.Consumer
 /**
  * Вью модель для отображения списка гистов
  *
+ * @param [repository] репозиторий для работы со списком гистов
+ *
  * @author Dmitrii Bondarev on 10.11.2020
  */
 class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewModel() {

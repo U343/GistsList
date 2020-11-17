@@ -53,7 +53,6 @@ class MainGistsListFragment : Fragment() {
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		Log.d("frLifecycle", "MainList")
 		return inflater.inflate(R.layout.maint_gists_list_fragment, container, false)
 	}
 

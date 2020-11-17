@@ -8,6 +8,8 @@ import com.example.gistslist.models.presentation.gist_model.GistModel
 /**
  * Вью модель фргамента с информацией о гисте
  *
+ * @param [repository] репозиторий для работы со списком гистов
+ *
  * @author Dmitrii Bondarev on 13.11.2020
  */
 class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel() {
@@ -27,6 +29,13 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 		}
 	}
 
+	/**
+	 * Создание аррай листа на основе модели гиста
+	 *
+	 * Порядок элементов должен совпадать с [fieldsNameList] в [GistInfoFields]
+	 *
+	 * @param [model] модель гиста
+	 */
 	private fun setGistInfoList(model: GistModel) {
 		gistInfoList.value = arrayListOf(
 			model.gistDescription,
