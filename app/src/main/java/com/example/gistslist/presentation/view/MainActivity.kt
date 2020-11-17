@@ -23,30 +23,26 @@ class MainActivity : AppCompatActivity(), GistListRouter {
 	}
 
 	override fun goToMainGistListFragment() {
-		showFragment(
-			MainGistsListFragment.newInstance(),
-			false,
-			MainGistsListFragment.TAG
-		)
-	}
-
-	override fun goToGistInfoFragment() {
-		showFragment(
-			GistInfoFragment.newInstance(),
-			true,
-			GistInfoFragment.TAG
-		)
-	}
-
-	private fun showFragment(fragment: Fragment, addToBackStack: Boolean, tag: String) {
+		val fragment = MainGistsListFragment.newInstance()
 		val fragmentManager = supportFragmentManager
 
 		val fragmentTransaction = fragmentManager.beginTransaction()
-		val newFragment = fragmentManager.findFragmentByTag(tag) ?: fragment
-		fragmentTransaction.replace(R.id.content_container, newFragment, tag)
-		if (addToBackStack) {
-			fragmentTransaction.addToBackStack(null)
-		}
+		val newFragment = fragmentManager.findFragmentByTag(MainGistsListFragment.TAG) ?: fragment
+		fragmentTransaction.replace(R.id.content_container, newFragment, MainGistsListFragment.TAG)
+		fragmentTransaction.commit()
+	}
+
+	override fun goToGistInfoFragment(gistPosition: Int) {
+		val fragment = GistInfoFragment.newInstance()
+		val fragmentManager = supportFragmentManager
+		val bundle = Bundle()
+
+		bundle.putInt(GistInfoFragment.KEY, gistPosition)
+		val fragmentTransaction = fragmentManager.beginTransaction()
+		val newFragment = fragmentManager.findFragmentByTag(GistInfoFragment.TAG) ?: fragment
+		fragmentTransaction.replace(R.id.content_container, newFragment, GistInfoFragment.TAG)
+		newFragment.arguments = bundle
+		fragmentTransaction.addToBackStack(null)
 		fragmentTransaction.commit()
 	}
 }

@@ -26,8 +26,8 @@ class MainGistListViewHolder(itemView: View, private val listener: (Any) -> Unit
 	 * @param gistModel объект с информацией о гисте
 	 */
 	fun bind(gistModel: GistModel) {
-		itemView.login_title.text = gistModel.userLogin
-		itemView.description_title.text = gistModel.urlToGist
+		itemView.login_title.text = gistModel.gistName
+		itemView.description_title.text = gistModel.gistDescription
 	}
 
 	override fun onClick(v: View?) {

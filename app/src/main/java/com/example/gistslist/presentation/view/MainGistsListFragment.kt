@@ -3,6 +3,7 @@ package com.example.gistslist.presentation.view
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,6 +53,7 @@ class MainGistsListFragment : Fragment() {
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
+		Log.d("frLifecycle", "MainList")
 		return inflater.inflate(R.layout.maint_gists_list_fragment, container, false)
 	}
 
@@ -115,7 +117,6 @@ class MainGistsListFragment : Fragment() {
 	 * Обработчик нажатия на элемент списка recycler view
 	 */
 	private fun onListItemClick(position: Int) {
-		Toast.makeText(requireContext(), "click item $position", Toast.LENGTH_SHORT).show()
-		mRouter.get()?.goToGistInfoFragment()
+		mRouter.get()?.goToGistInfoFragment(position)
 	}
 }

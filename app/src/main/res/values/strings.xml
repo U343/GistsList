@@ -7,6 +7,6 @@
     <string name="not_found">Not found</string>
 
     <!-- Text item view -->
-    <string name="login_title">Login:</string>
+    <string name="login_title">Name:</string>
     <string name="description_title">Description:</string>
 </resources>

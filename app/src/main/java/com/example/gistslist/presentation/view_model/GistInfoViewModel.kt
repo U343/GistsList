@@ -11,16 +11,19 @@ import com.example.gistslist.models.presentation.gist_model.GistModel
  * @author Dmitrii Bondarev on 13.11.2020
  */
 class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel() {
+	var gistName: String? = null
 
-	val gistInfoList: MutableLiveData<ArrayList<String?>> by lazy {
-		MutableLiveData<ArrayList<String?>>()
+	val gistInfoList: MutableLiveData<List<String?>> by lazy {
+		MutableLiveData<List<String?>>()
 	}
 
-	fun generateGistInfoList(id: Int) {
-		val model =  repository.getGistById(id)
-
-		if (model != null) {
-			setGistInfoList(model)
+	fun generateGistInfoList(id: Int?) {
+		if (id != null) {
+			val model = repository.getGistById(id)
+			model?.let {
+				setGistInfoList(it)
+				gistName = it.gistName
+			}
 		}
 	}
 
