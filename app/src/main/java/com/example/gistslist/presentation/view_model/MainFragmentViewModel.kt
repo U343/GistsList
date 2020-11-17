@@ -6,9 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gistslist.models.presentation.gist_model.GistModel
-import com.example.gistslist.models.data.pojo.GistBean
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
-import java.util.function.Consumer
 
 /**
  * Вью модель для отображения списка гистов
@@ -26,11 +24,14 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 		MutableLiveData<Boolean>()
 	}
 
+	var isDataLoaded = false
+
 	/**
 	 * Вызов команды запроса к Api гита
 	 */
 	@RequiresApi(Build.VERSION_CODES.N)
 	fun getGistsList() {
+		isDataLoaded = true
 		loadDataStatus.value = true
 		repository.loadGists(
 			{

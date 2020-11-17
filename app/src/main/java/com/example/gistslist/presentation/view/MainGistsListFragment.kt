@@ -66,7 +66,10 @@ class MainGistsListFragment : Fragment() {
 		observeListForRecycleView()
 		observeProgressBar()
 
-		add_button.setOnClickListener {
+		if (!viewModel.isDataLoaded) {
+			viewModel.getGistsList()
+		}
+		swipe_to_refresh_item.setOnRefreshListener {
 			viewModel.getGistsList()
 		}
 	}
@@ -82,11 +85,7 @@ class MainGistsListFragment : Fragment() {
 	 */
 	private fun observeProgressBar() {
 		viewModel.loadDataStatus.observe(this) { loadDataStatus ->
-			if (loadDataStatus) {
-				progress_bar.visibility = View.VISIBLE
-			} else {
-				progress_bar.visibility = View.INVISIBLE
-			}
+			swipe_to_refresh_item.isRefreshing = loadDataStatus
 		}
 	}
 
