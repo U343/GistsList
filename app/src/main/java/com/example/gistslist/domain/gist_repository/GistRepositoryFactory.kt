@@ -1,5 +1,6 @@
 package com.example.gistslist.domain.gist_repository
 
+import com.example.gistslist.data.gist_retrofit.query_interface.GistsApi
 import com.example.gistslist.data.repositories.GistsRepository
 
 /**
@@ -7,8 +8,8 @@ import com.example.gistslist.data.repositories.GistsRepository
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-class GistRepositoryFactory {
+class GistRepositoryFactory(private val retrofit: GistsApi) {
 	fun getRepository(): GistRepositoryApi {
-		return GistsRepository()
+		return GistsRepository(retrofit)
 	}
 }

@@ -1,6 +1,6 @@
 package com.example.gistslist.domain.gist_retrofit
 
-import com.example.gistslist.data.gist_retrofit.query_interface.GistsRetrofitRequests
+import com.example.gistslist.data.gist_retrofit.query_interface.GistsApi
 
 /**
  * Api Retrofit сервиса
@@ -11,5 +11,5 @@ interface GistsServiceApi {
 	/**
 	 * @return возвращает объект Retrofit сервиса
 	 */
-	fun getRetrofitService(): GistsRetrofitRequests
+	fun getRetrofitService(): GistsApi
 }

@@ -2,8 +2,8 @@ package com.example.gistslist.data.repositories
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.gistslist.data.gist_retrofit.query_interface.GistsApi
 import com.example.gistslist.models.data.pojo.GistBean
-import com.example.gistslist.domain.gist_retrofit.GetRetrofitService
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
 import com.example.gistslist.models.presentation.gist_model.GistModel
 import retrofit2.Call
@@ -18,12 +18,11 @@ import java.util.function.Consumer
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-class GistsRepository : GistRepositoryApi {
-	private val gistsRetrofitService = GetRetrofitService().getRetrofitService()
+class GistsRepository(private val retrofit: GistsApi) : GistRepositoryApi {
 	private lateinit var gistsList: ArrayList<GistModel>
 
 	override fun loadGists(loadSuccess: Consumer<List<GistBean>>, loadFail: Consumer<Throwable>) {
-		val call = gistsRetrofitService.getGists()
+		val call = retrofit.getGists()
 
 		call.enqueue(object : Callback<List<GistBean>> {
 			@RequiresApi(Build.VERSION_CODES.N)

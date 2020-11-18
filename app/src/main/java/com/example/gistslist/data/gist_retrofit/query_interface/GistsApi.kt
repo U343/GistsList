@@ -9,7 +9,7 @@ import retrofit2.http.GET
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-interface GistsRetrofitRequests {
+interface GistsApi {
 
 	/**
 	 * Получение Call объекта для дальнейшего GET запроса
