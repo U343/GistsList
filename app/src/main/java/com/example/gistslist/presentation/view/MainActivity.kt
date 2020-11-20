@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), GistListRouter {
 			goToMainGistListFragment()
 		}
 	}
-
+//TODO оптимизировать эти функции
 	override fun goToMainGistListFragment() {
 		val fragment = MainGistsListFragment.newInstance()
 		val fragmentManager = supportFragmentManager

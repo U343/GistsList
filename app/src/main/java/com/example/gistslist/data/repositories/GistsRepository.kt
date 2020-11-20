@@ -6,10 +6,15 @@ import com.example.gistslist.data.gist_retrofit.query_interface.GistsApi
 import com.example.gistslist.models.data.pojo.GistBean
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
 import com.example.gistslist.models.presentation.gist_model.GistModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.function.Consumer
+import kotlin.properties.Delegates
 
 /**
  * Реализация репозитория для работы со списком гистов
@@ -20,29 +25,50 @@ import java.util.function.Consumer
  */
 class GistsRepository(private val retrofit: GistsApi) : GistRepositoryApi {
 	private lateinit var gistsList: ArrayList<GistModel>
+	private lateinit var dispose: Disposable
 
+	@RequiresApi(Build.VERSION_CODES.N)
 	override fun loadGists(loadSuccess: Consumer<List<GistBean>>, loadFail: Consumer<Throwable>) {
 		val call = retrofit.getGists()
 
-		call.enqueue(object : Callback<List<GistBean>> {
-			@RequiresApi(Build.VERSION_CODES.N)
-			override fun onResponse(
-				call: Call<List<GistBean>>?,
-				response: Response<List<GistBean>>?
-			) {
-				val result = response?.body()
-				if (result != null) {
-					generateGistList(result)
-				}
-				result?.let { loadSuccess.accept(it) }
-			}
-
-			@RequiresApi(Build.VERSION_CODES.N)
-			override fun onFailure(call: Call<List<GistBean>>, t: Throwable) {
-				loadFail.accept(t)
-			}
-		})
+		dispose = call.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe({ result ->
+					if (result != null) {
+						generateGistList(result)
+					}
+					result?.let { loadSuccess.accept(result) }
+				}, {
+					loadFail.accept(it)
+				})
 	}
+
+	fun disposeItems() {
+		dispose.dispose()
+	}
+
+//	override fun loadGists(loadSuccess: Consumer<List<GistBean>>, loadFail: Consumer<Throwable>) {
+//		val call = retrofit.getGists()
+//
+//		call.enqueue(object : Callback<List<GistBean>> {
+//			@RequiresApi(Build.VERSION_CODES.N)
+//			override fun onResponse(
+//				call: Call<List<GistBean>>?,
+//				response: Response<List<GistBean>>?
+//			) {
+//				val result = response?.body()
+//				if (result != null) {
+//					generateGistList(result)
+//				}
+//				result?.let { loadSuccess.accept(it) }
+//			}
+//
+//			@RequiresApi(Build.VERSION_CODES.N)
+//			override fun onFailure(call: Call<List<GistBean>>, t: Throwable) {
+//				loadFail.accept(t)
+//			}
+//		})
+//	}
 
 	/**
 	 * Формирование списка моделей гиста
