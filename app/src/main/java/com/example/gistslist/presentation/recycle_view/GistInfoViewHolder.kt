@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.gist_info_item.view.*
  *
  * @author Dmitrii Bondarev on 17.11.2020
  */
-class GistInfoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class GistInfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 	/**
 	 * Устанавливает текстовые значения для полей вью элемента
@@ -21,10 +21,14 @@ class GistInfoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 	 * @param [nameField] Название характеристики гиста
 	 * @param [contentField] Характеристика гиста
 	 */
+	//TODO Уверен что здесь плохо делаю, но ничего лучше не придумал. На этом экране я вывожу список
+	// с инфой о гисте. Уменя есть список с названиями характеристик и список с самими характеристиками
+	// Мне очень не нравится что эти списки вроде никак не зависят друг от друга и если придется добавлять
+	// новые параметыр то придется менять два списка да и еще за их порядком следить
 	fun bind(nameField: String, contentField: String?) {
 		if (contentField == null || contentField == "") {
 			itemView.visibility = View.GONE
-			itemView.layoutParams = RecyclerView.LayoutParams(0,0)
+			itemView.layoutParams = RecyclerView.LayoutParams(0, 0)
 		} else {
 			itemView.gist_info_title.text = nameField
 			itemView.gist_info_text.text = contentField

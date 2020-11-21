@@ -22,9 +22,9 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 	fun generateGistInfoList(id: Int?) {
 		if (id != null) {
 			val model = repository.getGistById(id)
-			model?.let {
-				setGistInfoList(it)
-				gistName = it.gistName
+			model?.let { result ->
+				setGistInfoList(result)
+				gistName = result.gistName
 			}
 		}
 	}

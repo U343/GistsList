@@ -32,17 +32,18 @@ class GistsRepository(private val retrofit: GistsApi) : GistRepositoryApi {
 		val call = retrofit.getGists()
 
 		dispose = call.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe({ result ->
-					if (result != null) {
-						generateGistList(result)
-					}
-					result?.let { loadSuccess.accept(result) }
-				}, {
-					loadFail.accept(it)
-				})
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe({ result ->
+				if (result != null) {
+					generateGistList(result)
+				}
+				result?.let { loadSuccess.accept(result) }
+			}, {
+				loadFail.accept(it)
+			})
 	}
 
+	// TODO я еще не разобрался с dispose, оставил пока так
 	fun disposeItems() {
 		dispose.dispose()
 	}

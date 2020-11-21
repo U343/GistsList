@@ -29,7 +29,7 @@ import java.lang.ref.WeakReference
 class MainGistsListFragment : Fragment() {
 	private lateinit var viewModel: MainFragmentViewModel
 	private lateinit var recyclerViewAdapter: MainGistListAdapter
-	private lateinit var mRouter: WeakReference<GistListRouter>
+	private lateinit var router: WeakReference<GistListRouter>
 
 	companion object {
 		const val TAG = "main_fragment"
@@ -44,7 +44,7 @@ class MainGistsListFragment : Fragment() {
 
 		val activity = requireActivity()
 		if (activity is GistListRouter) {
-			mRouter = WeakReference(activity);
+			router = WeakReference(activity);
 		}
 	}
 
@@ -72,6 +72,13 @@ class MainGistsListFragment : Fragment() {
 		swipe_to_refresh_item.setOnRefreshListener {
 			viewModel.getGistsList()
 		}
+	}
+// TODO ты говорил про то что нужно ссылкку занулить, я так понимаю ты про это говорил, но не понимаю
+	// зачем, ведь она сама зачистится потом или это правила хорошого тона?
+	override fun onDetach() {
+		super.onDetach()
+
+		router.clear()
 	}
 
 	private fun observeListForRecycleView() {
@@ -115,6 +122,6 @@ class MainGistsListFragment : Fragment() {
 	 * Обработчик нажатия на элемент списка recycler view
 	 */
 	private fun onListItemClick(position: Int) {
-		mRouter.get()?.goToGistInfoFragment(position)
+		router.get()?.goToGistInfoFragment(position)
 	}
 }
