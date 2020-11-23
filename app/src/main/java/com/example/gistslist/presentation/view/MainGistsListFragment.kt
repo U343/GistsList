@@ -73,13 +73,6 @@ class MainGistsListFragment : Fragment() {
 			viewModel.getGistsList()
 		}
 	}
-// TODO ты говорил про то что нужно ссылкку занулить, я так понимаю ты про это говорил, но не понимаю
-	// зачем, ведь она сама зачистится потом или это правила хорошого тона?
-	override fun onDetach() {
-		super.onDetach()
-
-		router.clear()
-	}
 
 	private fun observeListForRecycleView() {
 		viewModel.gistsStringList.observe(this) { gistsList ->

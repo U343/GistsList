@@ -2,6 +2,7 @@ package com.example.gistslist.domain.gist_repository
 
 import com.example.gistslist.models.data.pojo.GistBean
 import com.example.gistslist.models.presentation.gist_model.GistModel
+import io.reactivex.Single
 import java.util.function.Consumer
 
 /**
@@ -11,30 +12,9 @@ import java.util.function.Consumer
  */
 interface GistRepositoryApi {
 	/**
-	 * Загрузка списка POJO из Api гита
+	 * Загрузка POJO объектов для основного списка гистов
 	 *
-	 * Результаты запроса передаются через консумеры, так как [loadGists] работает в отдельном
-	 * потоке
-	 *
-	 * @param loadSuccess Консумер, который выполнится при удачной загрузке данных
-	 * @param loadFail Консумер, который выполнится при ошибке загрузки данных
+	 * @return Возвращает Single объект с POJO для основного списка гистов
 	 */
-	fun loadGists(loadSuccess: Consumer<List<GistBean>>, loadFail: Consumer<Throwable>)
-
-	/**
-	 * Получение списка GistModel
-	 *
-	 * Вызывать только после [loadGists]
-	 *
-	 * @return аррей лист с гистами
-	 */
-	fun getGistsList() : ArrayList<GistModel>
-
-	/**
-	 * Получение объекта GistModel по id
-	 *
-	 * @param id индекс необходимого гиста
-	 * @return объект гиста или null
-	 */
-	fun getGistById(id: Int) : GistModel?
+	fun loadGists() : Single<List<GistBean>>
 }
