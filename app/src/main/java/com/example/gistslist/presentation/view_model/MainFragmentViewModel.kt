@@ -62,6 +62,7 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 	private fun generateGistModelList(pojoBeans: List<GistBean>): List<GistModel> {
 		return pojoBeans.map { bean ->
 			GistModel(
+				bean.id,
 				bean.files.keys.firstOrNull(),
 				bean.ownerBean.login,
 				bean.description,

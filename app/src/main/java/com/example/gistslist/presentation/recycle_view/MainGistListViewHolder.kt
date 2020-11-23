@@ -32,6 +32,6 @@ class MainGistListViewHolder(itemView: View, private val listener: (Any) -> Unit
 
 	override fun onClick(v: View?) {
 		val position = adapterPosition
-		listener(position)
+		listener(position.toString())
 	}
 }

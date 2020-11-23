@@ -102,8 +102,8 @@ class MainGistsListFragment : Fragment() {
 	}
 
 	private fun initRecyclerView() {
-		recyclerViewAdapter = MainGistListAdapter { position ->
-			onListItemClick(position as Int)
+		recyclerViewAdapter = MainGistListAdapter { gistId ->
+			onListItemClick(gistId as String)
 		}
 
 		gist_recycler_view.adapter = recyclerViewAdapter
@@ -114,7 +114,7 @@ class MainGistsListFragment : Fragment() {
 	/**
 	 * Обработчик нажатия на элемент списка recycler view
 	 */
-	private fun onListItemClick(position: Int) {
-		router.get()?.goToGistInfoFragment(position)
+	private fun onListItemClick(gistId: String) {
+		router.get()?.goToGistInfoFragment(gistId)
 	}
 }

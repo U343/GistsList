@@ -19,7 +19,7 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 		MutableLiveData<List<String?>>()
 	}
 
-	fun generateGistInfoList(id: Int?) {
+	fun generateGistInfoList(id: String?) {
 
 	}
 

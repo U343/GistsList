@@ -23,14 +23,19 @@ import kotlinx.android.synthetic.main.gist_info_fragment.*
 class GistInfoFragment : Fragment() {
 	private lateinit var viewModel: GistInfoViewModel
 	private lateinit var recyclerViewAdapter: GistInfoAdapter
-	private var gistPosition: Int? = null
+	private var gistId: String? = null
 
 	companion object {
 		const val TAG = "gist_info_fragment"
 		const val KEY = "number_of_gist"
 
-		fun newInstance(): GistInfoFragment {
-			return GistInfoFragment()
+		fun newInstance(gistId: String): GistInfoFragment {
+			val fragment = GistInfoFragment()
+			val bundle = Bundle()
+
+			bundle.putString(KEY, gistId)
+			fragment.arguments = bundle
+			return fragment
 		}
 	}
 
@@ -40,7 +45,7 @@ class GistInfoFragment : Fragment() {
 		savedInstanceState: Bundle?
 	): View? {
 
-		gistPosition = arguments?.getInt(KEY)
+		gistId = arguments?.getString(KEY)
 		return inflater.inflate(R.layout.gist_info_fragment, container, false)
 	}
 
@@ -55,7 +60,7 @@ class GistInfoFragment : Fragment() {
 
 		initRecyclerView()
 		observeItems()
-		viewModel.generateGistInfoList(gistPosition)
+		viewModel.generateGistInfoList(gistId)
 		setHeader()
 	}
 
