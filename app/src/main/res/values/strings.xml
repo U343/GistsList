@@ -9,4 +9,10 @@
     <!-- Text item view -->
     <string name="login_title">Name:</string>
     <string name="description_title">Description:</string>
+
+    <!-- Gist info fragment -->
+    <string name="gist_type_header">Type:</string>
+    <string name="gist_language_header">Language:</string>
+    <string name="gist_url_header">Url to gist:</string>
+    <string name="gist_description_header">Description:</string>
 </resources>

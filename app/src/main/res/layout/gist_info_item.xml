@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="@dimen/padding"
-    android:padding="@dimen/padding">
+    android:layout_margin="@dimen/indent_small"
+    android:padding="@dimen/indent_small">
 
     <TextView
         android:id="@+id/gist_info_title"
