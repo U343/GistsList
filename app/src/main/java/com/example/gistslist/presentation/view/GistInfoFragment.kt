@@ -50,6 +50,7 @@ class GistInfoFragment : Fragment() {
 
 		initViewModelAndRepository()
 		observeViewElements()
+		observeAvatar()
 
 		if (!viewModel.isDataLoaded) {
 			viewModel.loadGistInfoModel(gistId)
@@ -64,6 +65,12 @@ class GistInfoFragment : Fragment() {
 			gist_info_language.text = model.gistLanguage
 			gist_info_url.text = model.urlToGist
 			gist_info_description.text = model.gistDescription
+		}
+	}
+
+	private fun observeAvatar() {
+		viewModel.userAvatar.observe(this) { picassoObject ->
+			picassoObject?.into(author_avatar)
 		}
 	}
 
