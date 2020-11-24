@@ -3,9 +3,9 @@ package com.example.gistslist.presentation.view_model
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gistslist.models.presentation.gist_model.GistModel
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
-import com.example.gistslist.models.data.pojo.GistBean
+import com.example.gistslist.models.data.pojo.gist_list.GistBean
+import com.example.gistslist.models.presentation.gist_model.GistListModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -21,8 +21,8 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 	private val dispose = CompositeDisposable()
 	var isDataLoaded = false
 
-	val gistsStringList: MutableLiveData<List<GistModel>> by lazy {
-		MutableLiveData<List<GistModel>>()
+	val gistsStringList: MutableLiveData<List<GistListModel>> by lazy {
+		MutableLiveData<List<GistListModel>>()
 	}
 
 	val loadDataStatus: MutableLiveData<Boolean> by lazy {
@@ -45,7 +45,7 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 		loadDataStatus.value = true
 
 		dispose.add(
-			repository.loadGists()
+			repository.loadGistsList()
 				.subscribeOn(Schedulers.io())
 				.map { generateGistModelList(it) }
 				.observeOn(AndroidSchedulers.mainThread())
@@ -59,16 +59,12 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 		)
 	}
 
-	private fun generateGistModelList(pojoBeans: List<GistBean>): List<GistModel> {
+	private fun generateGistModelList(pojoBeans: List<GistBean>): List<GistListModel> {
 		return pojoBeans.map { bean ->
-			GistModel(
+			GistListModel(
 				bean.id,
 				bean.files.keys.firstOrNull(),
-				bean.ownerBean.login,
-				bean.description,
-				bean.files[bean.files.keys.firstOrNull()]?.language,
-				bean.files[bean.files.keys.firstOrNull()]?.type,
-				bean.html_url
+				bean.description
 			)
 		}
 	}

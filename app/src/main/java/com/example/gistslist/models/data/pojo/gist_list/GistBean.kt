@@ -1,4 +1,4 @@
-package com.example.gistslist.models.data.pojo
+package com.example.gistslist.models.data.pojo.gist_list
 
 import com.google.gson.annotations.SerializedName
 
@@ -12,9 +12,7 @@ import com.google.gson.annotations.SerializedName
  * @author Dmitrii Bondarev on 10.11.2020
  */
 data class GistBean(
-        @SerializedName("id") val id: String,
-        @SerializedName("files") val files: Map<String, FileBean>,
-        @SerializedName("html_url") val html_url: String?,
-        @SerializedName("description") val description: String?,
-        @SerializedName("owner") val ownerBean: OwnerBean
+	@SerializedName("id") val id: String,
+	@SerializedName("files") val files: Map<String, FileBean>,
+	@SerializedName("description") val description: String?,
 )

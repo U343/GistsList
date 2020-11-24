@@ -1,16 +1,13 @@
 package com.example.gistslist.presentation.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gistslist.R
 import com.example.gistslist.domain.application.GistRepositoryProvider
-import com.example.gistslist.presentation.recycle_view.GistInfoAdapter
 import com.example.gistslist.presentation.view_model.GistInfoViewModel
 import com.example.gistslist.presentation.view_model.GistInfoViewModelFactory
 import kotlinx.android.synthetic.main.gist_info_fragment.*
@@ -22,7 +19,6 @@ import kotlinx.android.synthetic.main.gist_info_fragment.*
  */
 class GistInfoFragment : Fragment() {
 	private lateinit var viewModel: GistInfoViewModel
-	private lateinit var recyclerViewAdapter: GistInfoAdapter
 	private var gistId: String? = null
 
 	companion object {
@@ -58,25 +54,6 @@ class GistInfoFragment : Fragment() {
 		viewModel = ViewModelProvider(this, GistInfoViewModelFactory(repository))
 			.get(GistInfoViewModel::class.java)
 
-		initRecyclerView()
-		observeItems()
-		viewModel.generateGistInfoList(gistId)
-		setHeader()
-	}
-
-	private fun initRecyclerView() {
-		recyclerViewAdapter = GistInfoAdapter()
-
-		info_recycler_view.adapter = recyclerViewAdapter
-		info_recycler_view.layoutManager = LinearLayoutManager(requireContext())
-		info_recycler_view.setHasFixedSize(true)
-	}
-
-	private fun observeItems() {
-		viewModel.gistInfoList.observe(this) {data -> recyclerViewAdapter.setData(data)}
-	}
-
-	private fun setHeader() {
-		gist_info_filename.text = viewModel.gistName ?: resources.getString(R.string.not_found)
+		gist_info_title.text = gistId
 	}
 }

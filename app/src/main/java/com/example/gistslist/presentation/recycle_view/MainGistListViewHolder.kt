@@ -2,7 +2,7 @@ package com.example.gistslist.presentation.recycle_view
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gistslist.models.presentation.gist_model.GistModel
+import com.example.gistslist.models.presentation.gist_model.GistListModel
 import kotlinx.android.synthetic.main.main_gist_list_item.view.*
 
 /**
@@ -13,7 +13,11 @@ import kotlinx.android.synthetic.main.main_gist_list_item.view.*
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-class MainGistListViewHolder(itemView: View, private val listener: (Any) -> Unit) :
+class MainGistListViewHolder(
+	itemView: View,
+	private val data: List<GistListModel>,
+	private val listener: (Any) -> Unit
+) :
 	RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
 	init {
@@ -25,13 +29,13 @@ class MainGistListViewHolder(itemView: View, private val listener: (Any) -> Unit
 	 *
 	 * @param gistModel объект с информацией о гисте
 	 */
-	fun bind(gistModel: GistModel) {
-		itemView.login_title.text = gistModel.gistName
-		itemView.description_title.text = gistModel.gistDescription
+	fun bind(position: Int) {
+		itemView.login_title.text = data[position].gistName
+		itemView.description_title.text = data[position].gistDescription
 	}
 
 	override fun onClick(v: View?) {
 		val position = adapterPosition
-		listener(position.toString())
+		listener(data[position].gistId)
 	}
 }

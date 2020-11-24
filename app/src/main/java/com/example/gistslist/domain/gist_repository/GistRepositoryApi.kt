@@ -1,9 +1,8 @@
 package com.example.gistslist.domain.gist_repository
 
-import com.example.gistslist.models.data.pojo.GistBean
-import com.example.gistslist.models.presentation.gist_model.GistModel
+import com.example.gistslist.models.data.pojo.gist_info.GistInfoBean
+import com.example.gistslist.models.data.pojo.gist_list.GistBean
 import io.reactivex.Single
-import java.util.function.Consumer
 
 /**
  * Репозиторий для работы со списком гистов
@@ -16,5 +15,7 @@ interface GistRepositoryApi {
 	 *
 	 * @return Возвращает Single объект с POJO для основного списка гистов
 	 */
-	fun loadGists() : Single<List<GistBean>>
+	fun loadGistsList() : Single<List<GistBean>>
+
+	fun loadGistById(gistId: String) : Single<GistInfoBean>
 }

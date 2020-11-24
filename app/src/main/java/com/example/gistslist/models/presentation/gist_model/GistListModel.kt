@@ -10,12 +10,8 @@ package com.example.gistslist.models.presentation.gist_model
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-data class GistModel(
+data class GistListModel(
 	val gistId: String,
 	val gistName: String?,
-	val userLogin: String?,
-	val gistDescription: String?,
-	val language: String?,
-	val gistType: String?,
-	val urlToGist: String?
+	val gistDescription: String?
 )

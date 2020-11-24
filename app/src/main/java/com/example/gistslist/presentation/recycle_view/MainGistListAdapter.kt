@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gistslist.R
-import com.example.gistslist.models.presentation.gist_model.GistModel
+import com.example.gistslist.models.presentation.gist_model.GistListModel
 
 /**
  * Адаптер recycler view для списка гистов
@@ -16,12 +16,12 @@ import com.example.gistslist.models.presentation.gist_model.GistModel
 class MainGistListAdapter(private val listener: (Any) -> Unit) :
 	RecyclerView.Adapter<MainGistListViewHolder>() {
 
-	private var data = emptyList<GistModel>()
+	private var data = emptyList<GistListModel>()
 
 	override fun getItemCount() = data.size
 
 	override fun onBindViewHolder(holder: MainGistListViewHolder, position: Int) {
-		holder.bind(data[position])
+		holder.bind(position)
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainGistListViewHolder {
@@ -30,7 +30,7 @@ class MainGistListAdapter(private val listener: (Any) -> Unit) :
 		val view = layoutInflater
 			.inflate(R.layout.main_gist_list_item, parent, false)
 
-		return MainGistListViewHolder(view, listener)
+		return MainGistListViewHolder(view, data, listener)
 	}
 
 	/**
@@ -38,7 +38,7 @@ class MainGistListAdapter(private val listener: (Any) -> Unit) :
 	 *
 	 * @param data список гистов
 	 */
-	fun setData(data: List<GistModel>) {
+	fun setData(data: List<GistListModel>) {
 		this.data = data
 		notifyDataSetChanged()
 	}
