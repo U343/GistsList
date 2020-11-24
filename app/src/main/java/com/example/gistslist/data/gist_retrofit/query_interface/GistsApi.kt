@@ -21,6 +21,6 @@ interface GistsApi {
 	@GET("/gists/public")
 	fun getGistsList(): Single<List<GistBean>>
 
-	@GET("/gists/{user_id}")
+	@GET("/gists/{gist_id}")
 	fun getGistById(@Path("gist_id") gistId: String): Single<GistInfoBean>
 }

@@ -48,12 +48,30 @@ class GistInfoFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
+		initViewModelAndRepository()
+		observeViewElements()
+
+		if (!viewModel.isDataLoaded) {
+			viewModel.loadGistInfoModel(gistId)
+		}
+	}
+
+	private fun observeViewElements() {
+		viewModel.gistInfoModel.observe(this) { model ->
+			author_login.text = model.authorLogin
+			gist_info_title.text = model.gistName
+			gist_info_type.text = model.gistType
+			gist_info_language.text = model.gistLanguage
+			gist_info_url.text = model.urlToGist
+			gist_info_description.text = model.gistDescription
+		}
+	}
+
+	private fun initViewModelAndRepository() {
 		val repository =
 			(requireContext().applicationContext as GistRepositoryProvider).getRepositoryGistList()
 
 		viewModel = ViewModelProvider(this, GistInfoViewModelFactory(repository))
 			.get(GistInfoViewModel::class.java)
-
-		gist_info_title.text = gistId
 	}
 }

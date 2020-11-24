@@ -65,10 +65,10 @@ class MainGistsListFragment : Fragment() {
 		observeProgressBar()
 
 		if (!viewModel.isDataLoaded) {
-			viewModel.getGistsList()
+			viewModel.createGistsList()
 		}
 		swipe_to_refresh_item.setOnRefreshListener {
-			viewModel.getGistsList()
+			viewModel.createGistsList()
 		}
 	}
 

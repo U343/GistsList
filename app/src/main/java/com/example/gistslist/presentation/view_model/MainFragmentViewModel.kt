@@ -40,8 +40,7 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 	 *
 	 * работает в отдельном потоке
 	 */
-	fun getGistsList() {
-		isDataLoaded = true
+	fun createGistsList() {
 		loadDataStatus.value = true
 
 		dispose.add(
@@ -53,8 +52,9 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 					{ result ->
 						gistsStringList.value = result
 						loadDataStatus.value = false
+						isDataLoaded = true
 					},
-					{ Log.d("onFailure", "fail") }
+					{ Log.d("onFailure", "fail MainFragmentViewModel") }
 				)
 		)
 	}
