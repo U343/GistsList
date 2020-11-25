@@ -3,11 +3,11 @@ package com.example.gistslist.models.data.pojo.gist_list
 import com.google.gson.annotations.SerializedName
 
 /**
- * POJO класс гиста
+ * POJO класс для списка гистов
  *
+ * @param id идентификатор гиста
  * @param files POJO класс с информацией о содержимом гиста
  * @param description описание гиста
- * @param ownerBean POJO с информацией об авторе гиста
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */

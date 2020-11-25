@@ -7,20 +7,26 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 /**
- * Интерфейс HTTP запросов для retrofit обьекта гиста
+ * Интерфейс HTTP запросов к Api гита для retrofit
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
 interface GistsApi {
 
 	/**
-	 * Получение Call объекта для дальнейшего GET запроса
+	 * Получение Single объекта с запросом списка гистов
 	 *
-	 * @return Call объект с со списком POJO
+	 * @return Single объект с со списком POJO для списка гистов
 	 */
 	@GET("/gists/public")
 	fun getGistsList(): Single<List<GistBean>>
 
+	/**
+	 * Получение Single объекта с запросом гиста по id
+	 *
+	 * @param gistId id гиста
+	 * @return Single объект с POJO для информации о гисте
+	 */
 	@GET("/gists/{gist_id}")
 	fun getGistById(@Path("gist_id") gistId: String): Single<GistInfoBean>
 }

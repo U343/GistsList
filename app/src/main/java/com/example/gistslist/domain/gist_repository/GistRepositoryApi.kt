@@ -15,7 +15,13 @@ interface GistRepositoryApi {
 	 *
 	 * @return Возвращает Single объект с POJO для основного списка гистов
 	 */
-	fun loadGistsList() : Single<List<GistBean>>
+	fun loadGistsList(): Single<List<GistBean>>
 
-	fun loadGistById(gistId: String) : Single<GistInfoBean>
+	/**
+	 * Загрузка POJO объекта с информацией о гисте по его id
+	 *
+	 * @param gistId id гиста, который нужно загрузить
+	 * @return Возвращает Single объект с POJO с информацией о гисте
+	 */
+	fun loadGistById(gistId: String): Single<GistInfoBean>
 }

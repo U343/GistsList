@@ -26,6 +26,12 @@ class GistInfoFragment : Fragment() {
 		const val TAG = "gist_info_fragment"
 		const val KEY = "number_of_gist"
 
+		/**
+		 * Возвращает ссылка на данный фрагмент и создает bundle для передачи аргемента
+		 *
+		 * @param gistId идентификатор выбранного гиста, по которому будет загружен гист
+		 * @return Ссылка на GistInfoFragment
+		 */
 		fun newInstance(gistId: String): GistInfoFragment {
 			val fragment = GistInfoFragment()
 			val bundle = Bundle()
@@ -67,21 +73,39 @@ class GistInfoFragment : Fragment() {
 			.get(GistInfoViewModel::class.java)
 	}
 
+	/**
+	 * Подписывает вью элементы на модлеь с информацией о гисте
+	 *
+	 * Изначально элементы скрыты на экране, при обновлении модели, элементы, которые удалось
+	 * получить отображаются на экране
+	 */
 	private fun observeViewElements() {
 		viewModel.gistInfoModel.observe(this) { model ->
 
 			setContentAndVisibility(gist_info_author_login, model.authorLogin)
 			setContentAndVisibility(gist_info_type, model.gistType, gist_info_type_container)
 			setContentAndVisibility(gist_info_title, model.gistName)
-			setContentAndVisibility(gist_info_language, model.gistLanguage, gist_info_language_container)
+			setContentAndVisibility(
+				gist_info_language,
+				model.gistLanguage,
+				gist_info_language_container
+			)
 			setContentAndVisibility(gist_info_url, model.urlToGist, gist_info_url_container)
-			setContentAndVisibility(gist_info_description, model.gistDescription, gist_info_description_container)
+			setContentAndVisibility(
+				gist_info_description,
+				model.gistDescription,
+				gist_info_description_container
+			)
 
 			gist_info_author_avatar.visibility = View.VISIBLE
 		}
 	}
 
-	private fun setContentAndVisibility(element: TextView, content: String?, container: ViewGroup? = null) {
+	private fun setContentAndVisibility(
+		element: TextView,
+		content: String?,
+		container: ViewGroup? = null
+	) {
 		if (content != null && content != "") {
 			element.text = content
 
@@ -100,6 +124,9 @@ class GistInfoFragment : Fragment() {
 		}
 	}
 
+	/**
+	 * Включение и выключение прогресс бара, в зависимости от состоянии загрузки данных
+	 */
 	private fun observeProgressBar() {
 		viewModel.loadDataStatus.observe(this) { status ->
 			when (status) {

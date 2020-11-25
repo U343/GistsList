@@ -14,7 +14,7 @@ interface GistListRouter {
 	/**
 	 * Переход на экран с подробной информацией о гисте
 	 *
-	 * @param [gistPosition] номер, выбранного гиста, в списке
+	 * @param gistId идентификатор выбранного гиста, по которому будет загружен гист
 	 */
 	fun goToGistInfoFragment(gistId: String)
 }

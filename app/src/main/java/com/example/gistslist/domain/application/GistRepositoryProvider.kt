@@ -10,5 +10,10 @@ import com.example.gistslist.domain.gist_repository.GistRepositoryApi
  * @author Dmitrii Bondarev on 13.11.2020
  */
 interface GistRepositoryProvider {
+	/**
+	 * Получение репозитория для списки гистов
+	 *
+	 * @return Возвращает репозитрий для работы с гистами
+	 */
 	fun getRepositoryGistList(): GistRepositoryApi
 }

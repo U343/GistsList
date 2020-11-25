@@ -41,6 +41,14 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 		dispose.clear()
 	}
 
+	/**
+	 * Загрузка информации о гисте
+	 *
+	 * После того как информация загружена, вызывается функция для загрузки аватара.
+	 * Работает в отдельном потоке
+	 *
+	 * @param gistId индетификатор гиста, который необходимо загрузить
+	 */
 	fun loadGistInfoModel(gistId: String?) {
 		loadDataStatus.value = true
 
@@ -67,14 +75,14 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 		userAvatar.value = Picasso.get().load(urlToAvatar)
 	}
 
-	private fun createGistInfoModel(bean: GistInfoBean) : GistInfoModel {
+	private fun createGistInfoModel(bean: GistInfoBean): GistInfoModel {
 		return GistInfoModel(
 			bean.files.keys.firstOrNull(),
 			bean.files[bean.files.keys.firstOrNull()]?.type,
 			bean.files[bean.files.keys.firstOrNull()]?.language,
 			bean.htmlUrl,
-			bean.ownerBean.login,
-			bean.ownerBean.avatarUrl,
+			bean.ownerInfoBean.login,
+			bean.ownerInfoBean.avatarUrl,
 			bean.description
 		)
 	}
