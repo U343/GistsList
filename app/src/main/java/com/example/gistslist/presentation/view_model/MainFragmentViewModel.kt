@@ -53,6 +53,7 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 						gistsStringList.value = result
 						loadDataStatus.value = false
 						isDataLoaded = true
+						Log.d("threads manage", "createGistsList " + Thread.currentThread())
 					},
 					{ Log.d("onFailure", "fail MainFragmentViewModel") }
 				)
@@ -60,6 +61,7 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 	}
 
 	private fun generateGistModelList(pojoBeans: List<GistBean>): List<GistListModel> {
+		Log.d("threads manage", "createGistsList into map" + Thread.currentThread())
 		return pojoBeans.map { bean ->
 			GistListModel(
 				bean.id,

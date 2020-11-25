@@ -31,6 +31,10 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 		MutableLiveData<RequestCreator?>()
 	}
 
+	val loadDataStatus: MutableLiveData<Boolean> by lazy {
+		MutableLiveData<Boolean>()
+	}
+
 	override fun onCleared() {
 		super.onCleared()
 
@@ -38,6 +42,8 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 	}
 
 	fun loadGistInfoModel(gistId: String?) {
+		loadDataStatus.value = true
+
 		gistId?.let {
 			dispose.add(
 				repository.loadGistById(gistId)
@@ -49,6 +55,7 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 							gistInfoModel.value = result
 							result.avatarUrl?.let { it1 -> loadAuthorAvatar(it1) }
 							isDataLoaded = true
+							loadDataStatus.value = false
 						},
 						{ Log.d("onFailure", "fail GistInfoViewModel") }
 					)
