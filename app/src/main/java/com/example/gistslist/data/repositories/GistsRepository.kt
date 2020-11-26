@@ -13,13 +13,13 @@ import io.reactivex.Single
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-class GistsRepository(private val retrofit: GistsApi) : GistRepositoryApi {
+class GistsRepository(private val gistApi: GistsApi) : GistRepositoryApi {
 
 	override fun loadGistsList(): Single<List<GistBean>> {
-		return retrofit.getGistsList()
+		return gistApi.getGistsList()
 	}
 
 	override fun loadGistById(gistId: String): Single<GistInfoBean> {
-		return retrofit.getGistById(gistId)
+		return gistApi.getGistById(gistId)
 	}
 }

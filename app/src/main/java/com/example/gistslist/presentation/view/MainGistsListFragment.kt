@@ -42,7 +42,7 @@ class MainGistsListFragment : Fragment() {
 
 		val activity = requireActivity()
 		if (activity is GistListRouter) {
-			router = WeakReference(activity);
+			router = WeakReference(activity)
 		}
 	}
 
