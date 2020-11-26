@@ -1,11 +1,12 @@
 package com.example.gistslist.models.presentation.gist_model
 
 /**
- * Класс с информацией о гисте
+ * Класс с информацией для списка гистов
  *
  * Используется в MainGistListFragment для recycler view
  *
- * @property userLogin логин автора гиста
+ * @property gistId идентификатор гиста
+ * @property gistName имя гиста
  * @property gistDescription описание гиста
  *
  * @author Dmitrii Bondarev on 10.11.2020
