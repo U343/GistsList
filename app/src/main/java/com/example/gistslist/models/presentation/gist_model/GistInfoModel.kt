@@ -22,5 +22,6 @@ data class GistInfoModel(
 	val urlToGist: String?,
 	val authorLogin: String?,
 	val avatarUrl: String?,
-	val gistDescription: String?
+	val gistDescription: String?,
+	val gistContent: String?
 )

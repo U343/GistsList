@@ -83,7 +83,8 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 			bean.htmlUrl,
 			bean.ownerInfoBean.login,
 			bean.ownerInfoBean.avatarUrl,
-			bean.description
+			bean.description,
+			bean.files[bean.files.keys.firstOrNull()]?.content
 		)
 	}
 }

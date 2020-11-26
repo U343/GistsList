@@ -179,6 +179,33 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/gist_info_content_container"
+                android:layout_width="@dimen/zero_dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/indent_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gist_info_description_container">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gist_content_header"
+                    android:textSize="@dimen/heading_size_2"
+                    android:paddingTop="@dimen/indent_small"/>
+
+                <TextView
+                    android:id="@+id/gist_info_content"
+                    android:paddingTop="@dimen/indent_small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_found"
+                    android:textSize="@dimen/text_size"/>
+
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

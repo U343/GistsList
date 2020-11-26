@@ -98,6 +98,11 @@ class GistInfoFragment : Fragment() {
 				model.gistDescription,
 				gist_info_description_container
 			)
+			setContentAndVisibility(
+				gist_info_content,
+				model.gistContent,
+				gist_info_content_container
+			)
 
 			gist_info_author_avatar.visibility = View.VISIBLE
 		}
@@ -111,6 +116,7 @@ class GistInfoFragment : Fragment() {
 		changeVisibilityViewItem(gist_info_url_container)
 		changeVisibilityViewItem(gist_info_description_container)
 		changeVisibilityViewItem(gist_info_author_avatar)
+		changeVisibilityViewItem(gist_info_content_container)
 	}
 
 	private fun setContentAndVisibility(

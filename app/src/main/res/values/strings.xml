@@ -15,4 +15,5 @@
     <string name="gist_language_header">Language:</string>
     <string name="gist_url_header">Url to gist:</string>
     <string name="gist_description_header">Description:</string>
+    <string name="gist_content_header">Content:</string>
 </resources>
