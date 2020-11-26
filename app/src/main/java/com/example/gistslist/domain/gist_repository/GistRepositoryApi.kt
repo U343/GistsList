@@ -1,7 +1,6 @@
 package com.example.gistslist.domain.gist_repository
 
-import com.example.gistslist.models.data.pojo.gist_info.GistInfoBean
-import com.example.gistslist.models.data.pojo.gist_list.GistBean
+import com.example.gistslist.models.data.pojo.gist.GistBean
 import io.reactivex.Single
 
 /**
@@ -23,5 +22,5 @@ interface GistRepositoryApi {
 	 * @param gistId id гиста, который нужно загрузить
 	 * @return Возвращает Single объект с POJO с информацией о гисте
 	 */
-	fun loadGistById(gistId: String): Single<GistInfoBean>
+	fun loadGistById(gistId: String): Single<GistBean>
 }

@@ -1,7 +1,6 @@
 package com.example.gistslist.data.gist_retrofit.query_interface
 
-import com.example.gistslist.models.data.pojo.gist_info.GistInfoBean
-import com.example.gistslist.models.data.pojo.gist_list.GistBean
+import com.example.gistslist.models.data.pojo.gist.GistBean
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -28,5 +27,5 @@ interface GistsApi {
 	 * @return Single объект с POJO для информации о гисте
 	 */
 	@GET("/gists/{gist_id}")
-	fun getGistById(@Path("gist_id") gistId: String): Single<GistInfoBean>
+	fun getGistById(@Path("gist_id") gistId: String): Single<GistBean>
 }

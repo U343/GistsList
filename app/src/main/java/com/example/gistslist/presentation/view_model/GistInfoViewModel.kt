@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
-import com.example.gistslist.models.data.pojo.gist_info.GistInfoBean
+import com.example.gistslist.models.data.pojo.gist.GistBean
 import com.example.gistslist.models.presentation.gist_model.GistInfoModel
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.RequestCreator
@@ -75,7 +75,7 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 		userAvatar.value = Picasso.get().load(urlToAvatar)
 	}
 
-	private fun createGistInfoModel(bean: GistInfoBean): GistInfoModel {
+	private fun createGistInfoModel(bean: GistBean): GistInfoModel {
 		return GistInfoModel(
 			bean.files.keys.firstOrNull(),
 			bean.files[bean.files.keys.firstOrNull()]?.type,

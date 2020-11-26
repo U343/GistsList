@@ -1,9 +1,8 @@
 package com.example.gistslist.data.repositories
 
 import com.example.gistslist.data.gist_retrofit.query_interface.GistsApi
-import com.example.gistslist.models.data.pojo.gist_list.GistBean
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
-import com.example.gistslist.models.data.pojo.gist_info.GistInfoBean
+import com.example.gistslist.models.data.pojo.gist.GistBean
 import io.reactivex.Single
 
 /**
@@ -19,7 +18,7 @@ class GistsRepository(private val gistApi: GistsApi) : GistRepositoryApi {
 		return gistApi.getGistsList()
 	}
 
-	override fun loadGistById(gistId: String): Single<GistInfoBean> {
+	override fun loadGistById(gistId: String): Single<GistBean> {
 		return gistApi.getGistById(gistId)
 	}
 }

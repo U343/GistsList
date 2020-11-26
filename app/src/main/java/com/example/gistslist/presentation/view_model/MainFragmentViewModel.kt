@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
-import com.example.gistslist.models.data.pojo.gist_list.GistBean
+import com.example.gistslist.models.data.pojo.gist.GistBean
 import com.example.gistslist.models.presentation.gist_model.GistListModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

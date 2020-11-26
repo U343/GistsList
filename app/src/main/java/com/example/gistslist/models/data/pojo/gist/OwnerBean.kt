@@ -1,4 +1,4 @@
-package com.example.gistslist.models.data.pojo.gist_info
+package com.example.gistslist.models.data.pojo.gist
 
 import com.google.gson.annotations.SerializedName
 
@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
  *
  * @author Dmitrii Bondarev on 25.11.2020
  */
-data class OwnerInfoBean(
+data class OwnerBean(
 	@SerializedName("login") val login: String?,
 	@SerializedName("avatar_url") val avatarUrl: String?
 )

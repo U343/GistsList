@@ -1,4 +1,4 @@
-package com.example.gistslist.models.data.pojo.gist_info
+package com.example.gistslist.models.data.pojo.gist
 
 import com.google.gson.annotations.SerializedName
 
@@ -8,10 +8,11 @@ import com.google.gson.annotations.SerializedName
  * @param filename название гиста
  * @param type тип содержимого гиста
  * @param language язык программирования в гисте
+ * @param content содержимое гиста
  *
  * @author Dmitrii Bondarev on 25.11.2020
  */
-data class FileInfoBean(
+data class FileBean(
 	@SerializedName("filename") val filename: String?,
 	@SerializedName("type") val type: String?,
 	@SerializedName("language") val language: String?,
