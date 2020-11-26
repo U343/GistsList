@@ -1,15 +1,10 @@
 package com.example.gistslist.presentation.view
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.gistslist.R
@@ -60,7 +55,7 @@ class GistInfoFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		setVisibility()
+		gist_info_group_all_views.visibility = View.GONE
 		initViewModelAndRepository()
 		observeViewElements()
 		observeAvatar()
@@ -85,63 +80,25 @@ class GistInfoFragment : Fragment() {
 	 * Изначально элементы скрыты на экране, при обновлении модели, элементы, которые удалось
 	 * получить отображаются на экране
 	 */
-	//TODO поправить этот ужас с изменением видимости вьюшек
 	private fun observeViewElements() {
 		viewModel.gistInfoModel.observe(this) { model ->
-
-			setContentAndVisibility(gist_info_author_login, model.authorLogin)
-			setContentAndVisibility(gist_info_type, model.gistType, gist_info_type_container)
-			setContentAndVisibility(gist_info_title, model.gistName)
-			setContentAndVisibility(
-				gist_info_language,
-				model.gistLanguage,
-				gist_info_language_container
-			)
-			setContentAndVisibility(gist_info_url, model.urlToGist, gist_info_url_container)
-			setContentAndVisibility(
-				gist_info_description,
-				model.gistDescription,
-				gist_info_description_container
-			)
-			setContentAndVisibility(
-				gist_info_content,
-				model.gistContent,
-				gist_info_content_container
-			)
-
-			gist_info_author_avatar.visibility = View.VISIBLE
+			showViewIfNecessary(gist_info_author_login, model.authorLogin)
+			showViewIfNecessary(gist_info_title, model.gistName)
+			showViewIfNecessary(gist_info_type, model.gistType, gist_info_type_header)
+			showViewIfNecessary(gist_info_language, model.gistLanguage, gist_info_language_header)
+			showViewIfNecessary(gist_info_url, model.urlToGist, gist_info_url_header)
+			showViewIfNecessary(gist_info_description, model.gistDescription, gist_info_description_header)
+			showViewIfNecessary(gist_info_content, model.gistContent, gist_info_content_header)
 		}
 	}
 
-	private fun setVisibility() {
-		changeVisibilityViewItem(gist_info_author_login)
-		changeVisibilityViewItem(gist_info_type_container)
-		changeVisibilityViewItem(gist_info_title)
-		changeVisibilityViewItem(gist_info_language_container)
-		changeVisibilityViewItem(gist_info_url_container)
-		changeVisibilityViewItem(gist_info_description_container)
-		changeVisibilityViewItem(gist_info_author_avatar)
-		changeVisibilityViewItem(gist_info_content_container)
-	}
 
-	private fun setContentAndVisibility(
-		element: TextView,
-		content: String?,
-		container: ViewGroup? = null
-	) {
+	private fun showViewIfNecessary(view: TextView, content: String?, header: View? = null) {
 		if (content != null && content != "") {
-			element.text = content
-
-			if (container == null) {
-				changeVisibilityViewItem(element)
-			} else {
-				changeVisibilityViewItem(container)
-			}
+			view.text = content
+			view.visibility = View.VISIBLE
+			header?.let { header.visibility = View.VISIBLE }
 		}
-	}
-
-	private fun changeVisibilityViewItem(v: View) {
-		v.visibility = if (v.visibility == View.VISIBLE) View.GONE else View.VISIBLE
 	}
 
 	private fun observeAvatar() {

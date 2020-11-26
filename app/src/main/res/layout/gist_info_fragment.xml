@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<FrameLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,13 +9,9 @@
 
     <ProgressBar
         android:id="@+id/gist_info_progress_bar"
-        android:layout_width="@dimen/zero_dp"
-        android:layout_height="@dimen/zero_dp"
-        android:padding="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="100dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -65,147 +61,135 @@
                 android:textSize="@dimen/heading_size_1"
                 android:textStyle="bold"/>
 
-            <LinearLayout
-                android:id="@+id/gist_info_type_language_container"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/gist_info_type_header"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/indent_medium"
+                android:text="@string/gist_type_header"
+                android:textSize="@dimen/heading_size_2"
+                android:paddingTop="@dimen/indent_small"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gist_info_language_header"
+                app:layout_constraintTop_toBottomOf="@id/gist_info_title"
+                app:layout_constraintBottom_toTopOf="@id/gist_info_type"
+                app:layout_constraintHorizontal_weight="0.5"/>
+
+            <TextView
+                android:id="@+id/gist_info_type"
+                android:paddingTop="@dimen/indent_small"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/not_found"
+                android:textSize="@dimen/text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gist_info_type_header"
+                app:layout_constraintEnd_toStartOf="@+id/gist_info_language"
+                app:layout_constraintHorizontal_weight="0.5"/>
+
+            <TextView
+                android:id="@+id/gist_info_language_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/gist_language_header"
+                android:textSize="@dimen/heading_size_2"
+                android:paddingTop="@dimen/indent_small"
+                app:layout_constraintStart_toEndOf="@id/gist_info_type_header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/gist_info_title"
-                android:weightSum="1">
+                app:layout_constraintBottom_toTopOf="@id/gist_info_language"
+                app:layout_constraintHorizontal_weight="0.5"/>
 
-                <LinearLayout
-                    android:id="@+id/gist_info_type_container"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="0.5">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/gist_type_header"
-                        android:textSize="@dimen/heading_size_2"
-                        android:paddingTop="@dimen/indent_small"/>
-
-                    <TextView
-                        android:id="@+id/gist_info_type"
-                        android:paddingTop="@dimen/indent_small"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/not_found"
-                        android:textSize="@dimen/text_size"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/gist_info_language_container"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="0.5">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/gist_language_header"
-                        android:textSize="@dimen/heading_size_2"
-                        android:paddingTop="@dimen/indent_small"/>
-
-                    <TextView
-                        android:id="@+id/gist_info_language"
-                        android:paddingTop="@dimen/indent_small"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/not_found"
-                        android:textSize="@dimen/text_size"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/gist_info_url_container"
-                android:layout_width="@dimen/zero_dp"
+            <TextView
+                android:id="@+id/gist_info_language"
+                android:paddingTop="@dimen/indent_small"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/indent_medium"
+                android:text="@string/not_found"
+                android:textSize="@dimen/text_size"
+                app:layout_constraintStart_toEndOf="@id/gist_info_type_header"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gist_info_language_header"
+                app:layout_constraintHorizontal_weight="0.5"/>
+
+            <TextView
+                android:id="@+id/gist_info_url_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gist_url_header"
+                android:textSize="@dimen/heading_size_2"
+                android:paddingTop="@dimen/indent_small"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gist_info_type_language_container">
+                app:layout_constraintTop_toBottomOf="@id/gist_info_type"
+                app:layout_constraintBottom_toTopOf="@id/gist_info_url"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/gist_url_header"
-                    android:textSize="@dimen/heading_size_2"
-                    android:paddingTop="@dimen/indent_small"/>
-
-                <TextView
-                    android:id="@+id/gist_info_url"
-                    android:paddingTop="@dimen/indent_small"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/not_found"
-                    android:textSize="@dimen/text_size"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/gist_info_description_container"
-                android:layout_width="@dimen/zero_dp"
+            <TextView
+                android:id="@+id/gist_info_url"
+                android:paddingTop="@dimen/indent_small"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/indent_medium"
+                android:text="@string/not_found"
+                android:textSize="@dimen/text_size"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gist_info_url_container">
+                app:layout_constraintTop_toBottomOf="@id/gist_info_url_header"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/gist_description_header"
-                    android:textSize="@dimen/heading_size_2"
-                    android:paddingTop="@dimen/indent_small"/>
-
-                <TextView
-                    android:id="@+id/gist_info_description"
-                    android:paddingTop="@dimen/indent_small"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/not_found"
-                    android:textSize="@dimen/text_size"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/gist_info_content_container"
-                android:layout_width="@dimen/zero_dp"
+            <TextView
+                android:id="@+id/gist_info_description_header"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/indent_medium"
+                android:text="@string/gist_description_header"
+                android:textSize="@dimen/heading_size_2"
+                android:paddingTop="@dimen/indent_small"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gist_info_description_container">
+                app:layout_constraintTop_toBottomOf="@id/gist_info_url"
+                app:layout_constraintBottom_toTopOf="@id/gist_info_description"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/gist_content_header"
-                    android:textSize="@dimen/heading_size_2"
-                    android:paddingTop="@dimen/indent_small"/>
+            <TextView
+                android:id="@+id/gist_info_description"
+                android:paddingTop="@dimen/indent_small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/not_found"
+                android:textSize="@dimen/text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gist_info_description_header"/>
 
-                <TextView
-                    android:id="@+id/gist_info_content"
-                    android:paddingTop="@dimen/indent_small"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/not_found"
-                    android:textSize="@dimen/text_size"/>
+            <TextView
+                android:id="@+id/gist_info_content_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gist_content_header"
+                android:textSize="@dimen/heading_size_2"
+                android:paddingTop="@dimen/indent_small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gist_info_description"
+                app:layout_constraintBottom_toTopOf="@id/gist_info_content"/>
 
-            </LinearLayout>
+            <TextView
+                android:id="@+id/gist_info_content"
+                android:paddingTop="@dimen/indent_small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/not_found"
+                android:textSize="@dimen/text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gist_info_content_header"/>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/gist_info_group_all_views"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="gist_info_author_avatar,
+                gist_info_author_login,gist_info_title,gist_info_type_header,gist_info_type,
+                gist_info_language_header,gist_info_language,gist_info_url_header,gist_info_url,
+                gist_info_description_header,gist_info_description,gist_info_content_header,
+                gist_info_content"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
