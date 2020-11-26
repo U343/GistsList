@@ -55,6 +55,7 @@ class GistInfoFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
+		setVisibility()
 		initViewModelAndRepository()
 		observeViewElements()
 		observeAvatar()
@@ -79,6 +80,7 @@ class GistInfoFragment : Fragment() {
 	 * Изначально элементы скрыты на экране, при обновлении модели, элементы, которые удалось
 	 * получить отображаются на экране
 	 */
+	//TODO поправить этот ужас с изменением видимости вьюшек
 	private fun observeViewElements() {
 		viewModel.gistInfoModel.observe(this) { model ->
 
@@ -101,6 +103,16 @@ class GistInfoFragment : Fragment() {
 		}
 	}
 
+	private fun setVisibility() {
+		changeVisibilityViewItem(gist_info_author_login)
+		changeVisibilityViewItem(gist_info_type_container)
+		changeVisibilityViewItem(gist_info_title)
+		changeVisibilityViewItem(gist_info_language_container)
+		changeVisibilityViewItem(gist_info_url_container)
+		changeVisibilityViewItem(gist_info_description_container)
+		changeVisibilityViewItem(gist_info_author_avatar)
+	}
+
 	private fun setContentAndVisibility(
 		element: TextView,
 		content: String?,
@@ -110,11 +122,15 @@ class GistInfoFragment : Fragment() {
 			element.text = content
 
 			if (container == null) {
-				element.visibility = View.VISIBLE
+				changeVisibilityViewItem(element)
 			} else {
-				container.visibility = View.VISIBLE
+				changeVisibilityViewItem(container)
 			}
 		}
+	}
+
+	private fun changeVisibilityViewItem(v: View) {
+		v.visibility = if (v.visibility == View.VISIBLE) View.GONE else View.VISIBLE
 	}
 
 	private fun observeAvatar() {
