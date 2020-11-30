@@ -1,6 +1,7 @@
 package com.example.gistslist.domain.application
 
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
+import com.squareup.picasso.Picasso
 
 /**
  * Кастомный класс application
@@ -16,4 +17,11 @@ interface GistRepositoryProvider {
 	 * @return Возвращает репозитрий для работы с гистами
 	 */
 	fun getRepositoryGistList(): GistRepositoryApi
+
+	/**
+	 * Получение объекта Picasso для загрузки изображений
+	 *
+	 * @return Возвращает объект Picasso
+	 */
+	fun loadImage() : Picasso
 }

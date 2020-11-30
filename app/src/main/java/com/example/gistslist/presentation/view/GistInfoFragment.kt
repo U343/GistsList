@@ -1,6 +1,7 @@
 package com.example.gistslist.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.gistslist.R
 import com.example.gistslist.domain.application.GistRepositoryProvider
+import com.example.gistslist.models.presentation.gist_model.GistInfoModel
 import com.example.gistslist.presentation.view_model.GistInfoViewModel
 import com.example.gistslist.presentation.view_model.GistInfoViewModelFactory
+import com.squareup.picasso.RequestCreator
 import kotlinx.android.synthetic.main.gist_info_fragment.*
 
 /**
@@ -54,69 +57,71 @@ class GistInfoFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
+//TODO fix bug with clear fragment after turn phone
+		//gist_info_group_all_views.visibility = View.GONE
 
-		gist_info_group_all_views.visibility = View.GONE
 		initViewModelAndRepository()
 		observeViewElements()
-		observeAvatar()
-		observeProgressBar()
 
 		if (!viewModel.isDataLoaded) {
 			viewModel.loadGistInfoModel(gistId)
+			Log.d("viewLifecycle", "yes")
+		} else {
+			Log.d("viewLifecycle", "no")
 		}
 	}
 
 	private fun initViewModelAndRepository() {
 		val repository =
+
 			(requireContext().applicationContext as GistRepositoryProvider).getRepositoryGistList()
 
 		viewModel = ViewModelProvider(this, GistInfoViewModelFactory(repository))
 			.get(GistInfoViewModel::class.java)
 	}
 
-	/**
-	 * Подписывает вью элементы на модлеь с информацией о гисте
-	 *
-	 * Изначально элементы скрыты на экране, при обновлении модели, элементы, которые удалось
-	 * получить отображаются на экране
-	 */
 	private fun observeViewElements() {
 		viewModel.gistInfoModel.observe(this) { model ->
-			showViewIfNecessary(gist_info_author_login, model.authorLogin)
-			showViewIfNecessary(gist_info_title, model.gistName)
-			showViewIfNecessary(gist_info_type, model.gistType, gist_info_type_header)
-			showViewIfNecessary(gist_info_language, model.gistLanguage, gist_info_language_header)
-			showViewIfNecessary(gist_info_url, model.urlToGist, gist_info_url_header)
-			showViewIfNecessary(gist_info_description, model.gistDescription, gist_info_description_header)
-			showViewIfNecessary(gist_info_content, model.gistContent, gist_info_content_header)
+			showViewElements(model)
+			setUserAvatar(model.avatarUrl)
 		}
-	}
 
-
-	private fun showViewIfNecessary(view: TextView, content: String?, header: View? = null) {
-		if (content != null && content != "") {
-			view.text = content
-			view.visibility = View.VISIBLE
-			header?.let { header.visibility = View.VISIBLE }
-		}
-	}
-
-	private fun observeAvatar() {
-		viewModel.userAvatar.observe(this) { picassoObject ->
-			picassoObject?.into(gist_info_author_avatar)
-			gist_info_author_avatar.visibility = View.VISIBLE
-		}
-	}
-
-	/**
-	 * Включение и выключение прогресс бара, в зависимости от состоянии загрузки данных
-	 */
-	private fun observeProgressBar() {
 		viewModel.loadDataStatus.observe(this) { status ->
 			when (status) {
 				true -> gist_info_progress_bar.visibility = View.VISIBLE
 				false -> gist_info_progress_bar.visibility = View.INVISIBLE
 			}
 		}
+	}
+
+	/**
+	 * Отображение необходимых элементов
+	 *
+	 * Изначально все поля с информацией о гисте скрыты, после загрузки информации о гисте,
+	 * отображаются только необх, информацию о которых удалось получить
+	 */
+	private fun showViewElements(model: GistInfoModel) {
+		showViewIfNecessary(gist_info_author_login, model.authorLogin)
+		showViewIfNecessary(gist_info_title, model.gistName)
+		showViewIfNecessary(gist_info_type, model.gistType, gist_info_type_header)
+		showViewIfNecessary(gist_info_language, model.gistLanguage, gist_info_language_header)
+		showViewIfNecessary(gist_info_url, model.urlToGist, gist_info_url_header)
+		showViewIfNecessary(gist_info_description, model.gistDescription, gist_info_description_header)
+		showViewIfNecessary(gist_info_content, model.gistContent, gist_info_content_header)
+		gist_info_author_avatar.visibility = View.VISIBLE
+	}
+
+	private fun showViewIfNecessary(view: TextView, content: String?, header: View? = null) {
+		if (content != null && content != "") {
+			Log.d("viewLifecycle", "+")
+			view.text = content
+			view.visibility = View.VISIBLE
+			header?.let { header.visibility = View.VISIBLE }
+		}
+	}
+
+	private fun setUserAvatar(urlToAvatar: String?) {
+		(requireContext().applicationContext as GistRepositoryProvider).loadImage()
+			.load(urlToAvatar).into(gist_info_author_avatar)
 	}
 }

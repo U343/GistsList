@@ -5,6 +5,7 @@ import com.example.gistslist.data.gist_retrofit.query_interface.GistsApi
 import com.example.gistslist.data.gist_retrofit.retrofit_object.RetrofitProvider
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
 import com.example.gistslist.domain.gist_repository.GistRepositoryFactory
+import com.squareup.picasso.Picasso
 
 /**
  * Реализация кастомного класса application
@@ -24,5 +25,9 @@ class CustomApplication : Application(), GistRepositoryProvider {
 
 	override fun getRepositoryGistList(): GistRepositoryApi {
 		return repositoryGistList
+	}
+
+	override fun loadImage(): Picasso {
+		return Picasso.get()
 	}
 }

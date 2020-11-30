@@ -21,19 +21,9 @@ import io.reactivex.schedulers.Schedulers
  */
 class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel() {
 	private val dispose = CompositeDisposable()
-	var isDataLoaded = false;
-
-	val gistInfoModel: MutableLiveData<GistInfoModel> by lazy {
-		MutableLiveData<GistInfoModel>()
-	}
-
-	val userAvatar: MutableLiveData<RequestCreator?> by lazy {
-		MutableLiveData<RequestCreator?>()
-	}
-
-	val loadDataStatus: MutableLiveData<Boolean> by lazy {
-		MutableLiveData<Boolean>()
-	}
+	var isDataLoaded = false
+	val gistInfoModel: MutableLiveData<GistInfoModel> = MutableLiveData<GistInfoModel>()
+	val loadDataStatus: MutableLiveData<Boolean> =  MutableLiveData<Boolean>()
 
 	override fun onCleared() {
 		super.onCleared()
@@ -61,7 +51,6 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 					.subscribe(
 						{ result ->
 							gistInfoModel.value = result
-							result.avatarUrl?.let { it1 -> loadAuthorAvatar(it1) }
 							isDataLoaded = true
 							loadDataStatus.value = false
 						},
@@ -69,10 +58,6 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 					)
 			)
 		}
-	}
-
-	private fun loadAuthorAvatar(urlToAvatar: String) {
-		userAvatar.value = Picasso.get().load(urlToAvatar)
 	}
 
 	private fun createGistInfoModel(bean: GistBean): GistInfoModel {

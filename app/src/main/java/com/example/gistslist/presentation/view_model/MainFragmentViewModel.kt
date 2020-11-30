@@ -20,14 +20,8 @@ import io.reactivex.schedulers.Schedulers
 class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewModel() {
 	private val dispose = CompositeDisposable()
 	var isDataLoaded = false
-
-	val gistsStringList: MutableLiveData<List<GistListModel>> by lazy {
-		MutableLiveData<List<GistListModel>>()
-	}
-
-	val loadDataStatus: MutableLiveData<Boolean> by lazy {
-		MutableLiveData<Boolean>()
-	}
+	val gistsStringList: MutableLiveData<List<GistListModel>> = MutableLiveData<List<GistListModel>>()
+	val loadDataStatus: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
 	override fun onCleared() {
 		super.onCleared()

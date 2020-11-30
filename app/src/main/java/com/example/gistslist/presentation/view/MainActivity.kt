@@ -2,9 +2,12 @@ package com.example.gistslist.presentation.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.gistslist.R
 import com.example.gistslist.presentation.router.GistListRouter
+import kotlinx.android.synthetic.main.empty_activity.*
 
 /**
  * Активити функционала отображения списка гистов
@@ -17,8 +20,19 @@ class MainActivity : AppCompatActivity(), GistListRouter {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.empty_activity)
 
-		if (savedInstanceState == null) {
-			goToMainGistListFragment()
+		//Создано для тестов
+		main_test_button.setOnClickListener {
+			Toast.makeText(this, "Test button", Toast.LENGTH_SHORT).show()
+			main_run_gist_list.visibility = View.GONE
+		}
+
+
+		main_run_gist_list.setOnClickListener {
+			if (savedInstanceState == null) {
+				goToMainGistListFragment()
+			}
+			main_run_gist_list.visibility = View.GONE
+			main_test_button.visibility = View.GONE
 		}
 	}
 
