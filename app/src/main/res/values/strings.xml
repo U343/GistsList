@@ -5,6 +5,7 @@
     <!-- Main gist list fragment -->
     <string name="add_button_text">Load gists</string>
     <string name="not_found">Not found</string>
+    <string name="menu_action_search">Search</string>
 
     <!-- Text item view -->
     <string name="login_title">Name:</string>

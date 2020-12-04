@@ -1,5 +1,6 @@
 package com.example.gistslist.presentation.recycle_view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +22,11 @@ class MainGistListAdapter(private val listener: (Any) -> Unit) :
 	override fun getItemCount() = data.size
 
 	override fun onBindViewHolder(holder: MainGistListViewHolder, position: Int) {
-		holder.bind(position)
+		holder.bind(data[position])
+
+		holder.itemView.setOnClickListener {
+			listener(data[position].gistId)
+		}
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainGistListViewHolder {
@@ -30,7 +35,7 @@ class MainGistListAdapter(private val listener: (Any) -> Unit) :
 		val view = layoutInflater
 			.inflate(R.layout.main_gist_list_item, parent, false)
 
-		return MainGistListViewHolder(view, data, listener)
+		return MainGistListViewHolder(view)
 	}
 
 	/**

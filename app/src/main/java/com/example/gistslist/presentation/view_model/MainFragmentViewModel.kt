@@ -9,6 +9,7 @@ import com.example.gistslist.models.presentation.gist_model.GistListModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 
 /**
  * Вью модель для отображения списка гистов
@@ -22,6 +23,7 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 	var isDataLoaded = false
 	val gistsStringList: MutableLiveData<List<GistListModel>> = MutableLiveData<List<GistListModel>>()
 	val loadDataStatus: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+	val subjectSearchGist: PublishSubject<String> = PublishSubject.create()
 
 	override fun onCleared() {
 		super.onCleared()
@@ -52,6 +54,10 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 					{ Log.d("onFailure", "fail MainFragmentViewModel") }
 				)
 		)
+	}
+
+	fun setSearchSymbols(s: CharSequence?) {
+		
 	}
 
 	private fun generateGistModelList(pojoBeans: List<GistBean>): List<GistListModel> {
