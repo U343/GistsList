@@ -70,6 +70,7 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 		)
 	}
 
+	//TODO понимаю что тут плохое решение, но пока как есть
 	fun setSearchSymbols(s: CharSequence?) {
 		if (s == null || s.length < 3) {
 			subjectSearchGist.onNext(fullGistStringList.toList())

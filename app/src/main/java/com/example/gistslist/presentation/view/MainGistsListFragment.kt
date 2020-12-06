@@ -7,14 +7,12 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
-import android.widget.SearchView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gistslist.R
 import com.example.gistslist.domain.application.GistRepositoryProvider
-import com.example.gistslist.models.presentation.gist_model.GistListModel
 import com.example.gistslist.presentation.recycle_view.MainGistListAdapter
 import com.example.gistslist.presentation.router.GistListRouter
 import com.example.gistslist.presentation.view_model.MainFragmentViewModel
@@ -66,6 +64,7 @@ class MainGistsListFragment : Fragment() {
 
 		observeListForRecycleView()
 		observeProgressBar()
+		activateSearchView()
 
 		if (!viewModel.isDataLoaded) {
 			viewModel.createGistsList()
@@ -73,20 +72,6 @@ class MainGistsListFragment : Fragment() {
 		swipe_to_refresh_item.setOnRefreshListener {
 			viewModel.createGistsList()
 		}
-
-		main_gist_list_search_view.addTextChangedListener(object : TextWatcher {
-			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-			}
-
-			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-				Log.d("threadsmanage", "onTextChanged " + Thread.currentThread())
-
-				viewModel.setSearchSymbols(s)
-			}
-
-			override fun afterTextChanged(s: Editable?) {
-			}
-		})
 	}
 
 	private fun observeListForRecycleView() {
@@ -124,6 +109,22 @@ class MainGistsListFragment : Fragment() {
 		gist_recycler_view.adapter = recyclerViewAdapter
 		gist_recycler_view.layoutManager = LinearLayoutManager(requireContext())
 		gist_recycler_view.setHasFixedSize(true)
+	}
+
+	private fun activateSearchView() {
+		main_gist_list_search_view.addTextChangedListener(object : TextWatcher {
+			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+			}
+
+			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+				Log.d("threadsmanage", "onTextChanged " + Thread.currentThread())
+
+				viewModel.setSearchSymbols(s)
+			}
+
+			override fun afterTextChanged(s: Editable?) {
+			}
+		})
 	}
 
 	/**
