@@ -73,30 +73,19 @@ class MainGistsListFragment : Fragment() {
 		swipe_to_refresh_item.setOnRefreshListener {
 			viewModel.createGistsList()
 		}
-//TODO вынести в отдельный поток
+
 		main_gist_list_search_view.addTextChangedListener(object : TextWatcher {
 			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 			}
 
 			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 				Log.d("threadsmanage", "onTextChanged " + Thread.currentThread())
-				val filtredList = ArrayList<GistListModel>()
 
-				if (s.toString() != "") {
-					for (item in viewModel.gistsStringList.value!!) {
-						if (item.gistName?.toLowerCase()?.contains(s.toString().toLowerCase()) == true) {
-							filtredList.add(item)
-						}
-					}
-					recyclerViewAdapter.setData(filtredList)
-				} else {
-					viewModel.gistsStringList.value?.let { recyclerViewAdapter.setData(it) }
-				}
+				viewModel.setSearchSymbols(s)
 			}
 
 			override fun afterTextChanged(s: Editable?) {
 			}
-
 		})
 	}
 

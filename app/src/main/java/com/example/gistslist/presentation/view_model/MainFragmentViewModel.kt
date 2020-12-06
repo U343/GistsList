@@ -20,10 +20,23 @@ import io.reactivex.subjects.PublishSubject
  */
 class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewModel() {
 	private val dispose = CompositeDisposable()
+	private val subjectSearchGist: PublishSubject<List<GistListModel>> = PublishSubject.create()
+	private lateinit var fullGistStringList: List<GistListModel>
+
 	var isDataLoaded = false
 	val gistsStringList: MutableLiveData<List<GistListModel>> = MutableLiveData<List<GistListModel>>()
 	val loadDataStatus: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-	val subjectSearchGist: PublishSubject<String> = PublishSubject.create()
+
+	init {
+		dispose.add(subjectSearchGist
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe({
+				gistsStringList.value = it
+		}, {
+				Log.d("onFailure", "fail subjectSearchGist")
+		}))
+	}
 
 	override fun onCleared() {
 		super.onCleared()
@@ -47,6 +60,7 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 				.subscribe(
 					{ result ->
 						gistsStringList.value = result
+						fullGistStringList = result.toList()
 						loadDataStatus.value = false
 						isDataLoaded = true
 						Log.d("threads manage", "createGistsList " + Thread.currentThread())
@@ -57,7 +71,15 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 	}
 
 	fun setSearchSymbols(s: CharSequence?) {
-		
+		if (s == null || s.length < 3) {
+			subjectSearchGist.onNext(fullGistStringList.toList())
+		} else {
+			gistsStringList.value?.let { list ->
+				subjectSearchGist.onNext(list.filter { model ->
+					model.gistName!!.toLowerCase().startsWith(s.toString().toLowerCase())
+				})
+			}
+		}
 	}
 
 	private fun generateGistModelList(pojoBeans: List<GistBean>): List<GistListModel> {
