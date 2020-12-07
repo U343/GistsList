@@ -29,8 +29,6 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 
 	init {
 		dispose.add(subjectSearchGist
-			.subscribeOn(Schedulers.io())
-			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe({
 				gistsStringList.value = it
 		}, {
@@ -70,17 +68,30 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 		)
 	}
 
-	//TODO понимаю что тут плохое решение, но пока как есть
 	fun setSearchSymbols(s: CharSequence?) {
 		if (s == null || s.length < 3) {
 			subjectSearchGist.onNext(fullGistStringList.toList())
 		} else {
-			gistsStringList.value?.let { list ->
-				subjectSearchGist.onNext(list.filter { model ->
-					model.gistName!!.toLowerCase().startsWith(s.toString().toLowerCase())
-				})
+			subjectSearchGist.onNext(generateSearchedList(s.toString()))
+		}
+	}
+
+	private fun generateSearchedList(template: String): List<GistListModel> {
+		val resultList = ArrayList<GistListModel>()
+
+		Log.d("threadsmanage", "generateSearchedList " + Thread.currentThread())
+		for (i in gistsStringList.value!!) {
+			if (i.gistName == null) {
+				continue
+			} else if (i.gistName.toLowerCase().startsWith(template.toLowerCase())) {
+				resultList.add(i)
 			}
 		}
+		return resultList
+		/*val newThread = SearchedList(template)
+		newThread.run()
+		newThread.join()
+		return newThread.resultList*/
 	}
 
 	private fun generateGistModelList(pojoBeans: List<GistBean>): List<GistListModel> {
@@ -91,6 +102,24 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 				bean.files.keys.firstOrNull(),
 				bean.description
 			)
+		}
+	}
+
+	inner class SearchedList(private val template: String): Thread("SearchedListThread") {
+		val resultList = ArrayList<GistListModel>()
+
+		override fun run() {
+			super.run()
+
+			resultList.clear()
+			Log.d("threadsmanage", "generateSearchedList ${currentThread()}")
+			for (i in fullGistStringList) {
+				if (i.gistName == null) {
+					continue
+				} else if (i.gistName.toLowerCase().startsWith(template.toLowerCase())) {
+					resultList.add(i)
+				}
+			}
 		}
 	}
 }
