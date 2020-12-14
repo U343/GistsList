@@ -6,10 +6,14 @@ import androidx.lifecycle.ViewModel
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
 import com.example.gistslist.models.data.pojo.gist.GistBean
 import com.example.gistslist.models.presentation.gist_model.GistListModel
+import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Вью модель для отображения списка гистов
@@ -20,7 +24,9 @@ import io.reactivex.subjects.PublishSubject
  */
 class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewModel() {
 	private val dispose = CompositeDisposable()
-	private val subjectSearchGist: PublishSubject<List<GistListModel>> = PublishSubject.create()
+
+	private val subjectSearchGist: PublishSubject<String> = PublishSubject.create()
+	private val subjectLoadGist: PublishSubject<String> = PublishSubject.create()
 	private lateinit var fullGistStringList: List<GistListModel>
 
 	var isDataLoaded = false
@@ -28,12 +34,55 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 	val loadDataStatus: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
 	init {
-		dispose.add(subjectSearchGist
-			.subscribe({
+		val merged = Observable.merge(subjectSearchGist, subjectLoadGist)
+			.switchMapSingle {
+				createObservable(it)
+			}
+			.subscribeOn(Schedulers.io())
+			.map { generateGistModelList(it) }
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe ({
 				gistsStringList.value = it
-		}, {
-				Log.d("onFailure", "fail subjectSearchGist")
-		}))
+				fullGistStringList = it
+				loadDataStatus.value = false
+				isDataLoaded = true
+			},
+			{ Log.d("threadsManage", "Error init merge" + Thread.currentThread()) })
+
+		dispose.add(merged)
+	}
+
+	private fun createObservable(s: String): Single<List<GistBean>> {
+		return if (s == "refresh") {
+			repository
+				.loadGistsList()
+//				.doOnSuccess {
+//					fullGistStringList = it
+//					loadDataStatus.value = false
+//					isDataLoaded = true
+//				}
+		} else {
+			Single.create {
+				createSearchList(s)
+			}
+		}
+	}
+
+	private fun createSearchList(template: String?): List<GistListModel> {
+		val searchedGistList = ArrayList<GistListModel>()
+
+		if (template == null || template == "") {
+			return fullGistStringList
+		}
+
+		for (i in fullGistStringList) {
+			if (i.gistName?.toLowerCase(Locale.getDefault())
+					?.startsWith(template.toLowerCase(Locale.getDefault())) == true
+			) {
+				searchedGistList.add(i)
+			}
+		}
+		return searchedGistList
 	}
 
 	override fun onCleared() {
@@ -42,84 +91,23 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 		dispose.clear()
 	}
 
-	/**
-	 * Формирование списка моделей гистов на основе ответа REST Api гита
-	 *
-	 * работает в отдельном потоке
-	 */
-	fun createGistsList() {
+	fun loadGistsList() {
 		loadDataStatus.value = true
-
-		dispose.add(
-			repository.loadGistsList()
-				.subscribeOn(Schedulers.io())
-				.map { generateGistModelList(it) }
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(
-					{ result ->
-						gistsStringList.value = result
-						fullGistStringList = result.toList()
-						loadDataStatus.value = false
-						isDataLoaded = true
-						Log.d("threads manage", "createGistsList " + Thread.currentThread())
-					},
-					{ Log.d("onFailure", "fail MainFragmentViewModel") }
-				)
-		)
+		subjectLoadGist.onNext("refresh")
 	}
 
-	fun setSearchSymbols(s: CharSequence?) {
-		if (s == null || s.length < 3) {
-			subjectSearchGist.onNext(fullGistStringList.toList())
-		} else {
-			subjectSearchGist.onNext(generateSearchedList(s.toString()))
-		}
-	}
-
-	private fun generateSearchedList(template: String): List<GistListModel> {
-		val resultList = ArrayList<GistListModel>()
-
-		Log.d("threadsmanage", "generateSearchedList " + Thread.currentThread())
-		for (i in gistsStringList.value!!) {
-			if (i.gistName == null) {
-				continue
-			} else if (i.gistName.toLowerCase().startsWith(template.toLowerCase())) {
-				resultList.add(i)
-			}
-		}
-		return resultList
-		/*val newThread = SearchedList(template)
-		newThread.run()
-		newThread.join()
-		return newThread.resultList*/
+	fun searchedGist(s: String) {
+		subjectSearchGist.onNext(s)
 	}
 
 	private fun generateGistModelList(pojoBeans: List<GistBean>): List<GistListModel> {
-		Log.d("threads manage", "createGistsList into map" + Thread.currentThread())
+		Log.d("threadsManage", "createGistsList into map" + Thread.currentThread())
 		return pojoBeans.map { bean ->
 			GistListModel(
 				bean.id,
 				bean.files.keys.firstOrNull(),
 				bean.description
 			)
-		}
-	}
-
-	inner class SearchedList(private val template: String): Thread("SearchedListThread") {
-		val resultList = ArrayList<GistListModel>()
-
-		override fun run() {
-			super.run()
-
-			resultList.clear()
-			Log.d("threadsmanage", "generateSearchedList ${currentThread()}")
-			for (i in fullGistStringList) {
-				if (i.gistName == null) {
-					continue
-				} else if (i.gistName.toLowerCase().startsWith(template.toLowerCase())) {
-					resultList.add(i)
-				}
-			}
 		}
 	}
 }

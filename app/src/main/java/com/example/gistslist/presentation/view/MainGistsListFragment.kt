@@ -67,10 +67,10 @@ class MainGistsListFragment : Fragment() {
 		activateSearchView()
 
 		if (!viewModel.isDataLoaded) {
-			viewModel.createGistsList()
+			viewModel.loadGistsList()
 		}
 		swipe_to_refresh_item.setOnRefreshListener {
-			viewModel.createGistsList()
+			viewModel.loadGistsList()
 		}
 	}
 
@@ -119,7 +119,7 @@ class MainGistsListFragment : Fragment() {
 			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 				Log.d("threadsmanage", "onTextChanged " + Thread.currentThread())
 
-				viewModel.setSearchSymbols(s)
+				viewModel.searchedGist(s.toString())
 			}
 
 			override fun afterTextChanged(s: Editable?) {
