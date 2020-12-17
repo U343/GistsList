@@ -117,8 +117,6 @@ class MainGistsListFragment : Fragment() {
 			}
 
 			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-				Log.d("threadsmanage", "onTextChanged " + Thread.currentThread())
-
 				viewModel.searchedGist(s.toString())
 			}
 
