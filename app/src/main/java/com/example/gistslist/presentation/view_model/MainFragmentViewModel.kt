@@ -27,43 +27,29 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 	private val dispose = CompositeDisposable()
 
 	private val subjectSearchGist: Subject<String> = PublishSubject.create()
-	private val subjectLoadGist: Subject<Int> = PublishSubject.create()
+	private val subjectLoadGist: Subject<List<GistListModel>> = PublishSubject.create()
 
 	var isDataLoaded = false
 	val gistsStringList: MutableLiveData<List<GistListModel>> = MutableLiveData<List<GistListModel>>()
 	val loadDataStatus: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
 	init {
-		val searchQuery = subjectSearchGist
-			.switchMap { str->
-				Log.d("threadsManage", "gists map $str")
-				Observable.create<String> { str } }
+		val searchString = subjectSearchGist.startWith("")
 
-		val gists = subjectLoadGist
-			.switchMapSingle {
-				repository
-					.loadGistsList()
-					.map {
-						Log.d("threadsManage", "gists map $it")
-						generateGistModelList(it)
-					}
-			}
-
-		val merged = Observable.combineLatest(searchQuery, gists) { template, list ->
-			createGistsList(template, list)
+		val merged = Observable.combineLatest(searchString, subjectLoadGist) { template, rep ->
+			gistsStringList.value = createGistsList(template, rep)
 		}.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe({ result ->
-				gistsStringList.value = result
-			}, {
-				Log.d("threadsManage", "Error combineLatest " + Thread.currentThread())
-			})
+			.subscribe({},
+				{ Log.d("threadsManage", "Error combineLatest " + Thread.currentThread()) }
+			)
+
 
 		dispose.add(merged)
 	}
 
 	private fun createGistsList(template: String?, gistList: List<GistListModel>): List<GistListModel> {
-		Log.d("threadsManage", "createGistsList $gistList")
+		Log.d("threadsManage", "createGistsList " + Thread.currentThread())
 		val searchedArray = ArrayList<GistListModel>()
 
 		isDataLoaded = true
@@ -89,19 +75,28 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 		dispose.clear()
 	}
 
-	fun loadGistsList() {
-		Log.d("threadsManage", "loadGistsList " + Thread.currentThread())
-		loadDataStatus.value = true
-		subjectLoadGist.onNext(1)
-	}
-
 	fun searchedGist(s: String) {
 		Log.d("threadsManage", "searchedGist " + Thread.currentThread())
 		subjectSearchGist.onNext(s)
 	}
 
-	private fun generateGistModelList(pojoBeans: List<GistBean>): List<GistListModel> {
-		Log.d("threadsManage", "createGistsList into map" + Thread.currentThread())
+	fun loadGistsList() {
+		loadDataStatus.value = true
+
+		Log.d("threadsManage", "into loadGistsList " + Thread.currentThread())
+		dispose.add(repository.loadGistsList()
+			.subscribeOn(Schedulers.io())
+			.map { transformGistBeansToGistModels(it) }
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe({
+				subjectLoadGist.onNext(it)
+			},
+				{ Log.d("threadsManage", "Error createGistList " + Thread.currentThread()) })
+		)
+	}
+
+	private fun transformGistBeansToGistModels(pojoBeans: List<GistBean>): List<GistListModel> {
+		Log.d("threadsManage", "transformGistBeansToGistModels " + Thread.currentThread())
 		return pojoBeans.map { bean ->
 			GistListModel(
 				bean.id,
