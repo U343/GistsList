@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
 import com.example.gistslist.R
+import com.example.gistslist.data.cache_database.GistCacheDatabase
 import com.example.gistslist.domain.application.GistRepositoryProvider
 import com.example.gistslist.models.presentation.gist_model.GistInfoModel
 import com.example.gistslist.presentation.view_model.GistInfoViewModel
@@ -69,6 +71,11 @@ class GistInfoFragment : Fragment() {
 		} else {
 			Log.d("viewLifecycle", "no")
 		}
+
+		val db = Room.databaseBuilder(
+			requireActivity().applicationContext,
+			GistCacheDatabase::class.java, "database-name"
+		).build()
 	}
 
 	private fun initViewModelAndRepository() {

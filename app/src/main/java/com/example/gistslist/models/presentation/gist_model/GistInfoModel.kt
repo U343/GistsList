@@ -21,6 +21,7 @@ import androidx.room.Entity
 
 @Entity
 data class GistInfoModel(
+	@ColumnInfo(name = "gist_id") val gistId: String?,
 	@ColumnInfo(name = "gist_name") val gistName: String?,
 	@ColumnInfo(name = "gist_type") val gistType: String?,
 	@ColumnInfo(name = "gist_language") val gistLanguage: String?,

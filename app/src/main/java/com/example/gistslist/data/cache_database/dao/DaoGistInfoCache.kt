@@ -8,17 +8,17 @@ import com.example.gistslist.models.presentation.gist_model.GistInfoModel
 
 @Dao
 abstract class DaoGistInfoCache {
-	val SIZE_LIMIT = 10
+	val SIZE_LIMIT = 5
 
 
 	@Query("SELECT COUNT(url_to_gist) FROM gistInfoModel")
 	abstract fun getSize(): Int
 
-	@Query("SELECT * FROM gistInfoModel")
-	abstract fun getAll(): List<GistInfoModel>
-
 	@Query("DELETE FROM gistInfoModel")
 	abstract fun deleteAll()
+
+	@Query("SELECT * FROM gistInfoModel WHERE gist_id LIKE :gistId  LIMIT 1")
+	abstract fun getByGistId(gistId: String): GistInfoModel?
 
 	@Insert
 	abstract fun insert(gistInfoElements: GistInfoModel)

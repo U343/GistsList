@@ -21,14 +21,10 @@ class CustomApplication : Application(), GistRepositoryProvider {
 	override fun onCreate() {
 		super.onCreate()
 
-		databaseCache = Room.databaseBuilder(
-			applicationContext,
-			GistCacheDatabase::class.java, "gist_cache_database"
-		).build()
 
 		val retrofitService = RetrofitProvider.getRetrofitObject().create(GistsApi::class.java)
 
-		repositoryGistList = GistRepositoryFactory(retrofitService, databaseCache)
+		repositoryGistList = GistRepositoryFactory(retrofitService)
 			.getRepository()
 	}
 

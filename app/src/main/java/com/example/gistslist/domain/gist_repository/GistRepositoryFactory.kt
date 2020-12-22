@@ -9,8 +9,8 @@ import com.example.gistslist.data.repositories.GistsRepository
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-class GistRepositoryFactory(private val retrofit: GistsApi, private val database: GistCacheDatabase) {
+class GistRepositoryFactory(private val retrofit: GistsApi) {
 	fun getRepository(): GistRepositoryApi {
-		return GistsRepository(retrofit, database)
+		return GistsRepository(retrofit)
 	}
 }

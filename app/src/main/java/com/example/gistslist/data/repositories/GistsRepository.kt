@@ -5,7 +5,6 @@ import com.example.gistslist.data.cache_database.dao.DaoGistInfoCache
 import com.example.gistslist.data.cache_database.dao.DaoGistListElementCache
 import com.example.gistslist.data.gist_retrofit.query_interface.GistsApi
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
-import com.example.gistslist.models.cache_database.GistListElementCache
 import com.example.gistslist.models.data.pojo.gist.GistBean
 import com.example.gistslist.models.presentation.gist_model.GistInfoModel
 import com.example.gistslist.models.presentation.gist_model.GistListModel
@@ -18,10 +17,10 @@ import io.reactivex.Single
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-class GistsRepository(private val gistApi: GistsApi, private val database: GistCacheDatabase) : GistRepositoryApi {
+class GistsRepository(private val gistApi: GistsApi) : GistRepositoryApi {
 
-	var daoGistList: DaoGistListElementCache = database.gistListDao()
-	var daoGistInfo: DaoGistInfoCache = database.gistInfoDao()
+/*	var daoGistList: DaoGistListElementCache = database.gistListDao()
+	var daoGistInfo: DaoGistInfoCache = database.gistInfoDao()*/
 
 	override fun loadGistsList(): Single<List<GistBean>> {
 		return gistApi.getGistsList()
@@ -31,6 +30,7 @@ class GistsRepository(private val gistApi: GistsApi, private val database: GistC
 		return gistApi.getGistById(gistId)
 	}
 
+/*
 	override fun addGistListToCache(gistList: List<GistListModel>) {
 		daoGistList.deleteAll()
 		daoGistList.insertAll(gistList)
@@ -41,15 +41,16 @@ class GistsRepository(private val gistApi: GistsApi, private val database: GistC
 	}
 
 	override fun addGistInfoToCache(gistInfo: GistInfoModel) {
-		if (daoGistInfo.getSize() <= daoGistInfo.SIZE_LIMIT) {
-			daoGistInfo.insert()
+		if (daoGistInfo.getSize() >= daoGistInfo.SIZE_LIMIT) {
+			daoGistInfo.deleteAll()
 		}
-
+		daoGistInfo.insert(gistInfo)
 	}
 
-	override fun getGistInfoFromCacheById(gistId: String): GistInfoModel {
-		TODO("Not yet implemented")
+	override fun getGistInfoFromCacheById(gistId: String): GistInfoModel? {
+		return daoGistInfo.getByGistId(gistId)
 	}
 
+*/
 
 }

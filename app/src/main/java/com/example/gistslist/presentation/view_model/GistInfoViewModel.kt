@@ -60,6 +60,7 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 
 	private fun createGistInfoModel(bean: GistBean): GistInfoModel {
 		return GistInfoModel(
+			bean.id,
 			bean.files.keys.firstOrNull(),
 			bean.files[bean.files.keys.firstOrNull()]?.type,
 			bean.files[bean.files.keys.firstOrNull()]?.language,
