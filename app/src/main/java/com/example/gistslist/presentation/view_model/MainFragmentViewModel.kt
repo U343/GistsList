@@ -11,6 +11,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import java.util.*
@@ -26,29 +27,32 @@ import kotlin.collections.ArrayList
 class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewModel() {
 	private val dispose = CompositeDisposable()
 
-	private val subjectSearchGist: Subject<String> = PublishSubject.create()
+	private val subjectSearchGist: Subject<String> = BehaviorSubject.createDefault("")
 	private val subjectLoadGist: Subject<List<GistListModel>> = PublishSubject.create()
 
 	var isDataLoaded = false
-	val gistsStringList: MutableLiveData<List<GistListModel>> = MutableLiveData<List<GistListModel>>()
+	val gistsStringList: MutableLiveData<List<GistListModel>> =
+		MutableLiveData<List<GistListModel>>()
 	val loadDataStatus: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
 	init {
-		val searchString = subjectSearchGist.startWith("")
+		val searchString = subjectSearchGist
 
 		val merged = Observable.combineLatest(searchString, subjectLoadGist) { template, rep ->
-			gistsStringList.value = createGistsList(template, rep)
+			createGistsList(template, rep)
 		}.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe({},
-				{ Log.d("threadsManage", "Error combineLatest " + Thread.currentThread()) }
-			)
+			.subscribe( { gistsStringList.value = it },
+			 { Log.d("threadsManage", "Error combineLatest " + Thread.currentThread()) })
 
 
 		dispose.add(merged)
 	}
 
-	private fun createGistsList(template: String?, gistList: List<GistListModel>): List<GistListModel> {
+	private fun createGistsList(
+		template: String?,
+		gistList: List<GistListModel>
+	): List<GistListModel> {
 		Log.d("threadsManage", "createGistsList " + Thread.currentThread())
 		val searchedArray = ArrayList<GistListModel>()
 

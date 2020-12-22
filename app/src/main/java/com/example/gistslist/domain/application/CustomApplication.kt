@@ -1,6 +1,8 @@
 package com.example.gistslist.domain.application
 
 import android.app.Application
+import androidx.room.Room
+import com.example.gistslist.data.cache_database.GistCacheDatabase
 import com.example.gistslist.data.gist_retrofit.query_interface.GistsApi
 import com.example.gistslist.data.gist_retrofit.retrofit_object.RetrofitProvider
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
@@ -14,12 +16,19 @@ import com.squareup.picasso.Picasso
  */
 class CustomApplication : Application(), GistRepositoryProvider {
 	private lateinit var repositoryGistList: GistRepositoryApi
+	private lateinit var databaseCache: GistCacheDatabase
 
 	override fun onCreate() {
 		super.onCreate()
 
+		databaseCache = Room.databaseBuilder(
+			applicationContext,
+			GistCacheDatabase::class.java, "gist_cache_database"
+		).build()
+
 		val retrofitService = RetrofitProvider.getRetrofitObject().create(GistsApi::class.java)
-		repositoryGistList = GistRepositoryFactory(retrofitService)
+
+		repositoryGistList = GistRepositoryFactory(retrofitService, databaseCache)
 			.getRepository()
 	}
 

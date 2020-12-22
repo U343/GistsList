@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
 import com.example.gistslist.models.data.pojo.gist.GistBean
 import com.example.gistslist.models.presentation.gist_model.GistInfoModel
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.RequestCreator
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -44,7 +42,7 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 
 		gistId?.let {
 			dispose.add(
-				repository.loadGistById(gistId)
+				repository.getGistById(gistId)
 					.subscribeOn(Schedulers.io())
 					.map { createGistInfoModel(it) }
 					.observeOn(AndroidSchedulers.mainThread())

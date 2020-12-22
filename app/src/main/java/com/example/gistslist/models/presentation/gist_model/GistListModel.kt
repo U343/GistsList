@@ -1,5 +1,8 @@
 package com.example.gistslist.models.presentation.gist_model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+
 /**
  * Класс с информацией для списка гистов
  *
@@ -11,8 +14,10 @@ package com.example.gistslist.models.presentation.gist_model
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
+
+@Entity
 data class GistListModel(
-	val gistId: String,
-	val gistName: String?,
-	val gistDescription: String?
+	@ColumnInfo(name = "gist_id") val gistId: String,
+	@ColumnInfo(name = "gist_name") val gistName: String?,
+	@ColumnInfo(name = "gist_description") val gistDescription: String?
 )
