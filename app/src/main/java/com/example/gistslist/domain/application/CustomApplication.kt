@@ -16,15 +16,18 @@ import com.squareup.picasso.Picasso
  */
 class CustomApplication : Application(), GistRepositoryProvider {
 	private lateinit var repositoryGistList: GistRepositoryApi
-	private lateinit var databaseCache: GistCacheDatabase
 
 	override fun onCreate() {
 		super.onCreate()
 
+		val databaseCache = Room.databaseBuilder(
+			applicationContext,
+			GistCacheDatabase::class.java, "gists-cache"
+		).build()
 
 		val retrofitService = RetrofitProvider.getRetrofitObject().create(GistsApi::class.java)
 
-		repositoryGistList = GistRepositoryFactory(retrofitService)
+		repositoryGistList = GistRepositoryFactory(retrofitService, databaseCache)
 			.getRepository()
 	}
 

@@ -17,10 +17,10 @@ import io.reactivex.Single
  *
  * @author Dmitrii Bondarev on 10.11.2020
  */
-class GistsRepository(private val gistApi: GistsApi) : GistRepositoryApi {
+class GistsRepository(private val gistApi: GistsApi, database: GistCacheDatabase) : GistRepositoryApi {
 
-/*	var daoGistList: DaoGistListElementCache = database.gistListDao()
-	var daoGistInfo: DaoGistInfoCache = database.gistInfoDao()*/
+	var daoGistList: DaoGistListElementCache = database.gistListDao()
+	var daoGistInfo: DaoGistInfoCache = database.gistInfoDao()
 
 	override fun loadGistsList(): Single<List<GistBean>> {
 		return gistApi.getGistsList()
@@ -30,7 +30,6 @@ class GistsRepository(private val gistApi: GistsApi) : GistRepositoryApi {
 		return gistApi.getGistById(gistId)
 	}
 
-/*
 	override fun addGistListToCache(gistList: List<GistListModel>) {
 		daoGistList.deleteAll()
 		daoGistList.insertAll(gistList)
@@ -50,7 +49,4 @@ class GistsRepository(private val gistApi: GistsApi) : GistRepositoryApi {
 	override fun getGistInfoFromCacheById(gistId: String): GistInfoModel? {
 		return daoGistInfo.getByGistId(gistId)
 	}
-
-*/
-
 }

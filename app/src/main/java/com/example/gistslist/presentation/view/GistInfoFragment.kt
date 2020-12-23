@@ -71,11 +71,6 @@ class GistInfoFragment : Fragment() {
 		} else {
 			Log.d("viewLifecycle", "no")
 		}
-
-		val db = Room.databaseBuilder(
-			requireActivity().applicationContext,
-			GistCacheDatabase::class.java, "database-name"
-		).build()
 	}
 
 	private fun initViewModelAndRepository() {

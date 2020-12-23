@@ -2,6 +2,7 @@ package com.example.gistslist.models.presentation.gist_model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 /**
  * Класс с информацией о гисте
@@ -21,6 +22,7 @@ import androidx.room.Entity
 
 @Entity
 data class GistInfoModel(
+	@PrimaryKey(autoGenerate = true) val infoId: Int,
 	@ColumnInfo(name = "gist_id") val gistId: String?,
 	@ColumnInfo(name = "gist_name") val gistName: String?,
 	@ColumnInfo(name = "gist_type") val gistType: String?,

@@ -103,6 +103,7 @@ class MainFragmentViewModel(private val repository: GistRepositoryApi) : ViewMod
 		Log.d("threadsManage", "transformGistBeansToGistModels " + Thread.currentThread())
 		return pojoBeans.map { bean ->
 			GistListModel(
+				0,
 				bean.id,
 				bean.files.keys.firstOrNull(),
 				bean.description

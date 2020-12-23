@@ -26,12 +26,12 @@ interface GistRepositoryApi {
 	 * @return Возвращает Single объект с POJO с информацией о гисте
 	 */
 	fun getGistById(gistId: String): Single<GistBean>
-/*
+
 	fun addGistListToCache(gistList: List<GistListModel>)
 
 	fun getGistListFromCache(): List<GistListModel>
 
 	fun addGistInfoToCache(gistInfo: GistInfoModel)
 
-	fun getGistInfoFromCacheById(gistId: String): GistInfoModel?*/
+	fun getGistInfoFromCacheById(gistId: String): GistInfoModel?
 }
