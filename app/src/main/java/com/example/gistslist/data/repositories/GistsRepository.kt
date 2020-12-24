@@ -30,23 +30,29 @@ class GistsRepository(private val gistApi: GistsApi, database: GistCacheDatabase
 		return gistApi.getGistById(gistId)
 	}
 
-	override fun addGistListToCache(gistList: List<GistListModel>) {
+	override suspend fun addGistListToCache(gistList: List<GistListModel>) {
 		daoGistList.deleteAll()
 		daoGistList.insertAll(gistList)
 	}
 
-	override fun getGistListFromCache(): List<GistListModel> {
+	override suspend fun getGistListFromCache(): List<GistListModel> {
 		return daoGistList.getAll()
 	}
 
-	override fun addGistInfoToCache(gistInfo: GistInfoModel) {
+	/**
+	 * Реализация функции по добавлению модели с информацией о гисте в кэш
+	 *
+	 * Проверяет, если в кэше хранится максимально допустимое количество моделей, то перед
+	 * добавлением новой модели, кэш очищается
+	 */
+	override suspend fun addGistInfoToCache(gistInfo: GistInfoModel) {
 		if (daoGistInfo.getSize() >= daoGistInfo.SIZE_LIMIT) {
 			daoGistInfo.deleteAll()
 		}
 		daoGistInfo.insert(gistInfo)
 	}
 
-	override fun getGistInfoFromCacheById(gistId: String): GistInfoModel? {
+	override suspend fun getGistInfoFromCacheById(gistId: String): GistInfoModel? {
 		return daoGistInfo.getByGistId(gistId)
 	}
 }

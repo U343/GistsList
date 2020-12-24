@@ -66,7 +66,7 @@ class GistInfoFragment : Fragment() {
 		observeViewElements()
 
 		if (!viewModel.isDataLoaded) {
-			viewModel.loadGistInfoModel(gistId)
+			viewModel.getGistInfo(gistId)
 			Log.d("viewLifecycle", "yes")
 		} else {
 			Log.d("viewLifecycle", "no")

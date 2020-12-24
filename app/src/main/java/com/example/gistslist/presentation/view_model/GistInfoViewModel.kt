@@ -3,12 +3,14 @@ package com.example.gistslist.presentation.view_model
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.gistslist.domain.gist_repository.GistRepositoryApi
 import com.example.gistslist.models.data.pojo.gist.GistBean
 import com.example.gistslist.models.presentation.gist_model.GistInfoModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
 /**
  * Вью модель фргамента с информацией о гисте
@@ -29,6 +31,24 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 		dispose.clear()
 	}
 
+	fun getGistInfo(gistId: String?) {
+		loadDataStatus.value = true
+
+		viewModelScope.launch {
+			val resultGistInfo = gistId?.let { repository.getGistInfoFromCacheById(it) }
+
+			if (resultGistInfo == null) {
+				Log.d("roomManage", "load from retrofit")
+				loadGistInfoModel(gistId)
+			} else {
+				Log.d("roomManage", "load from cache")
+				gistInfoModel.value = resultGistInfo
+				isDataLoaded = true
+				loadDataStatus.value = false
+			}
+		}
+	}
+
 	/**
 	 * Загрузка информации о гисте
 	 *
@@ -38,8 +58,9 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 	 * @param gistId индетификатор гиста, который необходимо загрузить
 	 */
 	fun loadGistInfoModel(gistId: String?) {
-		loadDataStatus.value = true
-
+		viewModelScope.launch {
+			getGistInfo(gistId)
+		}
 		gistId?.let {
 			dispose.add(
 				repository.getGistById(gistId)
@@ -48,6 +69,11 @@ class GistInfoViewModel(private val repository: GistRepositoryApi) : ViewModel()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(
 						{ result ->
+
+							viewModelScope.launch {
+								repository.addGistInfoToCache(result)
+							}
+
 							gistInfoModel.value = result
 							isDataLoaded = true
 							loadDataStatus.value = false

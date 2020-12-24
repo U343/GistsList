@@ -9,11 +9,11 @@ import com.example.gistslist.models.presentation.gist_model.GistListModel
 interface DaoGistListElementCache {
 
 	@Query("SELECT * FROM gistListModel")
-	fun getAll(): List<GistListModel>
+	suspend fun getAll(): List<GistListModel>
 
 	@Query("DELETE FROM gistListModel")
-	fun deleteAll()
+	suspend fun deleteAll()
 
 	@Insert
-	fun insertAll(gistElements: List<GistListModel>)
+	 suspend fun insertAll(gistElements: List<GistListModel>)
 }
